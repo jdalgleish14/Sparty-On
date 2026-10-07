@@ -35,7 +35,7 @@
     const stage = $('ticker-stage'), pause = $('ticker-pause'), leaders = $('ticker-leaders');
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let paused = motion.matches, index = 0, dwellTimer = null, fadeTimer = null, scorers = null;
-    const holdMs = 6000, fadeMs = 300;
+    const holdMs = 10000, fadeMs = 300;
     function clearTimers() { clearTimeout(dwellTimer); clearTimeout(fadeTimer); dwellTimer = null; fadeTimer = null; }
     function description(g) { return `${g.owner_name}, ${g.team}, record ${teamRecord(g.owner_id)}, ${num(g.points_for)} points. ${g.opponent_owner_name}, ${g.opponent_team}, record ${teamRecord(g.opponent_owner_id)}, ${num(g.points_against)} points. ${labels(g).join('. ')}. Margin ${num(marginOf(g))}.`; }
     function labels(g) {
@@ -64,11 +64,10 @@
       if (announce) $('ticker-announcement').textContent = description(g);
     }
     function renderLeaders(g){
-      leaders.open=false;
       const a=scorers?.get(g.owner_id),b=scorers?.get(g.opponent_owner_id);
       leaders.hidden=!a||!b;
       if(leaders.hidden)return;
-      const side=(team,row)=>`<div><h3>${esc(team)}</h3><ol>${window.SPARTY_SLEEPER.topScorers(row).map(p=>`<li><span>${esc(p.name)}</span><b>${num(p.points)}</b></li>`).join('')}</ol></div>`;
+      const side=(team,row)=>`<div class="ticker-leader-team"><h3 title="${esc(team)}">${esc(team)}</h3><ol>${window.SPARTY_SLEEPER.topScorers(row).map(p=>`<li><span title="${esc(p.name)}">${esc(p.name)}</span><b>${num(p.points)}</b></li>`).join('')}</ol></div>`;
       $('ticker-leaders-body').innerHTML=side(g.team,a)+side(g.opponent_team,b);
     }
     function schedule() {
@@ -89,7 +88,6 @@
       stage.setAttribute('aria-live',paused ? 'polite' : 'off');
     }
     pause.addEventListener('click', () => { paused=!paused; clearTimers(); stage.classList.remove('is-fading'); updatePause(); schedule(); });
-    leaders.addEventListener('toggle',()=>{if(leaders.open){paused=true;clearTimers();updatePause();}});
     $('ticker-prev').addEventListener('click', () => change(-1,true));
     $('ticker-next').addEventListener('click', () => change(1,true));
     document.addEventListener('visibilitychange', () => { clearTimers(); stage.classList.remove('is-fading'); schedule(); });

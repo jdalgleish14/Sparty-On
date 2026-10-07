@@ -3,18 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' file:; style-src 'self' file:; img-src 'self' file:; connect-src https://api.sleeper.app; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' file:; style-src 'self' file:; img-src 'self' file:; connect-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
   <meta name="color-scheme" content="light">
   <title>Current Season — Sparty On</title>
   <link rel="icon" href="assets/crest.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/styles.css">
   <script src="site-data/site-data.js" defer></script>
-  <script src="site-data/sleeper-sample.js" defer></script>
-  <script src="assets/sleeper.js" defer></script>
   <script src="assets/shared.js" defer></script>
   <script src="assets/season-analytics.js" defer></script>
   <script src="assets/app.js" defer></script>
-  <script src="assets/sleeper-week.js" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to standings</a>
@@ -32,13 +29,6 @@
       <section class="intro" aria-labelledby="page-title">
         <div><p class="eyebrow" id="era-label"></p><h1 id="page-title">Current season</h1><p class="intro-copy">The standings, the scores, the season so far.</p></div>
         <div class="freshness"><strong id="freshness"></strong><span><i aria-hidden="true"></i> Current season · In progress</span></div>
-      </section>
-      <section class="sleeper-week" id="sleeper-week" aria-labelledby="sleeper-title" hidden>
-        <div class="section-line sleeper-week-heading"><div><p class="eyebrow">SLEEPER / CURRENT WEEK</p><h2 id="sleeper-title">This week on Sleeper</h2></div><p id="sleeper-status" role="status">Loading this week's matchups…</p></div>
-        <p class="sleeper-explainer">Sleeper scores may change. Standings below use verified results.</p>
-        <div class="sleeper-games" id="sleeper-games"></div>
-        <div class="sleeper-pick"><label for="sleeper-team">Browse a roster</label><select id="sleeper-team"><option value="">Select a team</option></select></div>
-        <div id="sleeper-detail" class="sleeper-detail" hidden></div>
       </section>
       <div class="season-grid">
         <section class="panel standings" aria-labelledby="standings-title">
