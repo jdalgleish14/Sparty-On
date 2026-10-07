@@ -177,3 +177,20 @@ nav a[aria-current]{border-bottom-color:var(--bronze)}
 .ticker-leaders-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;padding:8px 0 12px}.ticker-leaders-body h3{font-size:12px;margin:0 0 7px;overflow-wrap:anywhere}
 .ticker-leaders-body ol{margin:0;padding:0;list-style:none}.ticker-leaders-body li{display:flex;justify-content:space-between;gap:10px;border-top:1px solid #edf0eb;padding:6px 0;font-size:11px}.ticker-leaders-body li span{overflow-wrap:anywhere}.ticker-leaders-body li b{white-space:nowrap;font-variant-numeric:tabular-nums}
 @media(max-width:700px){.ticker-leaders-body{grid-template-columns:minmax(0,1fr);gap:12px}.ticker-leaders-body ol{display:grid;grid-template-columns:minmax(0,1fr)}.ticker-leaders-body li{padding:5px 0}}
+
+/* Compact mobile matchups: one week status above six tap targets. */
+@media(max-width:700px){
+  .sleeper-week{margin-bottom:18px;padding:15px 13px}
+  .sleeper-week-heading{margin-bottom:4px}.sleeper-week-heading h2{font-size:19px}
+  .sleeper-week-heading p{font-size:10px;line-height:1.35;margin-top:3px}
+  .sleeper-explainer{font-size:11px;margin:6px 0 12px}
+  .sleeper-games{gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .sleeper-game{position:relative;border:0;border-radius:0;border-bottom:1px solid var(--line);background:#fff;padding:8px 37px 8px 11px;min-height:66px}
+  .sleeper-game:last-child{border-bottom:0}.sleeper-game[aria-expanded=true]{background:#f3f7f0;box-shadow:inset 3px 0 var(--bronze)}
+  .sleeper-game-top{display:none}
+  .sleeper-game-side{padding:2px 0;gap:8px;line-height:1.25}.sleeper-game-side strong{font-size:12px}.sleeper-game-side b{font-size:12px}
+  .sleeper-game-action{position:absolute;top:50%;right:12px;transform:translateY(-50%);border:0;margin:0;padding:0;font-size:0}
+  .sleeper-game-action::after{content:'›';font-size:24px;color:var(--green);font-weight:400}.sleeper-game[aria-expanded=true] .sleeper-game-action::after{content:'⌄'}
+  .sleeper-pick{margin-top:12px}.sleeper-detail{margin-top:14px;padding-top:12px}
+  .sleeper-games>.sleeper-detail{grid-column:1;min-width:0;background:#fff;margin:0;padding:12px 10px 15px;border-bottom:1px solid var(--line);border-top:0}
+}

@@ -32,16 +32,20 @@
   }
   function renderDetail(){
     const chosen=state.pairs.find(pair=>pair.some(row=>owner(row)===choice));
-    if(!chosen){detail.hidden=true;return;}
+    if(!chosen){detail.hidden=true;select.parentElement.after(detail);return;}
     detail.hidden=false;
     const selected=select.value===choice?chosen.find(row=>owner(row)===choice):null;
+    if(window.matchMedia('(max-width:700px)').matches&&!selected){
+      const button=[...games.querySelectorAll('button[data-owner]')].find(item=>item.dataset.owner===owner(chosen[0]));
+      if(button)button.after(detail);
+    }else select.parentElement.after(detail);
     detail.innerHTML=`<div class="sleeper-detail-heading"><h3>${selected?esc(name(selected)):`${esc(name(chosen[0]))} vs ${esc(name(chosen[1]))}`}</h3><button type="button" id="sleeper-close">Close</button></div><div class="sleeper-rosters">${(selected?[selected]:chosen).map(roster).join('')}</div>`;
     $('sleeper-close').addEventListener('click',()=>{choice='';select.value='';renderDetail();renderGames();});
   }
   function renderGames(){
     games.innerHTML=state.pairs.map(pair=>{
       const expanded=pair.some(row=>owner(row)===choice)&&select.value!==choice;
-      return `<button class="sleeper-game" type="button" data-owner="${esc(owner(pair[0]))}" aria-expanded="${expanded}" aria-controls="sleeper-detail"><span class="sleeper-game-top">Week ${state.week} · ${label()}</span><span class="sleeper-game-side"><strong>${esc(name(pair[0]))}</strong><b>${state.source==='sample'&&allZero()?'—':num(score(pair[0]))}</b></span><span class="sleeper-game-side"><strong>${esc(name(pair[1]))}</strong><b>${state.source==='sample'&&allZero()?'—':num(score(pair[1]))}</b></span><span class="sleeper-game-action">${expanded?'Close lineups':'View lineups'}</span></button>`;
+      return `<button class="sleeper-game" type="button" data-owner="${esc(owner(pair[0]))}" aria-expanded="${expanded}" aria-controls="sleeper-detail" aria-label="${esc(name(pair[0]))} versus ${esc(name(pair[1]))}, ${expanded?'close':'view'} lineups"><span class="sleeper-game-top">Week ${state.week} · ${label()}</span><span class="sleeper-game-side"><strong>${esc(name(pair[0]))}</strong><b>${state.source==='sample'&&allZero()?'—':num(score(pair[0]))}</b></span><span class="sleeper-game-side"><strong>${esc(name(pair[1]))}</strong><b>${state.source==='sample'&&allZero()?'—':num(score(pair[1]))}</b></span><span class="sleeper-game-action">${expanded?'Close lineups':'View lineups'}</span></button>`;
     }).join('');
   }
   function render(result){
@@ -58,6 +62,7 @@
   games.addEventListener('click',event=>{
     const button=event.target.closest('button[data-owner]');if(!button||!state)return;
     const next=button.dataset.owner;choice=next===choice&&select.value!==choice?'':next;select.value='';renderGames();renderDetail();
+    if(!detail.hidden&&window.matchMedia('(max-width:700px)').matches)detail.scrollIntoView({block:'nearest'});
   });
   select.addEventListener('change',()=>{choice=select.value;renderGames();renderDetail();});
   async function refresh(){
