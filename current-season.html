@@ -33,15 +33,15 @@
       <div class="season-grid">
         <section class="panel standings" aria-labelledby="standings-title">
           <div class="section-heading"><div><p class="eyebrow">THE TABLE</p><h2 id="standings-title">Standings</h2></div><span class="chip">Regular season</span></div>
-          <div class="table-tools"><p id="standings-context"></p><label class="mobile-stats"><input type="checkbox" id="all-stats"> Show all stats</label><button id="reset-sort" type="button" hidden>Reset order</button></div>
+          <div class="table-tools"><p id="standings-context"></p><button id="reset-sort" type="button" hidden>Reset order</button></div>
           <div class="table-scroll" tabindex="0" role="region" aria-label="Current standings; scroll horizontally for additional statistics">
             <table id="standings-table">
               <caption class="sr-only">Current regular-season standings. Column buttons change the display order; rank remains the exported standings rank.</caption>
-              <thead><tr><th scope="col" data-sort="rank" aria-sort="ascending"><button type="button"># <span aria-hidden="true">↑</span></button></th><th scope="col">Owner / team</th><th scope="col" class="numeric">W–L<span id="tie-heading" hidden>–T</span></th><th scope="col" class="numeric" data-sort="points_for"><button type="button" title="Sort by points for">PF <span aria-hidden="true">↕</span></button></th><th scope="col" class="numeric extra" data-sort="points_against"><button type="button" title="Sort by points against">PA <span aria-hidden="true">↕</span></button></th><th scope="col" class="numeric extra" data-sort="average_points_for"><button type="button" title="Sort by average score">Avg <span aria-hidden="true">↕</span></button></th><th scope="col" class="numeric extra" data-sort="average_margin"><button type="button" title="Sort by average margin">+/− <span aria-hidden="true">↕</span></button></th></tr></thead>
+              <thead><tr><th scope="col" data-sort="rank" aria-sort="ascending"><button type="button"># <span aria-hidden="true">↑</span></button></th><th scope="col">Owner / team</th><th scope="col" class="numeric">W–L<span id="tie-heading" hidden>–T</span></th><th scope="col" class="numeric" data-sort="points_for"><button type="button" title="Sort by points for">PF <span aria-hidden="true">↕</span></button></th><th scope="col" class="numeric" data-sort="points_against"><button type="button" title="Sort by points against">PA <span aria-hidden="true">↕</span></button></th><th scope="col" class="numeric" data-sort="average_points_for"><button type="button" title="Sort by average score">Avg <span aria-hidden="true">↕</span></button></th><th scope="col" class="numeric" data-sort="average_margin"><button type="button" title="Sort by average margin">+/− <span aria-hidden="true">↕</span></button></th></tr></thead>
               <tbody id="standings-body"></tbody>
             </table>
           </div>
-          <div class="table-notes"><p>Order: wins ↓, losses ↑, then points for ↓.</p><p>PF: points for · PA: points against · Avg: score per game · +/−: average margin</p><p class="mobile-hint">Show all stats to compare PA, average score and margin. Swipe the table to see every column.</p></div>
+          <div class="table-notes"><p>Order: wins ↓, losses ↑, then points for ↓.</p><p>PF: points for · PA: points against · Avg: score per game · +/−: average margin</p><p class="mobile-hint">Swipe the table sideways to see every column.</p></div>
           <p id="sort-status" class="sr-only" role="status"></p>
         </section>
         <section class="panel results" aria-labelledby="results-title">
@@ -62,7 +62,7 @@
         <section class="panel analytics-panel" aria-labelledby="luck-title">
           <div class="section-heading"><div><p class="eyebrow">SEASON ANALYTICS</p><h2 id="luck-title">Luck standings</h2></div></div>
           <p class="analytics-description">Actual wins compared with the wins expected from weekly scoring.</p>
-          <div class="analytics-scroll" tabindex="0" role="region" aria-label="Luck standings; scroll horizontally to see every column"><table class="analytics-table"><caption class="sr-only">Luck standings through the approved current-season week.</caption><thead><tr><th scope="col">#</th><th scope="col">Owner / team</th><th scope="col" class="numeric" title="Position change from regular standings">Change</th><th scope="col" class="numeric">Record</th><th scope="col" class="numeric">Expected W</th><th scope="col" class="numeric">Luck</th></tr></thead><tbody id="luck-body"></tbody></table></div>
+          <div class="analytics-scroll" tabindex="0" role="region" aria-label="Luck standings; scroll horizontally to see every column"><table class="analytics-table"><caption class="sr-only">Luck standings through the approved current-season week.</caption><thead><tr><th scope="col">#</th><th scope="col">Owner / team</th><th scope="col" class="numeric">Record</th><th scope="col" class="numeric">Expected W</th><th scope="col" class="numeric">Luck</th></tr></thead><tbody id="luck-body"></tbody></table></div>
           <p class="analytics-note">Expected wins sum each week’s all-play win share, with half credit for tied scores. Luck = actual wins − expected wins. Positive means more wins than expected; ranked luckiest first.</p>
         </section>
         <section class="panel analytics-panel" aria-labelledby="trends-title">
