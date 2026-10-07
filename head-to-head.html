@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' file:; style-src 'self' file:; img-src 'self' file:; connect-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="color-scheme" content="light"><title>Head-to-Head — Sparty On</title>
+  <link rel="icon" href="assets/crest.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/styles.css">
+  <script src="site-data/site-data.js" defer></script><script src="assets/head-to-head.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to owner comparison</a>
+  <header class="masthead"><div class="header-inner"><a class="brand" href="index.html" aria-label="Sparty On home"><span class="crest" aria-hidden="true"><img src="assets/spartan-helmet.png" alt=""></span><span><strong>SPARTY ON</strong><small>THE LEAGUE. THE LEGACY.</small></span></a><nav aria-label="Main navigation"><a href="index.html">Home</a><a href="current-season.html">Current Season</a><a href="seasons.html">Seasons</a><a href="owners.html">Owners</a><a href="records.html">Records</a><a href="head-to-head.html" aria-current="page">Head-to-Head</a></nav></div></header>
+  <main id="main" tabindex="-1"><div id="load-status" class="load-status" role="status">Loading matchup history…</div><noscript><p class="load-status">Enable JavaScript to view the local owner history. No connection is needed.</p></noscript>
+  <div id="rivalry-page" hidden>
+    <section class="intro" aria-labelledby="page-title"><div><p class="eyebrow">THE LEAGUE / EVERY RIVALRY</p><h1 id="page-title">Head-to-Head</h1><p class="intro-copy">Choose two owners and revisit every game between them.</p></div><div class="freshness"><strong id="rivalry-freshness"></strong><span>Current season · In progress</span></div></section>
+    <section class="rivalry-selector" aria-label="Choose two different owners"><label>First owner <select id="owner-a" aria-label="Choose first owner"></select></label><button type="button" id="swap-owners" aria-label="Swap selected owners">⇄ <span>Swap</span></button><label>Second owner <select id="owner-b" aria-label="Choose second owner"></select></label></section>
+    <section class="rivalry-hero" hidden aria-labelledby="rivalry-title"><p class="eyebrow">ALL PUBLISHED GAMES · REGULAR SEASON + POSTSEASON</p><h2 id="rivalry-title"></h2><div id="rivalry-score" class="rivalry-score" aria-label="Head-to-head wins and losses"></div><p id="rivalry-summary"></p></section>
+    <p id="rivalry-prompt" class="selection-prompt">Select two owners to explore their matchup history.</p>
+    <div id="rivalry-has-games" hidden>
+      <div class="rivalry-grid"><section class="panel" aria-labelledby="stage-heading"><div class="section-heading"><div><p class="eyebrow">WHERE THE GAMES HAPPENED</p><h2 id="stage-heading">By stage</h2></div></div><div class="table-scroll" tabindex="0" role="region" aria-label="Head-to-head stage breakdown; swipe sideways"><table class="rivalry-table"><thead><tr><th scope="col">Stage</th><th scope="col" class="numeric">GP</th><th scope="col" class="numeric" id="stage-record-heading">Record</th><th scope="col" class="numeric" id="stage-pf-heading">PF</th><th scope="col" class="numeric" id="stage-pa-heading">PA</th></tr></thead><tbody id="stage-body"></tbody></table></div><p class="table-notes">Record and points are shown from the first selected owner's perspective.</p></section><section class="panel rivalry-moments" aria-labelledby="moments-heading"><div class="section-heading"><div><p class="eyebrow">THE MATCHUP</p><h2 id="moments-heading">At a glance</h2></div></div><div id="rivalry-moments-body"></div></section></div>
+      <section class="panel rivalry-years" aria-labelledby="years-heading"><div class="section-heading"><div><p class="eyebrow">YEAR BY YEAR</p><h2 id="years-heading">Season matchups</h2></div><span class="chip">All games</span></div><div class="table-scroll" tabindex="0" role="region" aria-label="Head-to-head results by year; swipe sideways"><table class="rivalry-table"><thead><tr><th scope="col">Year</th><th scope="col">Team names that year</th><th scope="col" class="numeric">GP</th><th scope="col" class="numeric">Record</th><th scope="col" class="numeric">PF</th><th scope="col" class="numeric">PA</th></tr></thead><tbody id="years-body"></tbody></table></div><p class="table-notes">Records and points are from the first selected owner's perspective. A current-season year is marked In progress.</p></section>
+      <section class="panel rivalry-games" aria-labelledby="games-heading"><div class="section-heading"><div><p class="eyebrow">THE FULL HISTORY</p><h2 id="games-heading">Every matchup</h2></div><span class="chip" id="matchup-count"></span></div><div id="rivalry-games-body" class="rivalry-game-grid"></div></section>
+    </div>
+    <section id="rivalry-empty" class="panel rivalry-empty" hidden><h2>No matchups yet</h2><p>These owners have not met in the published games. Choose another pair to view a rivalry.</p></section>
+    <footer><strong>SPARTY ON</strong><p>League history, one week at a time.</p><span id="rivalry-footer"></span></footer>
+  </div></main>
+</body>
+</html>

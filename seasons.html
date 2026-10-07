@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' file:; style-src 'self' file:; img-src 'self' file:; connect-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="color-scheme" content="light">
+  <title>Seasons — Sparty On</title>
+  <link rel="icon" href="assets/crest.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="site-data/site-data.js" defer></script>
+  <script src="assets/shared.js" defer></script>
+  <script src="assets/season-analytics.js" defer></script>
+  <script src="assets/seasons.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to season history</a>
+  <header class="masthead"><div class="header-inner">
+    <a class="brand" href="index.html" aria-label="Sparty On home"><span class="crest" aria-hidden="true"><img src="assets/spartan-helmet.png" alt=""></span><span><strong>SPARTY ON</strong><small>THE LEAGUE. THE LEGACY.</small></span></a>
+    <nav aria-label="Main navigation"><a href="index.html">Home</a><a href="current-season.html">Current Season</a><a href="seasons.html" aria-current="page">Seasons</a><a href="owners.html">Owners</a><a href="records.html">Records</a><a href="head-to-head.html">Head-to-Head</a></nav>
+  </div></header>
+  <main id="main" tabindex="-1">
+    <div id="load-status" class="load-status" role="status">Loading the season archive…</div>
+    <noscript><p class="load-status">Enable JavaScript to view the local season archive. No connection is needed.</p></noscript>
+    <div id="seasons-page" hidden>
+      <section class="intro season-intro" aria-labelledby="page-title">
+        <div><p class="eyebrow">THE LEAGUE / YEAR BY YEAR</p><h1 id="page-title">Seasons</h1><p class="intro-copy">Standings, every regular-season week and the road to the title.</p></div>
+        <label class="season-picker">Explore a year <select id="year-select" aria-label="Choose a season"></select></label>
+      </section>
+      <section class="season-banner" aria-labelledby="season-heading">
+        <div><p class="eyebrow" id="season-era"></p><h2 id="season-heading"></h2><p id="season-subtitle"></p></div>
+        <span class="season-state" id="season-state"></span>
+      </section>
+      <div class="season-metrics" id="season-metrics" aria-label="Season at a glance"></div>
+      <section class="season-history-grid" aria-label="Season standings and postseason">
+        <section class="panel standings" aria-labelledby="historic-standings-heading">
+          <div class="section-heading"><div><p class="eyebrow">THE TABLE</p><h2 id="historic-standings-heading">Regular-season standings</h2></div><span class="chip" id="standings-chip"></span></div>
+          <div class="table-scroll" tabindex="0" role="region" aria-label="Season standings; scroll horizontally for additional statistics">
+            <table class="historic-table"><caption class="sr-only">Regular-season standings ordered by wins, losses, then points for.</caption><thead><tr><th scope="col">#</th><th scope="col">Owner / team</th><th scope="col" class="numeric">W–L–T</th><th scope="col" class="numeric">PF</th><th scope="col" class="numeric">PA</th><th scope="col" class="numeric">Avg PF</th><th scope="col" class="numeric">+/−</th></tr></thead><tbody id="historic-standings"></tbody></table>
+          </div><p class="table-notes">Sorted by wins, losses, then points for. Team names reflect the selected year. Swipe sideways on smaller screens.</p>
+        </section>
+        <section class="panel season-playoffs" aria-labelledby="postseason-heading">
+          <div class="section-heading"><div><p class="eyebrow">THE ROAD TO THE TITLE</p><h2 id="postseason-heading">Postseason</h2></div><span class="chip" id="postseason-chip"></span></div>
+          <div id="season-honors" class="season-honors"></div>
+          <div id="postseason-rounds"></div>
+        </section>
+      </section>
+      <section class="season-detail-section" aria-labelledby="year-detail-heading">
+        <div class="section-line"><h2 id="year-detail-heading">More from this season</h2><p id="year-detail-context"></p></div>
+        <div class="analytics-grid">
+          <section class="panel analytics-panel" aria-labelledby="year-bonus-heading">
+            <div class="section-heading"><div><p class="eyebrow">ALTERNATE STANDINGS</p><h2 id="year-bonus-heading">Standings with top-half bonus</h2></div></div>
+            <p class="analytics-description">Each team earns one extra result per week based on whether its score ranks in the top half.</p>
+            <div class="analytics-scroll" tabindex="0" role="region" aria-label="Season standings with top-half scoring bonus"><table class="analytics-table"><thead><tr><th scope="col">#</th><th scope="col">Owner / team</th><th scope="col" class="numeric" title="Position change from regular standings">Change</th><th scope="col" class="numeric">H2H</th><th scope="col" class="numeric">Top half</th><th scope="col" class="numeric">Combined</th><th scope="col" class="numeric">PF</th></tr></thead><tbody id="year-bonus-body"></tbody></table></div>
+            <p class="analytics-note" id="year-bonus-note"></p>
+          </section>
+          <section class="panel analytics-panel" aria-labelledby="year-luck-heading">
+            <div class="section-heading"><div><p class="eyebrow">RESULTS VS SCORING</p><h2 id="year-luck-heading">Wins above expected</h2></div></div>
+            <p class="analytics-description">Compare head-to-head wins with the wins expected from each week's scores against the league.</p>
+            <div class="analytics-scroll" tabindex="0" role="region" aria-label="Season wins above expected standings"><table class="analytics-table"><thead><tr><th scope="col">#</th><th scope="col">Owner / team</th><th scope="col" class="numeric" title="Position change from regular standings">Change</th><th scope="col" class="numeric">Record</th><th scope="col" class="numeric">Expected W</th><th scope="col" class="numeric">Luck</th></tr></thead><tbody id="year-luck-body"></tbody></table></div>
+            <p class="analytics-note">Luck = actual wins − expected wins. Expected wins sum each week's all-play win share; tied scores get half credit. Ranked from most to fewest wins above expected.</p>
+          </section>
+          <section class="panel analytics-panel" aria-labelledby="year-records-heading">
+            <div class="section-heading"><div><p class="eyebrow">REGULAR-SEASON MATCHUPS</p><h2 id="year-records-heading">Season game records</h2></div></div>
+            <p class="analytics-description">Single-game scores and winning margins from the selected season.</p>
+            <div class="analytics-scroll" tabindex="0" role="region" aria-label="Selected season game records"><table class="analytics-table"><thead><tr><th scope="col">Record</th><th scope="col">Week</th><th scope="col" class="numeric">Value</th><th scope="col">Owner / team or matchup</th></tr></thead><tbody id="year-records-body"></tbody></table></div>
+            <p class="analytics-note">All tied records are shown. Postseason games are excluded.</p>
+          </section>
+          <section class="panel analytics-panel" aria-labelledby="year-extremes-heading">
+            <div class="section-heading"><div><p class="eyebrow">TEAM TOTALS</p><h2 id="year-extremes-heading">Team scoring highs &amp; lows</h2></div></div>
+            <p class="analytics-description">Season totals for points scored and allowed, with averages per game.</p>
+            <div class="analytics-scroll" tabindex="0" role="region" aria-label="Season team scoring highs and lows"><table class="analytics-table"><thead><tr><th scope="col">Statistic</th><th scope="col">Owner / team</th><th scope="col" class="numeric">Season total</th><th scope="col" class="numeric">Avg / game</th></tr></thead><tbody id="year-extremes-body"></tbody></table></div>
+            <p class="analytics-note">Points against measures opponent scoring in head-to-head regular-season games.</p>
+          </section>
+        </div>
+        <p class="analytics-mobile-note">Swipe sideways within a table to view every column.</p>
+      </section>
+      <section class="panel season-weekly" aria-labelledby="weeks-heading">
+        <div class="section-heading"><div><p class="eyebrow">WEEK BY WEEK</p><h2 id="weeks-heading">Regular-season results</h2></div><label class="week-picker">Choose a week <select id="week-select" aria-label="Choose a regular-season week"></select></label></div>
+        <p class="weekly-context" id="weekly-context"></p>
+        <div id="season-week-games" class="season-week-grid"></div>
+      </section>
+      <footer><strong>SPARTY ON</strong><p>League history, one week at a time.</p><span id="season-footer"></span></footer>
+    </div>
+  </main>
+  <dialog id="section-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"><p class="eyebrow">COMING IN A FUTURE PASS</p><h2 id="dialog-title"></h2><p id="dialog-description"></p><p>This preview includes Home, Current Season, Seasons and Owners. This section is planned for a future pass.</p><button type="button" id="close-dialog" class="primary-button">Close</button></dialog>
+</body>
+</html>

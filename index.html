@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' file:; style-src 'self' file:; img-src 'self' file:; connect-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="color-scheme" content="light">
+  <title>Sparty On — League History</title>
+  <link rel="icon" href="assets/crest.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="site-data/site-data.js" defer></script>
+  <script src="assets/shared.js" defer></script>
+  <script src="assets/home.js" defer></script>
+</head>
+<body id="top" class="landing-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="Sparty On home"><span class="crest" aria-hidden="true"><img src="assets/spartan-helmet.png" alt=""></span><span><strong>SPARTY ON</strong><small>THE LEAGUE. THE LEGACY.</small></span></a>
+      <nav aria-label="Main navigation"><a href="index.html" aria-current="page">Home</a><a href="current-season.html">Current Season</a><a href="seasons.html">Seasons</a><a href="owners.html">Owners</a><a href="records.html">Records</a><a href="head-to-head.html">Head-to-Head</a></nav>
+      <span class="edition">LOCAL PREVIEW <span aria-hidden="true">/</span> 02</span>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="landing-hero" aria-labelledby="page-title">
+      <p class="eyebrow" id="archive-years">FANTASY FOOTBALL / LEAGUE HISTORY</p>
+      <h1 id="page-title">SPARTY <span>ON</span></h1>
+      <p class="landing-tagline">Our league. Our history.</p>
+      <p class="landing-intro">The seasons we remember. The records we chase.<br>Every chapter of the league, in one place.</p>
+    </section>
+    <section class="home-ticker" aria-labelledby="ticker-title" aria-roledescription="carousel">
+      <div class="ticker-topline"><div><p class="eyebrow">AROUND THE LEAGUE</p><h2 id="ticker-title">Latest results</h2></div><p id="ticker-status" role="status">Loading the latest completed week…</p></div>
+      <div id="ticker-content" hidden>
+        <div class="ticker-stage" id="ticker-stage" aria-live="off" aria-roledescription="slide"></div>
+        <div class="ticker-bottom"><span id="ticker-counter"></span><div class="ticker-controls"><button type="button" id="ticker-prev" aria-label="Previous matchup">←</button><button type="button" id="ticker-pause" aria-pressed="false">Pause</button><button type="button" id="ticker-next" aria-label="Next matchup">→</button></div></div>
+        <p class="sr-only" id="ticker-announcement" role="status"></p>
+      </div>
+      <noscript><p>Enable JavaScript to view the local results ticker.</p></noscript>
+    </section>
+    <section class="explore" aria-labelledby="explore-title">
+      <div class="explore-heading"><h2 id="explore-title">Explore the league</h2><p>Choose your next chapter.</p></div>
+      <div class="page-tiles">
+        <a class="page-tile" href="current-season.html"><span class="tile-title">Current Season</span><span class="tile-description">Standings, weekly results and the owners setting the pace.</span></a>
+        <a class="page-tile" href="seasons.html"><span class="tile-title">Seasons</span><span class="tile-description">Relive each season, from the opening week to the championship.</span></a>
+        <a class="page-tile" href="owners.html"><span class="tile-title">Owners</span><span class="tile-description">Career records, season histories and every team behind the name.</span></a>
+        <a class="page-tile" href="records.html"><span class="tile-title">Records</span><span class="tile-description">The highest scores, biggest wins and benchmarks of league history.</span></a>
+        <a class="page-tile" href="head-to-head.html"><span class="tile-title">Head-to-Head</span><span class="tile-description">Compare two owners and revisit every chapter of their rivalry.</span></a>
+      </div>
+    </section>
+    <footer><strong>SPARTY ON</strong><p>League history, one week at a time.</p><span id="home-freshness">Local league archive</span></footer>
+  </main>
+  <dialog id="section-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"><p class="eyebrow">COMING IN A FUTURE PASS</p><h2 id="dialog-title"></h2><p id="dialog-description"></p><p>This preview includes Home, Current Season, Seasons and Owners. This section is planned for a future pass.</p><button type="button" id="close-dialog" class="primary-button">Close</button></dialog>
+</body>
+</html>

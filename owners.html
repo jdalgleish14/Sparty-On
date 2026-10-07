@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' file:; style-src 'self' file:; img-src 'self' file:; connect-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="color-scheme" content="light">
+  <title>Owners — Sparty On</title>
+  <link rel="icon" href="assets/crest.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="site-data/site-data.js" defer></script>
+  <script src="assets/shared.js" defer></script>
+  <script src="assets/owners.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to owner history</a>
+  <header class="masthead"><div class="header-inner">
+    <a class="brand" href="index.html" aria-label="Sparty On home"><span class="crest" aria-hidden="true"><img src="assets/spartan-helmet.png" alt=""></span><span><strong>SPARTY ON</strong><small>THE LEAGUE. THE LEGACY.</small></span></a>
+    <nav aria-label="Main navigation"><a href="index.html">Home</a><a href="current-season.html">Current Season</a><a href="seasons.html">Seasons</a><a href="owners.html" aria-current="page">Owners</a><a href="records.html">Records</a><a href="head-to-head.html">Head-to-Head</a></nav>
+  </div></header>
+  <main id="main" tabindex="-1">
+    <div id="load-status" class="load-status" role="status">Loading owner histories…</div>
+    <noscript><p class="load-status">Enable JavaScript to view this local archive. No connection is needed.</p></noscript>
+    <div id="owners-page" hidden>
+      <section class="intro owner-intro" aria-labelledby="page-title"><div><p class="eyebrow">THE LEAGUE / ITS PEOPLE</p><h1 id="page-title">Owners</h1><p class="intro-copy">One owner, every team name, every season.</p></div><span class="owner-intro-count" id="owner-count"></span></section>
+      <section class="panel owner-directory" aria-labelledby="directory-heading">
+        <div class="section-heading"><div><p class="eyebrow">THE LEAGUE TABLE</p><h2 id="directory-heading">Career wins</h2></div><span class="chip">Regular season + postseason</span></div>
+        <p class="directory-note">Select an owner to view their history. Sorted by career wins, then win percentage.</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Career wins directory; swipe sideways to see all statistics"><table class="owner-directory-table"><caption class="sr-only">All owners ranked by wins in regular-season and postseason games.</caption><thead><tr><th scope="col">#</th><th scope="col">Owner</th><th scope="col" class="numeric">Seasons</th><th scope="col" class="numeric">W–L–T</th><th scope="col" class="numeric">Win %</th><th scope="col" class="numeric">Titles</th></tr></thead><tbody id="directory-body"></tbody></table></div>
+      </section>
+      <p id="owner-prompt" class="selection-prompt">Select an owner above or from the menu to view their profile.</p>
+      <section class="owner-detail" aria-labelledby="owner-name">
+        <div class="owner-profile-head"><div><p class="eyebrow">OWNER PROFILE</p><h2 id="owner-name" tabindex="-1"></h2><p id="owner-latest-team"></p></div><label class="season-picker">Explore an owner <select id="owner-select" aria-label="Choose an owner"></select></label></div>
+        <div id="owner-profile-content" hidden>
+        <p class="owner-scope" id="owner-scope"></p>
+        <div class="owner-metrics" id="owner-metrics" aria-label="Career summary"></div>
+        <div class="owner-feature-grid">
+          <section class="panel" aria-labelledby="owner-split-heading"><div class="section-heading"><div><p class="eyebrow">CAREER BREAKDOWN</p><h2 id="owner-split-heading">By stage</h2></div></div><div class="table-scroll" tabindex="0" role="region" aria-label="Regular season and postseason career results"><table class="owner-stage-table"><thead><tr><th scope="col">Stage</th><th scope="col" class="numeric">GP</th><th scope="col" class="numeric">W–L–T</th><th scope="col" class="numeric">Win %</th><th scope="col" class="numeric">Avg PF</th><th scope="col" class="numeric">Avg margin</th></tr></thead><tbody id="owner-stage-body"></tbody></table></div><p class="table-notes">Career totals include every published game, including the current season through the approved week.</p></section>
+          <section class="panel owner-honors" aria-labelledby="owner-honors-heading"><div class="section-heading"><div><p class="eyebrow">POSTSEASON HISTORY</p><h2 id="owner-honors-heading">Titles &amp; finals</h2></div></div><div id="owner-honors-body"></div></section>
+        </div>
+        <section class="panel owner-seasons" aria-labelledby="owner-seasons-heading"><div class="section-heading"><div><p class="eyebrow">YEAR BY YEAR</p><h2 id="owner-seasons-heading">Season history</h2></div><span class="chip">Regular-season statistics</span></div><div class="table-scroll" tabindex="0" role="region" aria-label="Owner's yearly team names and regular-season statistics; swipe sideways"><table class="owner-seasons-table"><thead><tr><th scope="col">Year</th><th scope="col">Team</th><th scope="col" class="numeric">W–L–T</th><th scope="col" class="numeric">PF</th><th scope="col" class="numeric">PA</th><th scope="col" class="numeric">Avg PF</th><th scope="col" class="numeric">Avg margin</th><th scope="col">Postseason</th></tr></thead><tbody id="owner-seasons-body"></tbody></table></div><p class="table-notes">Yearly scores and records are regular-season only. Postseason outcome is shown separately. Current-season rows are in progress.</p></section>
+        <section class="owner-highlights" aria-labelledby="owner-highlights-heading"><div class="section-line"><h2 id="owner-highlights-heading">Career highlights</h2><p>Records tied to the selected owner</p></div><div class="owner-highlight-grid" id="owner-highlights"></div></section>
+        </div>
+      </section>
+      <footer><strong>SPARTY ON</strong><p>League history, one week at a time.</p><span id="owners-footer"></span></footer>
+    </div>
+  </main>
+  <dialog id="section-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"><p class="eyebrow">COMING IN A FUTURE PASS</p><h2 id="dialog-title"></h2><p id="dialog-description"></p><p>This preview includes Home, Current Season, Seasons and Owners. This section is planned for a future pass.</p><button type="button" id="close-dialog" class="primary-button">Close</button></dialog>
+</body>
+</html>
