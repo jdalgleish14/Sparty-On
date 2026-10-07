@@ -1,4 +1,4 @@
-/* One local, validated snapshot; no remote data or persistent browser storage. */
+/* Verified results ticker with optional Sleeper starter highlights. */
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
@@ -32,9 +32,9 @@
     $('ticker-title').textContent = `${season.year} · Week ${week}`;
     $('ticker-status').textContent = 'All games final';
     $('ticker-content').hidden = false;
-    const stage = $('ticker-stage'), pause = $('ticker-pause');
+    const stage = $('ticker-stage'), pause = $('ticker-pause'), leaders = $('ticker-leaders');
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let paused = motion.matches, index = 0, dwellTimer = null, fadeTimer = null;
+    let paused = motion.matches, index = 0, dwellTimer = null, fadeTimer = null, scorers = null;
     const holdMs = 6000, fadeMs = 300;
     function clearTimers() { clearTimeout(dwellTimer); clearTimeout(fadeTimer); dwellTimer = null; fadeTimer = null; }
     function description(g) { return `${g.owner_name}, ${g.team}, record ${teamRecord(g.owner_id)}, ${num(g.points_for)} points. ${g.opponent_owner_name}, ${g.opponent_team}, record ${teamRecord(g.opponent_owner_id)}, ${num(g.points_against)} points. ${labels(g).join('. ')}. Margin ${num(marginOf(g))}.`; }
@@ -60,7 +60,16 @@
       stage.innerHTML = `<div class="ticker-matchup">${identity(g.owner_id,g.owner_name,g.team)}<b class="ticker-score ticker-winning-score">${num(g.points_for)}</b><b class="ticker-score">${num(g.points_against)}</b>${identity(g.opponent_owner_id,g.opponent_owner_name,g.opponent_team,true)}</div><div class="ticker-game-note">${labels(g).map(label => `<span class="ticker-badge">${label}</span>`).join('')}<span>Margin ${num(marginOf(g))}</span></div>`;
       stage.setAttribute('aria-label',`Matchup ${index+1} of ${games.length}`);
       $('ticker-counter').textContent = `${index+1} / ${games.length} matchups`;
+      renderLeaders(g);
       if (announce) $('ticker-announcement').textContent = description(g);
+    }
+    function renderLeaders(g){
+      leaders.open=false;
+      const a=scorers?.get(g.owner_id),b=scorers?.get(g.opponent_owner_id);
+      leaders.hidden=!a||!b;
+      if(leaders.hidden)return;
+      const side=(team,row)=>`<div><h3>${esc(team)}</h3><ol>${window.SPARTY_SLEEPER.topScorers(row).map(p=>`<li><span>${esc(p.name)}</span><b>${num(p.points)}</b></li>`).join('')}</ol></div>`;
+      $('ticker-leaders-body').innerHTML=side(g.team,a)+side(g.opponent_team,b);
     }
     function schedule() {
       clearTimeout(dwellTimer);
@@ -80,11 +89,13 @@
       stage.setAttribute('aria-live',paused ? 'polite' : 'off');
     }
     pause.addEventListener('click', () => { paused=!paused; clearTimers(); stage.classList.remove('is-fading'); updatePause(); schedule(); });
+    leaders.addEventListener('toggle',()=>{if(leaders.open){paused=true;clearTimers();updatePause();}});
     $('ticker-prev').addEventListener('click', () => change(-1,true));
     $('ticker-next').addEventListener('click', () => change(1,true));
     document.addEventListener('visibilitychange', () => { clearTimers(); stage.classList.remove('is-fading'); schedule(); });
     motion.addEventListener('change', () => { if (motion.matches) paused=true; clearTimers(); stage.classList.remove('is-fading'); updatePause(); schedule(); });
     render(); updatePause(); schedule();
+    if(window.SPARTY_SLEEPER)window.SPARTY_SLEEPER.completedWeek(season.year,week,currentGames.filter(g=>g.week===week)).then(rows=>{scorers=rows;renderLeaders(games[index]);});
   } catch (_) {
     $('ticker-content').hidden = true;
     $('ticker-status').textContent = 'Results unavailable. Run the exporter and verifier successfully to restore this snapshot.';

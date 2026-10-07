@@ -3,12 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' file:; style-src 'self' file:; img-src 'self' file:; connect-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' file:; style-src 'self' file:; img-src 'self' file:; connect-src https://api.sleeper.app; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
   <meta name="color-scheme" content="light">
   <title>Sparty On — League History</title>
   <link rel="icon" href="assets/crest.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/styles.css">
   <script src="site-data/site-data.js" defer></script>
+  <script src="site-data/sleeper-sample.js" defer></script>
+  <script src="assets/sleeper.js" defer></script>
   <script src="assets/shared.js" defer></script>
   <script src="assets/home.js" defer></script>
 </head>
@@ -32,6 +34,7 @@
       <div class="ticker-topline"><div><p class="eyebrow">AROUND THE LEAGUE</p><h2 id="ticker-title">Latest results</h2></div><p id="ticker-status" role="status">Loading the latest completed week…</p></div>
       <div id="ticker-content" hidden>
         <div class="ticker-stage" id="ticker-stage" aria-live="off" aria-roledescription="slide"></div>
+        <details id="ticker-leaders" class="ticker-leaders" hidden><summary>Top 3 scorers from each team</summary><div id="ticker-leaders-body" class="ticker-leaders-body"></div></details>
         <div class="ticker-bottom"><span id="ticker-counter"></span><div class="ticker-controls"><button type="button" id="ticker-prev" aria-label="Previous matchup">←</button><button type="button" id="ticker-pause" aria-pressed="false">Pause</button><button type="button" id="ticker-next" aria-label="Next matchup">→</button></div></div>
         <p class="sr-only" id="ticker-announcement" role="status"></p>
       </div>
