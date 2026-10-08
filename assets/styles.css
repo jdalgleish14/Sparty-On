@@ -209,16 +209,50 @@ nav a[aria-current]{border-bottom-color:var(--bronze)}
 [data-theme="dark"] .ticker-team .ticker-winner b,[data-theme="dark"] .winner .score,[data-theme="dark"] .win-label{color:var(--accent)}
 :root[data-theme="light"]{color-scheme:light}
 
-/* One header layout on desktop and mobile keeps theme buttons clickable. */
-.header-inner{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"brand theme" "nav nav";column-gap:14px;row-gap:0;align-items:center}
-.header-inner .brand{grid-area:brand;padding-bottom:12px}
-.header-inner nav{grid-area:nav;justify-content:flex-start;min-width:0}
-.header-inner nav a,.header-inner nav button{padding-top:8px;padding-bottom:12px}
-.header-inner .edition{display:none}
-.theme-switch{grid-area:theme;display:inline-flex;justify-self:end;align-items:center;gap:2px;padding:3px;margin-bottom:12px;border:1px solid #829e8d;background:#133b31;border-radius:8px;white-space:nowrap}
-.theme-switch button{border:0;border-radius:5px;background:transparent;color:#dbe7dd;font-size:11px;font-weight:700;min-width:49px;min-height:33px;padding:5px 9px}
-.theme-switch button:hover{background:#28564a;color:white}
-.theme-switch button[aria-pressed="true"]{background:#f2f5f1;color:#18453b;box-shadow:0 1px 3px #001a1538}
-.theme-switch button:focus-visible{outline:2px solid #d8c396;outline-offset:2px}
-@media(max-width:850px){.header-inner{display:grid;grid-template-columns:minmax(0,1fr) auto}.header-inner nav{justify-content:space-between}.header-inner .brand{padding-bottom:12px}.theme-switch{margin-bottom:12px}}
-@media(max-width:530px){.header-inner{grid-template-columns:minmax(0,1fr);grid-template-areas:"brand" "theme" "nav"}.theme-switch{justify-self:start;margin-bottom:8px}.header-inner .brand{padding-bottom:9px}}
+
+/* The theme and joke action share a quiet footer row. */
+.footer-tools{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-left:0}
+.footer-tools .theme-switch{display:inline-flex;align-items:center;gap:2px;padding:3px;border:1px solid var(--line);background:var(--paper);border-radius:8px;white-space:nowrap}
+.footer-tools .theme-switch button{border:0;border-radius:5px;background:transparent;color:var(--muted);font-size:11px;font-weight:700;min-width:49px;min-height:36px;padding:5px 9px}
+.footer-tools .theme-switch button:hover{background:var(--bg);color:var(--ink)}
+.footer-tools .theme-switch button[aria-pressed="true"]{background:var(--green);color:white}
+.footer-tools .theme-switch button:focus-visible,.suggestion-trigger:focus-visible{outline:2px solid var(--bronze);outline-offset:2px}
+.suggestion-trigger{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:6px;font-size:11px;font-weight:700;min-height:44px;padding:8px 12px}
+.suggestion-trigger:hover{border-color:var(--bronze)}
+#suggestion-dialog{background:var(--paper)}
+#suggestion-dialog p{color:var(--ink);font-size:19px;font-weight:800;margin:14px 0 20px}
+#suggestion-dialog button{border:0;border-radius:6px;background:var(--accent);color:var(--paper);min-height:44px;padding:8px 18px;font-weight:700}
+[data-theme="dark"] #suggestion-dialog button{color:#14201c}
+@media(max-width:700px){footer .footer-tools{width:100%;margin-top:8px}.footer-tools .theme-switch button{min-height:41px}}
+
+/* The weekly record's Week field has a fixed, narrow column beside Value. */
+.weekly-records-table{table-layout:fixed;width:100%;min-width:580px}
+.weekly-records-table .weekly-rank{width:48px}.weekly-records-table .weekly-year{width:66px}.weekly-records-table .weekly-week{width:58px}.weekly-records-table .weekly-value{width:104px}.weekly-records-table .weekly-teams{width:74px}
+.weekly-records-table th:nth-child(3),.weekly-records-table td:nth-child(3){min-width:0;text-align:right;white-space:nowrap}
+.weekly-records-table td:nth-child(4){min-width:0}.weekly-records-table td:last-child{overflow-wrap:anywhere}
+
+/* These two tables fit their desktop panels; small screens retain horizontal swipes. */
+@media(min-width:701px){
+ #trends-table,#year-records-table{min-width:0;width:100%;table-layout:fixed}
+ #trends-table th{white-space:normal;line-height:1.3}
+ #trends-table th:first-child{width:17%}
+ #year-records-table th:first-child{width:26%}
+ #year-records-table th:nth-child(2){width:13%}
+ #year-records-table th:nth-child(3){width:16%}
+ #year-records-table th:last-child,#year-records-table td:last-child{white-space:normal;overflow-wrap:anywhere}
+}
+
+/* Compact cell spacing leaves text readable and sorting buttons easy to tap. */
+@media(max-width:700px){
+ .table-scroll th,.table-scroll td,.analytics-scroll th,.analytics-scroll td{padding:8px 5px;line-height:1.35}
+ .table-scroll th:first-child,.table-scroll td:first-child,.analytics-scroll th:first-child,.analytics-scroll td:first-child{padding-left:10px}
+ .table-scroll th:last-child,.table-scroll td:last-child,.analytics-scroll th:last-child,.analytics-scroll td:last-child{padding-right:10px}
+ .table-scroll .owner-cell,.analytics-scroll .owner-cell{min-width:128px}
+ .analytics-table{min-width:510px}.analytics-panel:last-child .analytics-table{min-width:530px}
+ #trends-table{min-width:500px}#year-records-table{min-width:530px}
+ .record-table td:nth-child(3){min-width:135px}
+ .weekly-records-table td:nth-child(3){min-width:0}.weekly-records-table td:nth-child(4){min-width:0}
+ .weekly-records-table{min-width:560px}
+ th button,.owner-directory-table .owner-choice{min-height:40px}
+ .race-table th,.race-table td{padding:7px 4px}.race-table button{min-height:32px}
+}

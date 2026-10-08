@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="assets/styles.css">
   <script src="site-data/site-data.js" defer></script>
   <script src="assets/shared.js" defer></script>
-  <script src="assets/theme.js" defer></script>
+  <script src="assets/theme.js" defer></script><script src="assets/suggestion-box.js" defer></script>
   <script src="assets/season-analytics.js" defer></script>
   <script src="assets/app.js" defer></script>
   <script src="assets/standings-race.js" defer></script>
@@ -20,7 +20,7 @@
   <header class="masthead">
     <div class="header-inner">
       <a class="brand" href="index.html" aria-label="Sparty On home"><span class="crest" aria-hidden="true"><img src="assets/spartan-helmet.png" alt=""></span><span><strong>SPARTY ON</strong><small>THE LEAGUE. THE LEGACY.</small></span></a>
-      <nav aria-label="Main navigation"><a href="index.html">Home</a><a href="current-season.html" aria-current="page">Current Season</a><a href="seasons.html">Seasons</a><a href="owners.html">Owners</a><a href="records.html">Records</a><a href="head-to-head.html">Head-to-Head</a></nav><div class="theme-switch" role="group" aria-label="Display theme"><button type="button" data-theme-choice="system" aria-pressed="false">Auto</button><button type="button" data-theme-choice="light" aria-pressed="false">Light</button><button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button></div>
+      <nav aria-label="Main navigation"><a href="index.html">Home</a><a href="current-season.html" aria-current="page">Current Season</a><a href="seasons.html">Seasons</a><a href="owners.html">Owners</a><a href="records.html">Records</a><a href="head-to-head.html">Head-to-Head</a></nav>
       <span class="edition">LOCAL PREVIEW <span aria-hidden="true">/</span> 02</span>
     </div>
   </header>
@@ -76,7 +76,7 @@
         <section class="panel analytics-panel" aria-labelledby="trends-title">
           <div class="section-heading"><div><p class="eyebrow">SEASON ANALYTICS</p><h2 id="trends-title">Weekly league trends</h2></div></div>
           <p class="analytics-description">How scoring and competitiveness have changed each week.</p>
-          <div class="analytics-scroll" tabindex="0" role="region" aria-label="Weekly league trends; scroll horizontally to see every column"><table class="analytics-table"><caption class="sr-only">Weekly league trends through the approved current-season week.</caption><thead><tr><th scope="col">Week</th><th scope="col" class="numeric">Avg winner</th><th scope="col" class="numeric">Avg loser</th><th scope="col" class="numeric">Total points</th><th scope="col" class="numeric">Avg margin</th></tr></thead><tbody id="trends-body"></tbody></table></div>
+          <div class="analytics-scroll" tabindex="0" role="region" aria-label="Weekly league trends; scroll horizontally to see every column"><table class="analytics-table" id="trends-table"><caption class="sr-only">Weekly league trends through the approved current-season week.</caption><thead><tr><th scope="col">Week</th><th scope="col" class="numeric">Avg winner</th><th scope="col" class="numeric">Avg loser</th><th scope="col" class="numeric">Total points</th><th scope="col" class="numeric">Avg margin</th></tr></thead><tbody id="trends-body"></tbody></table></div>
           <p class="analytics-note">Completed regular-season weeks only. Average margin is the average winning margin across that week’s matchups.</p>
         </section>
         <section class="panel analytics-panel" aria-labelledby="season-records-title">
@@ -88,9 +88,10 @@
         </div>
         <p class="analytics-mobile-note">On smaller screens, swipe within a table to see all columns.</p>
       </section>
-      <footer><strong>SPARTY ON</strong><p>League history, one week at a time.</p><span id="footer-freshness"></span></footer>
+      <footer><strong>SPARTY ON</strong><p>League history, one week at a time.</p><span id="footer-freshness"></span><div class="footer-tools"><button class="suggestion-trigger" type="button">Suggestion Box</button><div class="theme-switch" role="group" aria-label="Display theme"><button type="button" data-theme-choice="system" aria-pressed="false">Auto</button><button type="button" data-theme-choice="light" aria-pressed="false">Light</button><button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button></div></div></footer>
     </div>
   </main>
   <dialog id="section-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"><p class="eyebrow">COMING IN A FUTURE PASS</p><h2 id="dialog-title"></h2><p id="dialog-description"></p><p>This preview includes Home, Current Season, Seasons and Owners. This section is planned for a future pass.</p><button type="button" id="close-dialog" class="primary-button">Close</button></dialog>
+<dialog id="suggestion-dialog" aria-labelledby="suggestion-title"><h2 id="suggestion-title">Suggestion Box</h2><p>Go Fuck Yourself</p><form method="dialog"><button type="submit">Close</button></form></dialog>
 </body>
 </html>

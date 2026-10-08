@@ -12,7 +12,7 @@
   <script src="site-data/sleeper-sample.js" defer></script>
   <script src="assets/sleeper.js" defer></script>
   <script src="assets/shared.js" defer></script>
-  <script src="assets/theme.js" defer></script>
+  <script src="assets/theme.js" defer></script><script src="assets/suggestion-box.js" defer></script>
   <script src="assets/home.js" defer></script>
 </head>
 <body id="top" class="landing-page">
@@ -20,7 +20,7 @@
   <header class="masthead">
     <div class="header-inner">
       <a class="brand" href="index.html" aria-label="Sparty On home"><span class="crest" aria-hidden="true"><img src="assets/spartan-helmet.png" alt=""></span><span><strong>SPARTY ON</strong><small>THE LEAGUE. THE LEGACY.</small></span></a>
-      <nav aria-label="Main navigation"><a href="index.html" aria-current="page">Home</a><a href="current-season.html">Current Season</a><a href="seasons.html">Seasons</a><a href="owners.html">Owners</a><a href="records.html">Records</a><a href="head-to-head.html">Head-to-Head</a></nav><div class="theme-switch" role="group" aria-label="Display theme"><button type="button" data-theme-choice="system" aria-pressed="false">Auto</button><button type="button" data-theme-choice="light" aria-pressed="false">Light</button><button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button></div>
+      <nav aria-label="Main navigation"><a href="index.html" aria-current="page">Home</a><a href="current-season.html">Current Season</a><a href="seasons.html">Seasons</a><a href="owners.html">Owners</a><a href="records.html">Records</a><a href="head-to-head.html">Head-to-Head</a></nav>
       <span class="edition">LOCAL PREVIEW <span aria-hidden="true">/</span> 02</span>
     </div>
   </header>
@@ -51,8 +51,9 @@
         <a class="page-tile" href="head-to-head.html"><span class="tile-title">Head-to-Head</span><span class="tile-description">Compare two owners and revisit every chapter of their rivalry.</span></a>
       </div>
     </section>
-    <footer><strong>SPARTY ON</strong><p>League history, one week at a time.</p><span id="home-freshness">Local league archive</span></footer>
+    <footer><strong>SPARTY ON</strong><p>League history, one week at a time.</p><span id="home-freshness">Local league archive</span><div class="footer-tools"><button class="suggestion-trigger" type="button">Suggestion Box</button><div class="theme-switch" role="group" aria-label="Display theme"><button type="button" data-theme-choice="system" aria-pressed="false">Auto</button><button type="button" data-theme-choice="light" aria-pressed="false">Light</button><button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button></div></div></footer>
   </main>
   <dialog id="section-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"><p class="eyebrow">COMING IN A FUTURE PASS</p><h2 id="dialog-title"></h2><p id="dialog-description"></p><p>This preview includes Home, Current Season, Seasons and Owners. This section is planned for a future pass.</p><button type="button" id="close-dialog" class="primary-button">Close</button></dialog>
+<dialog id="suggestion-dialog" aria-labelledby="suggestion-title"><h2 id="suggestion-title">Suggestion Box</h2><p>Go Fuck Yourself</p><form method="dialog"><button type="submit">Close</button></form></dialog>
 </body>
 </html>
