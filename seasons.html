@@ -12,6 +12,7 @@
   <script src="assets/shared.js" defer></script>
   <script src="assets/season-analytics.js" defer></script>
   <script src="assets/seasons.js" defer></script>
+  <script src="assets/standings-race.js" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to season history</a>
@@ -32,6 +33,13 @@
         <span class="season-state" id="season-state"></span>
       </section>
       <div class="season-metrics" id="season-metrics" aria-label="Season at a glance"></div>
+      <section class="panel race-panel" id="race-section" aria-labelledby="race-heading" hidden>
+        <div class="section-heading"><div><p class="eyebrow">THE RACE / WEEK BY WEEK</p><h2 id="race-heading">Standings race</h2></div><span class="chip" id="race-context"></span></div>
+        <p class="race-intro">See how each team's regular-season standing changed. Slide through the weeks or press Play to watch the race.</p>
+        <div class="race-controls"><label for="race-week">Week <span id="race-week-label">Week 1</span></label><input type="range" id="race-week" min="1" max="14" value="1" step="1" aria-label="Standings through week"><button type="button" id="race-play" aria-pressed="false">Play</button><label for="race-team" class="race-team-label">Focus on team</label><select id="race-team" aria-label="Focus on a team"><option value="">All teams</option></select></div>
+        <div class="race-grid"><div class="race-graph" tabindex="0" role="region" aria-label="Standings race chart; scroll horizontally on a narrow screen"><svg id="race-chart" viewBox="0 0 740 420" role="img" aria-label="Weekly standing ranks. A full text table is beside the chart."></svg></div><div class="race-table-wrap" tabindex="0" role="region" aria-label="Standings through selected week"><table class="race-table"><thead><tr><th scope="col">#</th><th scope="col">Team</th><th scope="col">W–L</th><th scope="col">PF</th></tr></thead><tbody id="race-table-body"></tbody></table></div></div>
+        <p class="race-summary" id="race-week-summary" role="status"></p><p class="race-note">Ranked by wins, then losses, then points for. Select a team to highlight its path. Current seasons stop at the last verified week.</p>
+      </section>
       <section class="season-history-grid" aria-label="Season standings and postseason">
         <section class="panel standings" aria-labelledby="historic-standings-heading">
           <div class="section-heading"><div><p class="eyebrow">THE TABLE</p><h2 id="historic-standings-heading">Regular-season standings</h2></div><span class="chip" id="standings-chip"></span></div>
