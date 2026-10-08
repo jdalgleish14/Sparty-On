@@ -1,18 +1,27 @@
-/* A browser-local preference; exported league data stays untouched. */
+/* Theme is local to this browser; direct button clicks work at every width. */
 (() => {
   'use strict';
   const key='sparty-on-theme';
-  const select=document.querySelector('[data-theme-select]');
-  if(!select)return;
-  let saved='system';
-  try {const value=localStorage.getItem(key);if(['light','dark','system'].includes(value))saved=value;}catch(_){/* Browsers can block storage. */}
-  const system=window.matchMedia('(prefers-color-scheme: dark)');
-  function apply(){document.documentElement.dataset.theme=saved==='system'?(system.matches?'dark':'light'):saved;select.value=saved;}
-  select.addEventListener('change',()=>{
-    saved=select.value;
-    try{localStorage.setItem(key,saved);}catch(_){/* Keep the setting for this page. */}
+  const buttons=[...document.querySelectorAll('[data-theme-choice]')];
+  if(buttons.length!==3)return;
+  let choice='system';
+  try{const value=localStorage.getItem(key);if(['system','light','dark'].includes(value))choice=value;}catch(_){/* Storage is optional. */}
+  let preference=null;
+  try{preference=window.matchMedia('(prefers-color-scheme: dark)');}catch(_){/* Older browsers use light. */}
+  function apply(){
+    const resolved=choice==='system'?(preference?.matches?'dark':'light'):choice;
+    document.documentElement.setAttribute('data-theme',resolved);
+    buttons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.themeChoice===choice)));
+  }
+  buttons.forEach(button=>button.addEventListener('click',()=>{
+    choice=button.dataset.themeChoice;
+    try{localStorage.setItem(key,choice);}catch(_){/* Keep it active for this page. */}
     apply();
-  });
-  system.addEventListener?.('change',()=>{if(saved==='system')apply();});
+  }));
+  if(preference){
+    const onChange=()=>{if(choice==='system')apply();};
+    if(preference.addEventListener)preference.addEventListener('change',onChange);
+    else if(preference.addListener)preference.addListener(onChange);
+  }
   apply();
 })();

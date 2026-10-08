@@ -52,6 +52,7 @@
     const y=rank=>48+(rank-1)*308/Math.max(1,count-1);
     const ticks=[1,Math.ceil(count/2),count].filter((v,i,a)=>a.indexOf(v)===i);
     const grid=ticks.map(rank=>`<line x1="65" y1="${y(rank)}" x2="675" y2="${y(rank)}" stroke="var(--race-grid, #e5ebe5)"/><text x="52" y="${y(rank)+4}" text-anchor="end" fill="var(--race-label, #53675d)" font-size="12">${rank}</text>`).join('');
+    const weekGuides=Array.from({length:series.weeks},(_,index)=>`<line class="race-week-guide" x1="${x(index+1)}" x2="${x(index+1)}" y1="40" y2="361" stroke="var(--race-grid, #d9e5db)" stroke-width="1" stroke-dasharray="2 5"/>`).join('');
     const xticks=Array.from({length:series.weeks},(_,i)=>i+1).filter(w=>w===1||w===series.weeks||w%2===0);
     const labels=xticks.map(w=>`<text x="${x(w)}" y="386" text-anchor="middle" fill="var(--race-label, #53675d)" font-size="11">${w}</text>`).join('');
     const ownerColor=id=>colors[series.ids.indexOf(id)%colors.length];
@@ -65,7 +66,7 @@
       const name=summaries.get(`${series.season.year}:${id}`).team;
       return `<g data-race-owner="${escape(id)}" opacity="${dimmed?'.15':selected?'1':'.78'}"><title>${escape(name)} · rank ${frame.find(row=>row.owner_id===id).rank} after Week ${week}</title><path d="${path}" fill="none" stroke="${ownerColor(id)}" stroke-width="${selected?4:2.5}" stroke-linejoin="round" stroke-linecap="round"/><circle cx="${x(position)}" cy="${y(interpolated)}" r="${selected?6:4}" fill="${ownerColor(id)}" stroke="var(--race-dot-outline, #fff)" stroke-width="1"/></g>`;
     }).join('');
-    $('race-chart').innerHTML=`<text x="65" y="23" fill="var(--race-label, #53675d)" font-size="12">Standing position · 1st at top</text>${grid}<line x1="${x(position)}" y1="40" x2="${x(position)}" y2="361" stroke="#b08d57" stroke-dasharray="4 5"/>${paths}${labels}<text x="370" y="410" fill="var(--race-label, #53675d)" font-size="11" text-anchor="middle">REGULAR-SEASON WEEK</text>`;
+    $('race-chart').innerHTML=`<text x="65" y="23" fill="var(--race-label, #53675d)" font-size="12">Standing position · 1st at top</text>${grid}${weekGuides}<line x1="${x(position)}" y1="40" x2="${x(position)}" y2="361" stroke="#b08d57" stroke-width="2" stroke-dasharray="4 5"/>${paths}${labels}<text x="370" y="410" fill="var(--race-label, #53675d)" font-size="11" text-anchor="middle">REGULAR-SEASON WEEK</text>`;
     $('race-table-body').innerHTML=frame.map(row=>{
       const name=summaries.get(`${series.season.year}:${row.owner_id}`).team;
       return `<tr class="${focus===row.owner_id?'race-focused':''}" data-race-owner="${escape(row.owner_id)}"><td><span class="race-swatch" style="background:${ownerColor(row.owner_id)}"></span>${row.rank}</td><td><button type="button" data-race-owner="${escape(row.owner_id)}" aria-label="Focus ${escape(name)}">${escape(name)}</button></td><td>${row.wins}–${row.losses}${row.ties?`–${row.ties}`:''}</td><td>${fmt(row.points_for)}</td></tr>`;

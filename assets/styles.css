@@ -171,10 +171,6 @@ nav a[aria-current]{border-bottom-color:var(--bronze)}
 @media(max-width:700px){.race-intro,.race-note{padding-left:16px;padding-right:16px}.race-controls{padding:0 16px 17px;grid-template-columns:minmax(0,1fr) auto;gap:9px}.race-controls label:first-child{grid-column:1 / -1}.race-controls input[type=range]{grid-column:1}.race-controls .race-team-label{grid-column:1 / -1}.race-controls select{grid-column:1 / -1;width:100%}.race-grid{padding:0 16px 14px;gap:10px}.race-graph svg{min-width:510px}.race-summary{padding:0 16px}.race-table th,.race-table td{padding:7px 5px}}
 
 /* Theme control sits after navigation without changing the site's layout. */
-.theme-picker{display:flex;align-items:center;gap:6px;margin-left:auto;padding-bottom:21px;color:#e1ebe1;font-size:11px;font-weight:700;white-space:nowrap}
-.theme-picker select{min-height:34px;padding:5px 7px;border:1px solid #8ba89b;border-radius:5px;background:#fff;color:#19382f;font-size:12px}
-@media(max-width:850px){.theme-picker{margin:6px 0 0;padding:0 0 12px;width:max-content}}
-@media(max-width:700px){.theme-picker{padding-bottom:13px}}
 
 /* The chart controls sit directly below the graph and stay visible while swiping it. */
 .race-grid{grid-template-areas:"graph table" "controls table";grid-template-rows:auto auto}
@@ -212,3 +208,17 @@ nav a[aria-current]{border-bottom-color:var(--bronze)}
 [data-theme="dark"] .ticker-identity strong,[data-theme="dark"] .ticker-winning-score,[data-theme="dark"] .owner-directory-table .owner-choice,[data-theme="dark"] .honors-row strong,[data-theme="dark"] .record-table .final-score,[data-theme="dark"] .ticker-leader-team h3,[data-theme="dark"] .featured-tile{color:var(--accent)}
 [data-theme="dark"] .ticker-team .ticker-winner b,[data-theme="dark"] .winner .score,[data-theme="dark"] .win-label{color:var(--accent)}
 :root[data-theme="light"]{color-scheme:light}
+
+/* One header layout on desktop and mobile keeps theme buttons clickable. */
+.header-inner{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"brand theme" "nav nav";column-gap:14px;row-gap:0;align-items:center}
+.header-inner .brand{grid-area:brand;padding-bottom:12px}
+.header-inner nav{grid-area:nav;justify-content:flex-start;min-width:0}
+.header-inner nav a,.header-inner nav button{padding-top:8px;padding-bottom:12px}
+.header-inner .edition{display:none}
+.theme-switch{grid-area:theme;display:inline-flex;justify-self:end;align-items:center;gap:2px;padding:3px;margin-bottom:12px;border:1px solid #829e8d;background:#133b31;border-radius:8px;white-space:nowrap}
+.theme-switch button{border:0;border-radius:5px;background:transparent;color:#dbe7dd;font-size:11px;font-weight:700;min-width:49px;min-height:33px;padding:5px 9px}
+.theme-switch button:hover{background:#28564a;color:white}
+.theme-switch button[aria-pressed="true"]{background:#f2f5f1;color:#18453b;box-shadow:0 1px 3px #001a1538}
+.theme-switch button:focus-visible{outline:2px solid #d8c396;outline-offset:2px}
+@media(max-width:850px){.header-inner{display:grid;grid-template-columns:minmax(0,1fr) auto}.header-inner nav{justify-content:space-between}.header-inner .brand{padding-bottom:12px}.theme-switch{margin-bottom:12px}}
+@media(max-width:530px){.header-inner{grid-template-columns:minmax(0,1fr);grid-template-areas:"brand" "theme" "nav"}.theme-switch{justify-self:start;margin-bottom:8px}.header-inner .brand{padding-bottom:9px}}
