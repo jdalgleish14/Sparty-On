@@ -169,3 +169,46 @@ nav a[aria-current]{border-bottom-color:var(--bronze)}
 .race-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,1fr);gap:16px;padding:0 22px 15px;align-items:start}.race-graph{min-width:0;overflow-x:auto;border:1px solid var(--line);border-radius:7px;background:#fafcf9;overscroll-behavior-inline:contain}.race-graph svg{display:block;width:100%;min-width:510px;height:auto}.race-table-wrap{max-height:465px;overflow:auto;border:1px solid var(--line);border-radius:7px}.race-table{width:100%;border-collapse:collapse;font-size:11px;font-variant-numeric:tabular-nums}.race-table th,.race-table td{padding:8px 5px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}.race-table th:nth-child(2),.race-table td:nth-child(2){text-align:left;white-space:normal}.race-table thead{position:sticky;top:0;background:#f4f7f2;z-index:1}.race-table button{border:0;background:none;padding:0;color:var(--ink);text-align:left;font:inherit;font-weight:700;cursor:pointer}.race-table .race-focused{background:#ecf4ec}.race-swatch{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}.race-summary{padding:0 22px;font-size:12px;font-weight:700;margin:0 0 7px}.race-note{padding-bottom:19px}
 @media(max-width:900px){.race-grid{grid-template-columns:minmax(0,1fr)}.race-table-wrap{max-height:none}}
 @media(max-width:700px){.race-intro,.race-note{padding-left:16px;padding-right:16px}.race-controls{padding:0 16px 17px;grid-template-columns:minmax(0,1fr) auto;gap:9px}.race-controls label:first-child{grid-column:1 / -1}.race-controls input[type=range]{grid-column:1}.race-controls .race-team-label{grid-column:1 / -1}.race-controls select{grid-column:1 / -1;width:100%}.race-grid{padding:0 16px 14px;gap:10px}.race-graph svg{min-width:510px}.race-summary{padding:0 16px}.race-table th,.race-table td{padding:7px 5px}}
+
+/* Theme control sits after navigation without changing the site's layout. */
+.theme-picker{display:flex;align-items:center;gap:6px;margin-left:auto;padding-bottom:21px;color:#e1ebe1;font-size:11px;font-weight:700;white-space:nowrap}
+.theme-picker select{min-height:34px;padding:5px 7px;border:1px solid #8ba89b;border-radius:5px;background:#fff;color:#19382f;font-size:12px}
+@media(max-width:850px){.theme-picker{margin:6px 0 0;padding:0 0 12px;width:max-content}}
+@media(max-width:700px){.theme-picker{padding-bottom:13px}}
+
+/* The chart controls sit directly below the graph and stay visible while swiping it. */
+.race-grid{grid-template-areas:"graph table" "controls table";grid-template-rows:auto auto}
+.race-graph{grid-area:graph}.race-controls{grid-area:controls;grid-template-columns:auto minmax(90px,1fr) auto;gap:8px;padding:2px 0 0}.race-controls .race-team-label{grid-column:1}.race-controls select{grid-column:2 / 4;min-width:0}.race-table-wrap{grid-area:table}
+.race-panel .race-grid{margin-bottom:8px}.race-panel .race-graph svg{min-width:510px}
+.season-metric small{display:block;color:var(--muted);font-size:11px;line-height:1.4;margin-top:5px;overflow-wrap:anywhere}
+@media(max-width:900px){.race-grid{grid-template-areas:"graph" "controls" "table";grid-template-columns:minmax(0,1fr)}.race-controls{padding:3px 0 8px}}
+@media(max-width:700px){.race-controls{grid-template-columns:minmax(0,1fr) auto;padding:3px 0 7px}.race-controls label:first-child{grid-column:1 / -1}.race-controls input[type=range]{grid-column:1}.race-controls .race-team-label{grid-column:1 / -1}.race-controls select{grid-column:1 / -1}.race-panel .race-graph svg{min-width:510px}}
+
+/* The original helmet has been converted to transparent white; no blend mode is needed. */
+.brand .crest img{filter:none;mix-blend-mode:normal}
+
+/* Color tokens and overrides for surfaces that use fixed light colors in the original design. */
+:root[data-theme="dark"]{color-scheme:dark;--accent:#9bdac0;--ink:#e6efe9;--muted:#bdcfc2;--line:#41534b;--paper:#202c29;--bg:#14201c;--positive:#8bdfb0;--negative:#ffaba4;--race-label:#c5d8cb;--race-grid:#40554b;--race-dot-outline:#202c29}
+[data-theme="dark"] .landing-hero h1,[data-theme="dark"] .landing-hero h1 span,[data-theme="dark"] .landing-tagline,[data-theme="dark"] .leader-number,[data-theme="dark"] .season-metric strong,[data-theme="dark"] .honors-card strong,[data-theme="dark"] .archive-side.winner strong,[data-theme="dark"] .archive-side.winner b,[data-theme="dark"] .ticker-winner strong,[data-theme="dark"] .ticker-winner b,[data-theme="dark"] footer strong{color:var(--accent)}
+[data-theme="dark"] .season-metric,[data-theme="dark"] .leader-card,[data-theme="dark"] .home-ticker,[data-theme="dark"] .archive-game,[data-theme="dark"] .featured-tile,[data-theme="dark"] dialog{background:var(--paper);color:var(--ink)}
+[data-theme="dark"] th,[data-theme="dark"] .scoreboard-footer,[data-theme="dark"] .honors-card,[data-theme="dark"] .standings tbody tr:first-child td,[data-theme="dark"] .race-table thead{background:#293b33}
+[data-theme="dark"] .standings tbody tr:hover td,[data-theme="dark"] .race-table .race-focused,[data-theme="dark"] .owner-current td{background:#335145}
+[data-theme="dark"] td,[data-theme="dark"] .ticker-bottom,[data-theme="dark"] .ticker-leader-team li{border-color:var(--line)}
+[data-theme="dark"] .race-graph,[data-theme="dark"] .season-week-grid .archive-game{background:#192923}
+[data-theme="dark"] .race-table button,[data-theme="dark"] .race-controls button,[data-theme="dark"] .race-controls select,[data-theme="dark"] .season-picker select,[data-theme="dark"] .week-picker select,[data-theme="dark"] .records-panel select,[data-theme="dark"] .rivalry-selector select{background:var(--paper);color:var(--ink);border-color:var(--line)}
+[data-theme="dark"] .featured-tile .tile-description,[data-theme="dark"] .ticker-team strong,[data-theme="dark"] .ticker-team div>span,[data-theme="dark"] .ticker-team b,[data-theme="dark"] .landing-hero .eyebrow,[data-theme="dark"] .landing-intro,[data-theme="dark"] #ticker-status,[data-theme="dark"] .ticker-versus,[data-theme="dark"] .ticker-game-note,[data-theme="dark"] #ticker-counter,[data-theme="dark"] .landing-page footer>span,[data-theme="dark"] .explore-heading p{color:var(--muted)}
+[data-theme="dark"] .ticker-controls button,[data-theme="dark"] .ticker-badge,[data-theme="dark"] .selection-prompt{background:#293b33;color:var(--ink);border-color:var(--line)}
+[data-theme="dark"] .ticker-controls button:hover,[data-theme="dark"] .featured-tile:hover{background:#375344}
+[data-theme="dark"] .ticker-win{color:#f6d29d;border-color:#b08d57}
+[data-theme="dark"] .history,[data-theme="dark"] .record-intro,[data-theme="dark"] .season-banner,[data-theme="dark"] .page-tile:not(.featured-tile){background:#20483a}
+[data-theme="dark"] .page-tile:not(.featured-tile) .tile-description{color:#d6e1d6}
+[data-theme="dark"] .race-panel svg{color:var(--ink)}
+[data-theme="dark"] .skip-link{background:var(--paper);color:var(--ink)}
+[data-theme="dark"] .owner-directory-table tr.selected-owner td,[data-theme="dark"] .owner-directory-table tr:hover td,[data-theme="dark"] .owner-stage-table tbody tr:last-child td{background:#335145}
+[data-theme="dark"] .rivalry-selector,[data-theme="dark"] .rivalry-selector #swap-owners{background:#293b33;color:var(--ink);border-color:var(--line)}
+[data-theme="dark"] .rivalry-game-grid .archive-game{background:#192923}
+[data-theme="dark"] .race-controls input[type=range]{accent-color:var(--accent)}
+[data-theme="dark"] .race-controls button:hover,[data-theme="dark"] .race-table button:hover{color:var(--accent)}
+[data-theme="dark"] .ticker-identity strong,[data-theme="dark"] .ticker-winning-score,[data-theme="dark"] .owner-directory-table .owner-choice,[data-theme="dark"] .honors-row strong,[data-theme="dark"] .record-table .final-score,[data-theme="dark"] .ticker-leader-team h3,[data-theme="dark"] .featured-tile{color:var(--accent)}
+[data-theme="dark"] .ticker-team .ticker-winner b,[data-theme="dark"] .winner .score,[data-theme="dark"] .win-label{color:var(--accent)}
+:root[data-theme="light"]{color-scheme:light}

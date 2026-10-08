@@ -60,11 +60,17 @@
       set('standings-chip',isCurrent ? `Through Week ${cutoff}` : 'Final regular season');
       set('postseason-chip',isCurrent ? 'Not yet played' : 'Final');
       set('season-footer',`${year} · ${isCurrent ? `Through Week ${cutoff} · In progress` : 'Completed season'} · Read-only snapshot`);
-      const regular=yearGames.filter(g => g.stage === 'Regular Season');
-      const sum=regular.reduce((total,g) => total+g.points_for+g.points_against,0);
-      const metrics=[['Teams',season.team_count],['Weeks played',weeks],['Games played',regular.length],['Average team score',num(sum/(regular.length*2))]];
-      $('season-metrics').innerHTML=metrics.map(([label,value]) => `<div class="season-metric"><span>${label}</span><strong>${value}</strong></div>`).join('');
       const ranked=[...summary].sort((a,b) => b.wins-a.wins || a.losses-b.losses || b.points_for-a.points_for || a.owner_id.localeCompare(b.owner_id));
+      const champion=championship&&summary.find(row=>row.owner_id===championship.champion_owner_id);
+      const runnerUp=championship&&summary.find(row=>row.owner_id===championship.runner_up_owner_id);
+      const bestRecord=ranked[0];
+      const mostPoints=[...summary].sort((a,b)=>b.points_for-a.points_for||a.owner_id.localeCompare(b.owner_id))[0];
+      const metrics=[
+        ['Champion',champion,''],['Runner-up',runnerUp,''],
+        ['Best record',bestRecord,`${bestRecord.wins}–${bestRecord.losses}${bestRecord.ties?`–${bestRecord.ties}`:''}`],
+        ['Most points for',mostPoints,num(mostPoints.points_for)]
+      ];
+      $('season-metrics').innerHTML=metrics.map(([label,row,detail]) => `<div class="season-metric"><span>${label}</span><strong>${row?esc(row.team):'To be decided'}</strong><small>${row?esc(owners.get(row.owner_id))+(detail?` · ${esc(detail)}`:''):'Season in progress'}</small></div>`).join('');
       $('historic-standings').innerHTML=ranked.map((row,i) => `<tr data-owner="${esc(row.owner_id)}"><td class="rank-number">${i+1}</td><td class="owner-cell"><strong>${esc(owners.get(row.owner_id))}</strong><span class="team-name">${esc(row.team)}</span></td><td class="numeric standing-record">${row.wins}–${row.losses}–${row.ties}</td><td class="numeric">${num(row.points_for)}</td><td class="numeric">${num(row.points_against)}</td><td class="numeric">${num(row.average_points_for)}</td><td class="numeric ${row.average_margin >= 0 ? 'positive' : 'negative'}">${signed(row.average_margin)}</td></tr>`).join('');
       const winnerTeam=championship && summary.find(row => row.owner_id===championship.champion_owner_id)?.team;
       $('season-honors').innerHTML=championship ? `<div class="honors-card"><small>CHAMPION</small><strong>${esc(championship.champion_owner_name)}</strong><span>${esc(winnerTeam)} · defeated ${esc(championship.runner_up_owner_name)} ${num(championship.champion_score)}–${num(championship.runner_up_score)}</span></div>` : '<p class="honors-empty">No postseason results yet. The season is in progress.</p>';

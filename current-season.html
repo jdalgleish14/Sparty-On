@@ -4,21 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' file:; style-src 'self' file:; img-src 'self' file:; connect-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="light dark">
   <title>Current Season — Sparty On</title>
   <link rel="icon" href="assets/crest.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/styles.css">
   <script src="site-data/site-data.js" defer></script>
   <script src="assets/shared.js" defer></script>
+  <script src="assets/theme.js" defer></script>
   <script src="assets/season-analytics.js" defer></script>
   <script src="assets/app.js" defer></script>
+  <script src="assets/standings-race.js" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to standings</a>
   <header class="masthead">
     <div class="header-inner">
       <a class="brand" href="index.html" aria-label="Sparty On home"><span class="crest" aria-hidden="true"><img src="assets/spartan-helmet.png" alt=""></span><span><strong>SPARTY ON</strong><small>THE LEAGUE. THE LEGACY.</small></span></a>
-      <nav aria-label="Main navigation"><a href="index.html">Home</a><a href="current-season.html" aria-current="page">Current Season</a><a href="seasons.html">Seasons</a><a href="owners.html">Owners</a><a href="records.html">Records</a><a href="head-to-head.html">Head-to-Head</a></nav>
+      <nav aria-label="Main navigation"><a href="index.html">Home</a><a href="current-season.html" aria-current="page">Current Season</a><a href="seasons.html">Seasons</a><a href="owners.html">Owners</a><a href="records.html">Records</a><a href="head-to-head.html">Head-to-Head</a></nav><label class="theme-picker">Theme <select aria-label="Color theme" data-theme-select><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
       <span class="edition">LOCAL PREVIEW <span aria-hidden="true">/</span> 02</span>
     </div>
   </header>
@@ -49,6 +51,12 @@
           <div id="matchups"></div><div class="scoreboard-footer" id="week-summary"></div>
         </section>
       </div>
+      <section class="panel race-panel" id="race-section" aria-labelledby="race-heading" hidden>
+        <div class="section-heading"><div><p class="eyebrow">THE RACE / WEEK BY WEEK</p><h2 id="race-heading">Standings race</h2></div><span class="chip" id="race-context"></span></div>
+        <p class="race-intro">See how each team's regular-season standing changed. Drag the slider beneath the chart or press Play to watch the race.</p>
+        <div class="race-grid"><div class="race-graph" tabindex="0" role="region" aria-label="Standings race chart; scroll horizontally on a narrow screen"><svg id="race-chart" viewBox="0 0 740 420" role="img" aria-label="Weekly standing ranks. A full text table is beside the chart."></svg></div><div class="race-controls"><label for="race-week">Week <span id="race-week-label">Week 1</span></label><input type="range" id="race-week" min="1" max="14" value="1" step="any" aria-label="Standings through week"><button type="button" id="race-play" aria-pressed="false">Play</button><label for="race-team" class="race-team-label">Focus on team</label><select id="race-team" aria-label="Focus on a team"><option value="">All teams</option></select></div><div class="race-table-wrap" tabindex="0" role="region" aria-label="Standings through selected week"><table class="race-table"><thead><tr><th scope="col">#</th><th scope="col">Team</th><th scope="col">W–L</th><th scope="col">PF</th></tr></thead><tbody id="race-table-body"></tbody></table></div></div>
+        <p class="race-summary" id="race-week-summary" role="status"></p><p class="race-note">Ranked by wins, then losses, then points for. Select a team to highlight its path. Current seasons stop at the last verified week.</p>
+      </section>
       <section class="leaders-section" aria-labelledby="leaders-title"><div class="section-line"><h2 id="leaders-title">Setting the pace</h2><p id="leaders-context"></p></div><div class="leaders-grid" id="leaders"></div></section>
       <section class="season-detail-section" aria-labelledby="season-detail-title">
         <div class="section-line"><h2 id="season-detail-title">A closer look at the season</h2><p id="analytics-context"></p></div>
