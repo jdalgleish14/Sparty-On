@@ -15,3 +15,12 @@
   }));
   $('close-dialog').addEventListener('click', () => $('section-dialog').close());
 })();
+/* Ask Sparty navigation. Safe to include on every existing page. */
+(() => {
+  const nav = document.querySelector('nav[aria-label="Main navigation"]');
+  if (!nav || nav.querySelector('a[href="ask.html"]')) return;
+  const link = document.createElement('a');
+  link.href = 'ask.html';
+  link.textContent = 'Ask Sparty';
+  nav.append(link);
+})();
