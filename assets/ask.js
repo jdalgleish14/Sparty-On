@@ -89,7 +89,13 @@
         signal: controller.signal
       });
       const result = await response.json();
-      if (!response.ok) throw new Error(result.error || 'No verified answer was available for that question.');
+      if (!response.ok) {
+        const isUnansweredQuestion = response.status === 400 && /^(?:I cannot verify|I can’t verify|I could not interpret|I couldn’t interpret|No published records|No matching|No qualifying|No championship|No consecutive weeks|No numeric values|No values were published|Those owners have no recorded|Name two owners|Please simplify|That filter could not be checked|I couldn’t identify the owners)/i.test(result.error || '');
+        const message = isUnansweredQuestion
+          ? "Don't ask stupid questions, try something different"
+          : result.error || 'Could not check that question right now. Please try again shortly.';
+        throw new Error(message);
+      }
       render(result);
       setStatus('');
     } catch (error) {
