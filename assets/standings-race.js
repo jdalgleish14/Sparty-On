@@ -79,9 +79,14 @@
     $('race-team').value='';$('race-section').hidden=false;render();
   }
   const yearSelect=$('year-select');
-  try{selectYear(yearSelect?Number(yearSelect.value):[...seasons.values()].find(s=>s.status==='Current').year);}
-  catch(_){$('race-section').hidden=true;return;}
-  if(yearSelect)yearSelect.addEventListener('change',event=>{try{selectYear(Number(event.target.value));}catch(_){pause();$('race-section').hidden=true;}});
+  if (!yearSelect || yearSelect.value) {
+    try { selectYear(yearSelect ? Number(yearSelect.value) : [...seasons.values()].find(s=>s.status==='Current').year); }
+    catch (_) { $('race-section').hidden=true; }
+  }
+  if(yearSelect)yearSelect.addEventListener('change',event=>{
+    if (!event.target.value) { pause();$('race-section').hidden=true;return; }
+    try{selectYear(Number(event.target.value));}catch(_){pause();$('race-section').hidden=true;}
+  });
   $('race-week').addEventListener('input',event=>{pause();position=Math.max(1,Math.min(series.weeks,Number(event.target.value)));render();});
   $('race-team').addEventListener('change',event=>{focus=event.target.value;render();});
   $('race-play').addEventListener('click',()=>{

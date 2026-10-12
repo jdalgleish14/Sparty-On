@@ -32,7 +32,9 @@
       for (let week=1;week<=weeks;week++) if (regular.filter(g => g.week === week).length !== season.team_count/2) throw Error('Incomplete week');
       if (championship && !yearGames.some(g => g.round === 'Championship' && g.owner_id === championship.champion_owner_id && g.opponent_owner_id === championship.runner_up_owner_id && g.points_for === championship.champion_score && g.points_against === championship.runner_up_score)) throw Error('Championship mismatch');
     }
-    $('year-select').innerHTML = seasons.map(s => `<option value="${s.year}">${s.year}${s.status === 'Current' ? ' · In progress' : ''}</option>`).join('');
+    $('year-select').innerHTML = '<option value="" selected>Select a Season</option>' + seasons.map(s => `<option value="${s.year}">${s.year}${s.status === 'Current' ? ' · In progress' : ''}</option>`).join('');
+    const sections=[...$('seasons-page').children].filter(el => !el.classList.contains('season-intro') && el.tagName !== 'FOOTER');
+    sections.forEach(el => { el.hidden=true; });
     const gameCard = g => {
       const win = g.points_for > g.points_against, tie = g.points_for === g.points_against;
       const side = (name,team,score,isWinner) => `<div class="archive-side${isWinner ? ' winner' : ''}"><span><strong>${esc(name)}</strong><small>${esc(team)}</small></span><b>${num(score)}</b></div>`;
@@ -53,6 +55,7 @@
       const {season,summary,games:yearGames,championship}=entry;
       const isCurrent=season.status === 'Current', weeks=isCurrent ? cutoff : season.regular_season_weeks;
       $('year-select').value=String(year);
+      sections.forEach(el => { if (el.id !== 'race-section') el.hidden=false; });
       set('season-era',`${season.era.toUpperCase()} / ${season.team_count} TEAMS`);
       set('season-heading',`${year} season`);
       set('season-subtitle',isCurrent ? `Through Week ${cutoff} · Regular season in progress` : `${season.regular_season_weeks} regular-season weeks · Championship decided`);
@@ -96,9 +99,15 @@
       }).join('');
       renderWeek(entry);
     }
-    $('year-select').addEventListener('change',event => renderYear(event.target.value));
+    $('year-select').addEventListener('change',event => {
+      if (!event.target.value) {
+        sections.forEach(el => { el.hidden=true; });
+        set('season-footer','');
+        return;
+      }
+      renderYear(event.target.value);
+    });
     $('week-select').addEventListener('change',event => renderWeek(byYear.get(Number($('year-select').value)),event.target.value));
-    renderYear(seasons.find(s => s.status === 'Complete').year);
     $('load-status').hidden=true; $('seasons-page').hidden=false;
   } catch (_) {
     $('seasons-page').hidden=true; $('load-status').hidden=false;
