@@ -20,13 +20,12 @@
     d.games.forEach(g => { if (!pairs.has(g.game_id)) pairs.set(g.game_id, []); pairs.get(g.game_id).push(g); });
     if (!Number.isInteger(week) || week < 1 || week > season.regular_season_weeks || week !== d.validation_report.publication_cutoff.current_season_through_week || standings.length !== season.team_count || new Set(standings.map(s => s.owner_id)).size !== season.team_count || d.games.length !== d.validation_report.counts.game_rows || pairs.size !== d.validation_report.counts.all_games || [...pairs.values()].some(p => p.length !== 2) || currentGames.some(g => g.week > week) || standings.some(s => !owners.has(s.owner_id) || s.season_status !== 'Current' || s.year !== year || s.games_played !== week)) throw new Error('Snapshot mismatch');
     for (let w = 1; w <= week; w++) if (currentGames.filter(g => g.week === w).length !== season.team_count) throw new Error('Incomplete week');
-    const weekGames = [...pairs.values()].filter(p => p[0].year === year && p[0].stage === 'Regular Season' && p[0].week === week).map(p => p.find(g => g.result === 'W') || p[0]);
+    const seasonPairs = [...pairs.values()].filter(p => p[0].year === year && p[0].stage === 'Regular Season' && p[0].week <= week);
     const hasTies = standings.some(s => s.ties > 0);
     const freshness = `${year} · Through Week ${week}`;
     text('freshness',freshness); text('footer-freshness',`${freshness} · Read-only snapshot`);
     text('era-label',`${season.era.toUpperCase()} / ${year}`);
     text('standings-context',`${standings.length} teams · ${week} games per team`);
-    text('results-title',`Week ${week} results`);
     text('leaders-context',`${year} regular season · Through Week ${week} · In progress`);
     $('tie-heading').hidden = !hasTies;
     const record = s => `${s.wins}–${s.losses}${hasTies ? `–${s.ties}` : ''}`;
@@ -40,11 +39,23 @@
     renderStandings();
     document.querySelectorAll('th[data-sort] button').forEach(button => button.addEventListener('click', () => { const key = button.parentElement.dataset.sort; direction = key === sortKey ? -direction : (key === 'rank' ? 1 : -1); sortKey = key; renderStandings(); text('sort-status',`Table sorted by ${button.title || 'rank'}, ${direction === 1 ? 'ascending' : 'descending'}.`); }));
     $('reset-sort').addEventListener('click', () => { sortKey = 'rank'; direction = 1; renderStandings(); text('sort-status','Standings order restored.'); document.querySelector('th[data-sort="rank"] button').focus(); });
-    const closest = Math.min(...weekGames.map(g => Math.abs(g.margin)));
     const side = (owner,team,score,winner) => `<div class="matchup-side ${winner ? 'winner' : ''}"><div><strong>${esc(owner)}${winner ? '<span class="win-label">W</span>' : ''}</strong><span class="team-name">${esc(team)}</span></div><span class="score">${num(score)}</span></div>`;
-    $('matchups').innerHTML = weekGames.map(g => `<article class="matchup" data-game="${esc(g.game_id)}" aria-label="${esc(g.owner_name)} versus ${esc(g.opponent_owner_name)}"><div class="matchup-meta"><span>${g.result === 'T' ? 'Final · Tie' : Math.abs(g.margin) === closest ? 'Closest game' : 'Final'}</span><span class="margin-label">Margin ${num(Math.abs(g.margin))}</span></div>${side(g.owner_name,g.team,g.points_for,g.result === 'W')}${side(g.opponent_owner_name,g.opponent_team,g.points_against,false)}</article>`).join('');
-    const weeklyTotal = weekGames.reduce((s,g) => s+g.points_for+g.points_against,0);
-    $('week-summary').innerHTML = `<strong>${num(weeklyTotal)}</strong> total points · <strong>${num(weeklyTotal / (weekGames.length * 2))}</strong> per team`;
+    const weekSelect = $('scoreboard-week');
+    weekSelect.innerHTML = Array.from({length:week}, (_,i) => `<option value="${i+1}">Week ${i+1}</option>`).join('');
+    weekSelect.value = String(week);
+    function renderScoreboard(selectedWeek) {
+      const weekGames = seasonPairs.filter(p => p[0].week === selectedWeek).map(p => p.find(g => g.result === 'W') || p[0]);
+      const closest = Math.min(...weekGames.map(g => Math.abs(g.margin)));
+      text('results-title',`Week ${selectedWeek} results`);
+      $('matchups').innerHTML = weekGames.map(g => `<article class="matchup" data-game="${esc(g.game_id)}" aria-label="${esc(g.owner_name)} versus ${esc(g.opponent_owner_name)}"><div class="matchup-meta"><span>${g.result === 'T' ? 'Final · Tie' : Math.abs(g.margin) === closest ? 'Closest game' : 'Final'}</span><span class="margin-label">Margin ${num(Math.abs(g.margin))}</span></div>${side(g.owner_name,g.team,g.points_for,g.result === 'W')}${side(g.opponent_owner_name,g.opponent_team,g.points_against,false)}</article>`).join('');
+      const weeklyTotal = weekGames.reduce((s,g) => s+g.points_for+g.points_against,0);
+      $('week-summary').innerHTML = `<strong>${num(weeklyTotal)}</strong> total points · <strong>${num(weeklyTotal / (weekGames.length * 2))}</strong> per team`;
+    }
+    renderScoreboard(week);
+    weekSelect.addEventListener('change', () => {
+      const selectedWeek = Number(weekSelect.value);
+      if (Number.isInteger(selectedWeek) && selectedWeek >= 1 && selectedWeek <= week) renderScoreboard(selectedWeek);
+    });
     function leadersBy(items,key) { const best = Math.max(...items.map(s => s[key])); return {best, rows:items.filter(s => s[key] === best)}; }
     const pf = leadersBy(standings,'points_for'), margin = leadersBy(standings,'average_margin'), high = leadersBy(currentGames,'points_for');
     const leaderCard = (title,value,unit,names,details) => `<article class="leader-card"><h3>${title}</h3><div class="leader-number">${value}<small>${unit}</small></div><p class="leader-name">${esc(names)}</p><p class="leader-detail">${esc(details)}</p></article>`;
