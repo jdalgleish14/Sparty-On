@@ -1,0 +1,128 @@
+name: Sleeper weekly update
+
+# Scheduled runs publish verified weeks automatically. Manual runs default to report-only.
+on:
+  workflow_dispatch:
+    inputs:
+      baseline_ref:
+        description: "Optional git ref with a fresh Excel export to compare before publishing"
+        required: false
+        default: ""
+      dry_run:
+        description: "Build and report only; do not publish"
+        type: boolean
+        default: true
+  schedule:
+    # Tuesday morning and midday, Wednesday fallback, Eastern local time.
+    - cron: "13 8 * * 2"
+      timezone: "America/New_York"
+    - cron: "13 11 * * 2"
+      timezone: "America/New_York"
+    - cron: "43 12 * * 2"
+      timezone: "America/New_York"
+    - cron: "13 8 * * 3"
+      timezone: "America/New_York"
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: sleeper-weekly-update
+  cancel-in-progress: false
+
+env:
+  DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
+  BASELINE_REF: ${{ github.event_name == 'workflow_dispatch' && inputs.baseline_ref || '' }}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run generator unit tests
+        run: python -m unittest discover -s tools/sleeper/tests -p "test_*.py"
+      - name: Confirm committed data is healthy
+        run: python tools/sleeper/sync.py verify
+      - name: Fetch from Sleeper and build
+        id: sync
+        shell: bash
+        run: |
+          set +e
+          python tools/sleeper/sync.py run --parity --report "$RUNNER_TEMP/report.md" --github-output "$GITHUB_OUTPUT"
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          # 0 = verified new week; 10 = nothing new. Other codes block publication.
+          if [ "$code" -ne 0 ] && [ "$code" -ne 10 ]; then
+            echo "blocked=true" >> "$GITHUB_OUTPUT"
+          fi
+          exit 0
+      - name: Show the report
+        if: always()
+        shell: bash
+        run: |
+          [ -f "$RUNNER_TEMP/report.md" ] && cat "$RUNNER_TEMP/report.md" >> "$GITHUB_STEP_SUMMARY" || true
+      - name: Fail when the run is blocked
+        if: steps.sync.outputs.blocked == 'true'
+        env:
+          EXIT_CODE: ${{ steps.sync.outputs.exit_code }}
+        run: |
+          echo "::error::Sleeper sync blocked (exit $EXIT_CODE). Nothing was published. See the job summary."
+          exit 1
+      - name: Optional comparison with an Excel export
+        if: steps.sync.outputs.exit_code == '0' && env.BASELINE_REF != ''
+        shell: bash
+        run: |
+          git fetch origin "$BASELINE_REF"
+          mkdir -p "$RUNNER_TEMP/baseline"
+          git archive FETCH_HEAD site-data | tar -x -C "$RUNNER_TEMP/baseline"
+          python tools/sleeper/sync.py compare --baseline "$RUNNER_TEMP/baseline/site-data" --candidate site-data >> "$GITHUB_STEP_SUMMARY"
+      - name: Verify rebuilt data
+        if: steps.sync.outputs.exit_code == '0'
+        run: python tools/sleeper/sync.py verify
+      - name: Commit and push verified site data
+        id: publish
+        if: steps.sync.outputs.exit_code == '0' && env.DRY_RUN != 'true'
+        shell: bash
+        env:
+          WEEK: ${{ steps.sync.outputs.week }}
+          SEASON: ${{ steps.sync.outputs.season }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # A concurrent change to main makes this non-force push fail.
+          git add site-data
+          git diff --cached --quiet && { echo "::error::No data changes to publish."; exit 1; }
+          git commit -m "Sleeper sync: $SEASON week $WEEK"
+          git push origin HEAD:refs/heads/main
+          echo "published_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Request the live Pages build
+        if: steps.publish.outcome == 'success'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PUBLISHED_SHA: ${{ steps.publish.outputs.published_sha }}
+        run: |
+          # Bot commits do not automatically trigger branch-source Pages builds.
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$PUBLISHED_SHA" || {
+            echo "::error::main moved after the Sleeper push; no Pages build requested."
+            exit 1
+          }
+          gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds" > "$RUNNER_TEMP/pages-build.json"
+          python - "$RUNNER_TEMP/pages-build.json" <<'PY'
+          import json, sys
+          with open(sys.argv[1], encoding='utf-8') as stream:
+              result = json.load(stream)
+          print('Requested GitHub Pages build:', result.get('url', result))
+          PY
+          echo "Published $PUBLISHED_SHA to main and requested a GitHub Pages build." >> "$GITHUB_STEP_SUMMARY"

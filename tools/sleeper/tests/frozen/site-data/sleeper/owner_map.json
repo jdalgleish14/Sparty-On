@@ -1,0 +1,19 @@
+{
+  "_comment": "Maps Sleeper roster ids to the site's owner ids. This is a pinned configuration file: the generator proves it on every run by requiring that every already-published week matches Sleeper exactly. Change it only if an owner takes over a different roster.",
+  "league_id": "1386532723459362816",
+  "season": 2026,
+  "rosters": {
+    "1": "owner-nick",
+    "2": "owner-ryan",
+    "3": "owner-tj",
+    "4": "owner-brian",
+    "5": "owner-spencer",
+    "6": "owner-kyle",
+    "7": "owner-wilson",
+    "8": "owner-tyler",
+    "9": "owner-dan",
+    "10": "owner-alex",
+    "11": "owner-jack",
+    "12": "owner-andres"
+  }
+}

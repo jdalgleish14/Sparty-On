@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at_utc": "2026-10-07T01:06:47+00:00",
+  "source_sha256": "3da91a0c74f9c6c99f808d857634398b25599c73a26b022ad1cd58a1b7ce5e73",
+  "publication_cutoff": {
+    "current_season_through_week": 4
+  },
+  "files": {
+    "championships.json": {
+      "sha256": "2cfe7d616a034c2fd6b60e7ebb94862020ad9b1d1b951c70727bf70dbeb1fb05",
+      "bytes": 2893
+    },
+    "current_standings.json": {
+      "sha256": "2c96c8ef1fad987742ecc5ca2f5076f67f87ce9b0a41847f6df2b7718c448e98",
+      "bytes": 4723
+    },
+    "games.json": {
+      "sha256": "d53d42e6a7fc5110fb68fc28e1a53bc0f830f08556c2169b7398150f7327b96a",
+      "bytes": 1112122
+    },
+    "head_to_head.json": {
+      "sha256": "f552a2a69cf1b7e7b2075e4e56ba9705de1c5a22c5331d41077d70bbc168fd43",
+      "bytes": 33173
+    },
+    "league.json": {
+      "sha256": "61c6aae31f41b98492592da47937705ef109ed16c187fded56ae5a9ce6d3e124",
+      "bytes": 153
+    },
+    "owner_careers.json": {
+      "sha256": "28ddabd7e19225b811013dbf2396374e43317b91c8d040f1abf2c32cdb8e02f1",
+      "bytes": 5254
+    },
+    "owners.json": {
+      "sha256": "1776b1cf26a900ebdce610fe65714b85ad3f382ebe55706ba5eb4dbc938000d6",
+      "bytes": 1117
+    },
+    "records.json": {
+      "sha256": "13ac002193e2bf2d3aecce37568fc410cc68aad0ddd44b46dae396af0f720d7a",
+      "bytes": 52628
+    },
+    "season_summaries.json": {
+      "sha256": "4453289aa1658be8bba5a5d6a906e62620773184f92b4687e82612f89e5dc938",
+      "bytes": 63310
+    },
+    "seasons.json": {
+      "sha256": "c47c99d2feed3c5d42eabc18925299bbd9a3b929314e2d22106f4647fbb2a1be",
+      "bytes": 8329
+    },
+    "validation_report.json": {
+      "sha256": "ae03161de28b2ba5a617c9ee9a5fd238a0a1e4ceb8c2b89a5890b2fbe4f8cdb9",
+      "bytes": 1388
+    }
+  }
+}
