@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "source_sha256": "3da91a0c74f9c6c99f808d857634398b25599c73a26b022ad1cd58a1b7ce5e73",
+  "publication_cutoff": {
+    "current_season_through_week": 4
+  },
+  "checks": [
+    {
+      "name": "current_season_roster_order_complete",
+      "status": "PASS",
+      "detail": "owners=12"
+    },
+    {
+      "name": "original_entries_match_normalized_regular_season",
+      "status": "PASS",
+      "detail": "raw=2110, normalized=2110, missing=0, extra=0"
+    },
+    {
+      "name": "owner_mapping_complete",
+      "status": "PASS",
+      "detail": "issues=0"
+    },
+    {
+      "name": "no_partial_published_score_rows",
+      "status": "PASS",
+      "detail": "issues=0"
+    },
+    {
+      "name": "approved_current_weeks_are_complete",
+      "status": "PASS",
+      "detail": "expected_matchups_per_week=6, incomplete_weeks=[]"
+    },
+    {
+      "name": "two_owner_rows_per_game",
+      "status": "PASS",
+      "detail": "games=1139, invalid=0"
+    },
+    {
+      "name": "postseason_winners_have_higher_score",
+      "status": "PASS",
+      "detail": "games=84"
+    },
+    {
+      "name": "all_release_checks",
+      "status": "PASS",
+      "detail": "Export is releasable"
+    }
+  ],
+  "counts": {
+    "regular_season_matchups": 1055,
+    "postseason_games": 84,
+    "all_games": 1139,
+    "game_rows": 2278,
+    "owners": 17,
+    "active_season_summaries": 166
+  }
+}

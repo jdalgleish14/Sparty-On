@@ -1,0 +1,110 @@
+[
+  {
+    "year": 2014,
+    "champion_owner_id": "owner-jack",
+    "champion_owner_name": "Jack",
+    "runner_up_owner_id": "owner-jon",
+    "runner_up_owner_name": "Jon",
+    "champion_score": 92.76,
+    "runner_up_score": 92.7
+  },
+  {
+    "year": 2015,
+    "champion_owner_id": "owner-ryan",
+    "champion_owner_name": "Ryan",
+    "runner_up_owner_id": "owner-tyler",
+    "runner_up_owner_name": "Tyler",
+    "champion_score": 90.0,
+    "runner_up_score": 88.04
+  },
+  {
+    "year": 2016,
+    "champion_owner_id": "owner-spencer",
+    "champion_owner_name": "Spencer",
+    "runner_up_owner_id": "owner-jon",
+    "runner_up_owner_name": "Jon",
+    "champion_score": 132.98,
+    "runner_up_score": 118.06
+  },
+  {
+    "year": 2017,
+    "champion_owner_id": "owner-spencer",
+    "champion_owner_name": "Spencer",
+    "runner_up_owner_id": "owner-andres",
+    "runner_up_owner_name": "Andres",
+    "champion_score": 95.26,
+    "runner_up_score": 90.6
+  },
+  {
+    "year": 2018,
+    "champion_owner_id": "owner-brian",
+    "champion_owner_name": "Brian",
+    "runner_up_owner_id": "owner-andres",
+    "runner_up_owner_name": "Andres",
+    "champion_score": 152.04,
+    "runner_up_score": 117.74
+  },
+  {
+    "year": 2019,
+    "champion_owner_id": "owner-schubert",
+    "champion_owner_name": "Schubert",
+    "runner_up_owner_id": "owner-tyler",
+    "runner_up_owner_name": "Tyler",
+    "champion_score": 146.36,
+    "runner_up_score": 116.12
+  },
+  {
+    "year": 2020,
+    "champion_owner_id": "owner-andres",
+    "champion_owner_name": "Andres",
+    "runner_up_owner_id": "owner-wilson",
+    "runner_up_owner_name": "Wilson",
+    "champion_score": 138.32,
+    "runner_up_score": 121.08
+  },
+  {
+    "year": 2021,
+    "champion_owner_id": "owner-tyler",
+    "champion_owner_name": "Tyler",
+    "runner_up_owner_id": "owner-schubert",
+    "runner_up_owner_name": "Schubert",
+    "champion_score": 139.46,
+    "runner_up_score": 135.44
+  },
+  {
+    "year": 2022,
+    "champion_owner_id": "owner-spencer",
+    "champion_owner_name": "Spencer",
+    "runner_up_owner_id": "owner-schubert",
+    "runner_up_owner_name": "Schubert",
+    "champion_score": 103.0,
+    "runner_up_score": 86.86
+  },
+  {
+    "year": 2023,
+    "champion_owner_id": "owner-tj",
+    "champion_owner_name": "TJ",
+    "runner_up_owner_id": "owner-nick",
+    "runner_up_owner_name": "Nick",
+    "champion_score": 110.58,
+    "runner_up_score": 98.54
+  },
+  {
+    "year": 2024,
+    "champion_owner_id": "owner-wilson",
+    "champion_owner_name": "Wilson",
+    "runner_up_owner_id": "owner-dan",
+    "runner_up_owner_name": "Dan",
+    "champion_score": 134.62,
+    "runner_up_score": 109.78
+  },
+  {
+    "year": 2025,
+    "champion_owner_id": "owner-kyle",
+    "champion_owner_name": "Kyle",
+    "runner_up_owner_id": "owner-dan",
+    "runner_up_owner_name": "Dan",
+    "champion_score": 124.08,
+    "runner_up_score": 119.62
+  }
+]
