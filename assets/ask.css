@@ -1,5 +1,10 @@
 .ask-page main{max-width:1120px}
 .ask-intro{padding-bottom:24px}
+.ask-intro{max-width:940px;margin:0 auto;gap:12px}
+.ask-intro>div:first-child{min-width:0}
+.ask-mascot{flex:none;width:96px;height:104px;margin:0 4px 0 auto}
+.ask-mascot-sprite{display:block;width:96px;height:104px;background:url("sparty-v2-spritesheet.png") 0 0 / 768px 1144px no-repeat;image-rendering:pixelated}
+@media(max-width:700px){.ask-intro{display:flex;align-items:center}.ask-mascot{width:77px;height:84px;margin:0 0 0 auto}.ask-mascot-sprite{transform:scale(.8);transform-origin:top left}}
 .ask-panel,.ask-answer{max-width:940px;margin:0 auto 22px;border-top:3px solid var(--bronze)}
 .ask-panel .section-heading{padding-bottom:8px}
 .ask-form{padding:8px 22px 19px}

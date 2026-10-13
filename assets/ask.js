@@ -7,6 +7,33 @@
   const answer = $('ask-answer'), status = $('ask-status');
   const setStatus = (message, error = false) => { status.textContent = message; status.classList.toggle('is-error', error); };
   const clear = element => { while (element.firstChild) element.firstChild.remove(); };
+  const sprite = $('ask-mascot-sprite');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const poses = {idle:{row:0,frames:7},thinking:{row:8,frames:6},success:{row:3,frames:4},error:{row:6,frames:6}};
+  let pose = 'idle', frame = 0, animation, resetPose;
+  function drawMascot() {
+    const {row} = poses[pose];
+    sprite.style.backgroundPosition = `-${frame * 96}px -${row * 104}px`;
+  }
+  function startMascot() {
+    clearInterval(animation);
+    drawMascot();
+    if (reduceMotion.matches || document.hidden) return;
+    animation = setInterval(() => {
+      frame = (frame + 1) % poses[pose].frames;
+      drawMascot();
+    }, pose === 'thinking' ? 310 : 240);
+  }
+  function setMascot(next, duration = 0) {
+    clearTimeout(resetPose);
+    pose = next;
+    frame = 0;
+    startMascot();
+    if (duration) resetPose = setTimeout(() => setMascot('idle'), duration);
+  }
+  document.addEventListener('visibilitychange', startMascot);
+  reduceMotion.addEventListener('change', startMascot);
+  startMascot();
 
   function renderTable(container, columns, rows, name) {
     clear(container);
@@ -78,6 +105,7 @@
     if (question.length < 6 || question.length > 180) { setStatus('Enter a question between 6 and 180 characters.', true); return; }
     button.disabled = true;
     answer.hidden = true;
+    setMascot('thinking');
     setStatus('Checking the league records…');
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 45000);
@@ -98,7 +126,9 @@
       }
       render(result);
       setStatus('');
+      setMascot('success', 1700);
     } catch (error) {
+      setMascot('error', 1900);
       setStatus(error.name === 'AbortError' ? 'That question took too long. Please try again.' :
         error instanceof TypeError ? 'Could not reach the question service. Please try again shortly.' :
         error.message || 'Could not answer that question. Please try rephrasing it.', true);
