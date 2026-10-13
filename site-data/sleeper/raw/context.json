@@ -1,0 +1,142 @@
+{
+  "league_id": "1386532723459362816",
+  "season": "2026",
+  "status": "in_season",
+  "total_rosters": 12,
+  "last_scored_leg": 5,
+  "leg": 5,
+  "start_week": 1,
+  "playoff_week_start": 15,
+  "state": {
+    "season": "2026",
+    "season_type": "regular",
+    "week": 6,
+    "display_week": 5,
+    "leg": 6
+  },
+  "rosters": [
+    {
+      "roster_id": 1,
+      "owner_id": "1386532330365009921",
+      "co_owners": []
+    },
+    {
+      "roster_id": 2,
+      "owner_id": "1387426206508412928",
+      "co_owners": []
+    },
+    {
+      "roster_id": 3,
+      "owner_id": "1266462909588840448",
+      "co_owners": []
+    },
+    {
+      "roster_id": 4,
+      "owner_id": "1387435228821225472",
+      "co_owners": []
+    },
+    {
+      "roster_id": 5,
+      "owner_id": "1387137242522189824",
+      "co_owners": []
+    },
+    {
+      "roster_id": 6,
+      "owner_id": "1004076495381340160",
+      "co_owners": []
+    },
+    {
+      "roster_id": 7,
+      "owner_id": "1387453038607740928",
+      "co_owners": []
+    },
+    {
+      "roster_id": 8,
+      "owner_id": "1387458367550652416",
+      "co_owners": []
+    },
+    {
+      "roster_id": 9,
+      "owner_id": "1387465892522131456",
+      "co_owners": []
+    },
+    {
+      "roster_id": 10,
+      "owner_id": "867847606192201728",
+      "co_owners": []
+    },
+    {
+      "roster_id": 11,
+      "owner_id": "1387628411928731648",
+      "co_owners": []
+    },
+    {
+      "roster_id": 12,
+      "owner_id": "1387862164160647168",
+      "co_owners": []
+    }
+  ],
+  "users": [
+    {
+      "user_id": "867847606192201728",
+      "display_name": "WroboAl",
+      "team_name": "The Prodigal Sons"
+    },
+    {
+      "user_id": "1004076495381340160",
+      "display_name": "Sawyerk39",
+      "team_name": "Return of the Mc\u2019s"
+    },
+    {
+      "user_id": "1266462909588840448",
+      "display_name": "TJGoBrits",
+      "team_name": "Motor City Dan Campbell"
+    },
+    {
+      "user_id": "1386532330365009921",
+      "display_name": "baldusni",
+      "team_name": "Fresh & Explosive"
+    },
+    {
+      "user_id": "1387137242522189824",
+      "display_name": "naultspe",
+      "team_name": "3x & B2B"
+    },
+    {
+      "user_id": "1387426206508412928",
+      "display_name": "BigTaxGuy",
+      "team_name": "Homegrown"
+    },
+    {
+      "user_id": "1387435228821225472",
+      "display_name": "bvandercruyssen",
+      "team_name": "The Vandercruyssen Empire"
+    },
+    {
+      "user_id": "1387453038607740928",
+      "display_name": "onebigwillie69",
+      "team_name": "Willie\u2019s Chubb"
+    },
+    {
+      "user_id": "1387458367550652416",
+      "display_name": "TPorritt",
+      "team_name": "Porritt Drink It Chase It"
+    },
+    {
+      "user_id": "1387465892522131456",
+      "display_name": "danburton327339",
+      "team_name": "Room 40"
+    },
+    {
+      "user_id": "1387628411928731648",
+      "display_name": "jdalgleish14",
+      "team_name": "Touchy Time"
+    },
+    {
+      "user_id": "1387862164160647168",
+      "display_name": "acardoso",
+      "team_name": "2 Much Salsa "
+    }
+  ],
+  "fetched_at_utc": "2026-10-13T14:19:46+00:00"
+}

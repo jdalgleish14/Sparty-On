@@ -1,0 +1,200 @@
+{
+  "league_id": "1386532723459362816",
+  "season": "2026",
+  "week": 2,
+  "fetched_at_utc": "2026-10-13T14:19:47+00:00",
+  "matchups": [
+    {
+      "roster_id": 1,
+      "matchup_id": 4,
+      "points": 119.18,
+      "custom_points": null,
+      "starters": [
+        "6904",
+        "12529",
+        "6790",
+        "7547",
+        "6801",
+        "8131",
+        "12514",
+        "4017"
+      ]
+    },
+    {
+      "roster_id": 2,
+      "matchup_id": 1,
+      "points": 57.04,
+      "custom_points": null,
+      "starters": [
+        "11560",
+        "13424",
+        "13347",
+        "8112",
+        "8137",
+        "7553",
+        "7525",
+        "11564"
+      ]
+    },
+    {
+      "roster_id": 3,
+      "matchup_id": 6,
+      "points": 94.16,
+      "custom_points": null,
+      "starters": [
+        "3163",
+        "9224",
+        "8151",
+        "9493",
+        "8148",
+        "9482",
+        "5892",
+        "12545"
+      ]
+    },
+    {
+      "roster_id": 4,
+      "matchup_id": 2,
+      "points": 81.32,
+      "custom_points": null,
+      "starters": [
+        "11563",
+        "9221",
+        "12481",
+        "8126",
+        "4983",
+        "4217",
+        "12512",
+        "6804"
+      ]
+    },
+    {
+      "roster_id": 5,
+      "matchup_id": 6,
+      "points": 87.88,
+      "custom_points": null,
+      "starters": [
+        "3294",
+        "9509",
+        "13287",
+        "12526",
+        "5927",
+        "12517",
+        "7611",
+        "12522"
+      ]
+    },
+    {
+      "roster_id": 6,
+      "matchup_id": 3,
+      "points": 110.8,
+      "custom_points": null,
+      "starters": [
+        "4984",
+        "8155",
+        "7543",
+        "11632",
+        "5846",
+        "5012",
+        "4199",
+        "8183"
+      ]
+    },
+    {
+      "roster_id": 7,
+      "matchup_id": 5,
+      "points": 100.96,
+      "custom_points": null,
+      "starters": [
+        "6770",
+        "12507",
+        "12527",
+        "11646",
+        "5872",
+        "9484",
+        "7526",
+        "9228"
+      ]
+    },
+    {
+      "roster_id": 8,
+      "matchup_id": 2,
+      "points": 98.3,
+      "custom_points": null,
+      "starters": [
+        "6797",
+        "13286",
+        "12534",
+        "7564",
+        "12519",
+        "8130",
+        "7571",
+        "9758"
+      ]
+    },
+    {
+      "roster_id": 9,
+      "matchup_id": 3,
+      "points": 97.46,
+      "custom_points": null,
+      "starters": [
+        "4046",
+        "8138",
+        "11584",
+        "6794",
+        "8134",
+        "12518",
+        "10222",
+        "8161"
+      ]
+    },
+    {
+      "roster_id": 10,
+      "matchup_id": 4,
+      "points": 113.9,
+      "custom_points": null,
+      "starters": [
+        "11566",
+        "6813",
+        "4034",
+        "10229",
+        "11635",
+        "10859",
+        "8150",
+        "7523"
+      ]
+    },
+    {
+      "roster_id": 11,
+      "matchup_id": 5,
+      "points": 116.02,
+      "custom_points": null,
+      "starters": [
+        "4881",
+        "9226",
+        "7588",
+        "6786",
+        "8146",
+        "10236",
+        "8167",
+        "3161"
+      ]
+    },
+    {
+      "roster_id": 12,
+      "matchup_id": 1,
+      "points": 118.38,
+      "custom_points": null,
+      "starters": [
+        "12508",
+        "3198",
+        "4866",
+        "9488",
+        "8144",
+        "5022",
+        "7594",
+        "421"
+      ]
+    }
+  ]
+}
