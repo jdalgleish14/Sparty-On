@@ -123,9 +123,7 @@ def build_report(base, ds, report, changed, context, raw_weeks, stability, parit
              "",
              f"- Publication cutoff moves from **week {report['published_week_before']}** to **week {report['through_week']}**.",
              f"- Sleeper reports week {report['last_scored_leg']} as the last scored week (fetched {context['fetched_at_utc']}).",
-             f"- Scoring stability: **{stability}**" + (" (scores match the previous run, so the week looks settled)" if stability == "unchanged" else
-                                                       " (scores changed since the last run, so keep this a draft and re-check after the next run)" if stability == "changed" else
-                                                       " (first time this week was fetched; keep this a draft until a later run confirms the scores)"),
+             f"- Sleeper scoring snapshot: **{stability}**. A completed week can publish after verification; no second snapshot is required.",
              f"- Verified against Sleeper: {report['verification']['verified_weeks']} already-published weeks, "
              f"{report['verification']['verified_games']} matchups ({report['verification']['exact']} scores exact, "
              f"{report['verification']['within_tolerance']} within 0.011).",
@@ -148,10 +146,10 @@ def build_report(base, ds, report, changed, context, raw_weeks, stability, parit
     lines += ["### Files changed", ""] + [f"- `site-data/{f}`" for f in changed] + [""]
     if parity_md:
         lines += [parity_md, ""]
-    lines += ["### Before merging", "",
-              "1. Compare these results with Sleeper (and your Excel workbook during the comparison period).",
-              "2. This PR is a proposal only. Nothing is published until you merge it.",
-              "3. If scores are still changing, leave it as a draft: the next scheduled run updates this PR automatically."]
+    lines += ["### Publication", "",
+              "A dry run reports these results without updating the site.",
+              "A scheduled run, or a manual run with dry_run disabled, publishes verified new data to main and requests a GitHub Pages build.",
+              "Corrections to an already-published week require a manual update."]
     return "\n".join(lines) + "\n"
 
 
