@@ -1,30 +1,31 @@
-name: Sleeper weekly update (proposal PR)
+name: Sleeper weekly update
 
-# Fetches a settled week from Sleeper, rebuilds the current-season data, verifies it, and opens
-# or refreshes a DRAFT pull request. It never pushes to main, never merges, and never publishes
-# anything by itself: the site changes only when a person merges the PR.
-
+# Scheduled runs publish verified weeks automatically. Manual runs default to report-only.
 on:
   workflow_dispatch:
     inputs:
       baseline_ref:
-        description: "Optional git ref (branch or commit) holding a fresh Excel export to compare against"
+        description: "Optional git ref with a fresh Excel export to compare before publishing"
         required: false
         default: ""
       dry_run:
-        description: "Build and report only; do not push a branch or open a PR"
+        description: "Build and report only; do not publish"
         type: boolean
         default: true
   schedule:
-    # NFL weeks finish Monday night. Check Wednesday and Thursday mornings (about 8am US Eastern)
-    # so Sleeper's stat corrections have had time to land. A week is only marked ready for review
-    # when a later look (at least 18 hours after the first) finds Sleeper's scores unchanged.
-    - cron: "0 12 * * 3"
-    - cron: "0 12 * * 4"
+    # Tuesday morning and midday, Wednesday fallback, Eastern local time.
+    - cron: "13 8 * * 2"
+      timezone: "America/New_York"
+    - cron: "13 11 * * 2"
+      timezone: "America/New_York"
+    - cron: "43 12 * * 2"
+      timezone: "America/New_York"
+    - cron: "13 8 * * 3"
+      timezone: "America/New_York"
 
 permissions:
-  contents: write        # push the sleeper-sync/week-NN proposal branch only
-  pull-requests: write   # open / update the draft PR
+  contents: write
+  pages: write
 
 concurrency:
   group: sleeper-weekly-update
@@ -37,25 +38,21 @@ env:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - name: Check out main
         uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
       - name: Run generator unit tests
         run: python -m unittest discover -s tools/sleeper/tests -p "test_*.py"
-
-      - name: Confirm the committed data is healthy before changing anything
+      - name: Confirm committed data is healthy
         run: python tools/sleeper/sync.py verify
-
       - name: Fetch from Sleeper and build
         id: sync
         shell: bash
@@ -64,129 +61,68 @@ jobs:
           python tools/sleeper/sync.py run --parity --report "$RUNNER_TEMP/report.md" --github-output "$GITHUB_OUTPUT"
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
-          # 0 = ready, 10 = nothing new to publish. Anything else is a blocked run (reported below).
+          # 0 = verified new week; 10 = nothing new. Other codes block publication.
           if [ "$code" -ne 0 ] && [ "$code" -ne 10 ]; then
             echo "blocked=true" >> "$GITHUB_OUTPUT"
           fi
           exit 0
-
       - name: Show the report
         if: always()
         shell: bash
         run: |
           [ -f "$RUNNER_TEMP/report.md" ] && cat "$RUNNER_TEMP/report.md" >> "$GITHUB_STEP_SUMMARY" || true
-
-      - name: Fail loudly when the run was blocked
+      - name: Fail when the run is blocked
         if: steps.sync.outputs.blocked == 'true'
         env:
           EXIT_CODE: ${{ steps.sync.outputs.exit_code }}
         run: |
-          echo "::error::Sleeper sync did not produce publishable data (exit $EXIT_CODE). Nothing was changed. See the job summary."
+          echo "::error::Sleeper sync blocked (exit $EXIT_CODE). Nothing was published. See the job summary."
           exit 1
-
-      - name: Optional comparison with a fresh Excel export
+      - name: Optional comparison with an Excel export
         if: steps.sync.outputs.exit_code == '0' && env.BASELINE_REF != ''
         shell: bash
         run: |
           git fetch origin "$BASELINE_REF"
-          rm -rf "$RUNNER_TEMP/baseline" && mkdir -p "$RUNNER_TEMP/baseline"
+          mkdir -p "$RUNNER_TEMP/baseline"
           git archive FETCH_HEAD site-data | tar -x -C "$RUNNER_TEMP/baseline"
-          python tools/sleeper/sync.py compare --baseline "$RUNNER_TEMP/baseline/site-data" --candidate site-data >> "$GITHUB_STEP_SUMMARY" || echo "::warning::Differences versus the Excel export found; see the job summary."
-
-      - name: Decide whether the scores have settled
-        id: settle
-        if: steps.sync.outputs.exit_code == '0'
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-          WEEK_RAW: ${{ steps.sync.outputs.week }}
-          SEASON: ${{ steps.sync.outputs.season }}
-        run: |
-          week=$(printf '%02d' "$WEEK_RAW")
-          branch="sleeper-sync/$SEASON-week-$week"
-          echo "branch=$branch" >> "$GITHUB_OUTPUT"
-
-          # Another week's proposal still open? Review them in order, one at a time.
-          other=$(gh pr list --state open --base main --json number,headRefName \
-                  --jq "[.[] | select((.headRefName | startswith(\"sleeper-sync/\")) and .headRefName != \"$branch\")] | .[0].number // empty")
-          if [ -n "$other" ]; then
-            echo "::error::Sleeper proposal PR #$other is still open for a different week. Merge or close it first, then rerun."
-            exit 1
-          fi
-
-          # Raw week files this run added or changed relative to main.
-          git ls-files --others --modified --exclude-standard site-data/sleeper/raw | grep 'week-.*\.json$' > "$RUNNER_TEMP/changed-raw.txt" || true
-
-          # Snapshots from the previous look (the proposal branch), if it exists.
-          rm -rf "$RUNNER_TEMP/prev" && mkdir -p "$RUNNER_TEMP/prev"
-          if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
-            git fetch origin "$branch"
-            # Never overwrite a person's edits on the proposal branch.
-            if git log "origin/main..FETCH_HEAD" --format='%ae' | grep -qv '^41898282+github-actions\[bot\]@users.noreply.github.com$'; then
-              echo "::error::$branch has commits that were not made by this workflow. Not overwriting them; resolve the branch and rerun."
-              exit 1
-            fi
-            git archive FETCH_HEAD site-data/sleeper/raw | tar -x -C "$RUNNER_TEMP/prev"
-          fi
-          echo "stability=$(xargs python tools/sleeper/stability.py --previous-dir "$RUNNER_TEMP/prev/site-data/sleeper/raw" < "$RUNNER_TEMP/changed-raw.txt")" >> "$GITHUB_OUTPUT"
-
-      - name: Verify the data one more time
+          python tools/sleeper/sync.py compare --baseline "$RUNNER_TEMP/baseline/site-data" --candidate site-data >> "$GITHUB_STEP_SUMMARY"
+      - name: Verify rebuilt data
         if: steps.sync.outputs.exit_code == '0'
         run: python tools/sleeper/sync.py verify
-
-      - name: Push proposal branch (never main)
-        id: push
+      - name: Commit and push verified site data
+        id: publish
         if: steps.sync.outputs.exit_code == '0' && env.DRY_RUN != 'true'
         shell: bash
         env:
-          BRANCH: ${{ steps.settle.outputs.branch }}
           WEEK: ${{ steps.sync.outputs.week }}
           SEASON: ${{ steps.sync.outputs.season }}
         run: |
-          case "$BRANCH" in sleeper-sync/20[0-9][0-9]-week-[0-9][0-9]) ;; *) echo "refusing to push to $BRANCH"; exit 1;; esac
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -B "$BRANCH"
+          # A concurrent change to main makes this non-force push fail.
           git add site-data
-          git commit -m "Sleeper sync: $SEASON week $WEEK" -m "Generated by tools/sleeper/sync.py. Proposal only; merge after review."
-          git push --force-with-lease origin "HEAD:refs/heads/$BRANCH"
-
-      - name: Open or update the draft pull request
-        if: steps.push.outcome == 'success'
+          git diff --cached --quiet && { echo "::error::No data changes to publish."; exit 1; }
+          git commit -m "Sleeper sync: $SEASON week $WEEK"
+          git push origin HEAD:refs/heads/main
+          echo "published_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Request the live Pages build
+        if: steps.publish.outcome == 'success'
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
-          BRANCH: ${{ steps.settle.outputs.branch }}
-          WEEK: ${{ steps.sync.outputs.week }}
-          STABILITY: ${{ steps.settle.outputs.stability }}
-          SEASON: ${{ steps.sync.outputs.season }}
+          PUBLISHED_SHA: ${{ steps.publish.outputs.published_sha }}
         run: |
-          {
-            echo "## Sleeper weekly update: $SEASON week $WEEK"
-            echo
-            echo "Score stability since the previous check: **$STABILITY**"
-            case "$STABILITY" in
-              unchanged) echo "Sleeper's scores were identical on two checks at least 18 hours apart, so this is marked ready for review." ;;
-              changed)   echo "**Sleeper changed scores since the last check** (stat corrections). Keep this as a draft and review the difference." ;;
-              too-soon)  echo "The previous check was less than 18 hours ago, so this stays a draft until a later run confirms the scores." ;;
-              *)         echo "First check for this week. It stays a draft; a later run will confirm the scores have settled." ;;
-            esac
-            echo
-            grep -v "^- Scoring stability" "$RUNNER_TEMP/report.md"
-            echo
-            echo "---"
-            echo "Opened by the Sleeper weekly update workflow. Nothing is published until this PR is merged."
-          } > "$RUNNER_TEMP/body.md"
-
-          number=$(gh pr list --head "$BRANCH" --base main --state open --json number --jq '.[0].number // empty')
-          if [ -z "$number" ]; then
-            gh pr create --draft --base main --head "$BRANCH" --title "Sleeper sync: $SEASON week $WEEK" --body-file "$RUNNER_TEMP/body.md"
-            number=$(gh pr list --head "$BRANCH" --base main --state open --json number --jq '.[0].number')
-          else
-            gh pr edit "$number" --body-file "$RUNNER_TEMP/body.md"
-          fi
-          if [ "$STABILITY" = "unchanged" ]; then
-            gh pr ready "$number" || true
-          else
-            gh pr ready "$number" --undo || true
-          fi
+          # Bot commits do not automatically trigger branch-source Pages builds.
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$PUBLISHED_SHA" || {
+            echo "::error::main moved after the Sleeper push; no Pages build requested."
+            exit 1
+          }
+          gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds" > "$RUNNER_TEMP/pages-build.json"
+          python - "$RUNNER_TEMP/pages-build.json" <<'PY'
+          import json, sys
+          with open(sys.argv[1], encoding='utf-8') as stream:
+              result = json.load(stream)
+          print('Requested GitHub Pages build:', result.get('url', result))
+          PY
+          echo "Published $PUBLISHED_SHA to main and requested a GitHub Pages build." >> "$GITHUB_STEP_SUMMARY"
