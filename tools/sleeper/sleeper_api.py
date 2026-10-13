@@ -78,9 +78,28 @@ def fetch_week(league_id, week, season, fetcher=None, now=None):
     if not isinstance(matchups, list):
         raise FetchError(f"week {week}: unexpected matchups response")
     keep = [{"roster_id": m.get("roster_id"), "matchup_id": m.get("matchup_id"),
-             "points": m.get("points"), "custom_points": m.get("custom_points")} for m in matchups]
+             "points": m.get("points"), "custom_points": m.get("custom_points"),
+             "starters": m.get("starters", [])} for m in matchups]
     keep.sort(key=lambda m: (m["roster_id"] is None, m["roster_id"]))
     return {"league_id": str(league_id), "season": str(season), "week": week, "fetched_at_utc": now(), "matchups": keep}
+
+
+def fetch_player_names(player_ids, fetcher=None):
+    """Keep only the starter names needed by the mobile ticker, not the entire player catalog."""
+    fetcher = fetcher or get_json
+    catalog = fetcher('/players/nfl')
+    if not isinstance(catalog, dict):
+        raise FetchError('Sleeper returned an invalid player catalog')
+    names = {}
+    for player_id in sorted(set(map(str, player_ids)) - {'0'}):
+        player = catalog.get(player_id)
+        if not isinstance(player, dict):
+            raise FetchError(f'could not identify starting player {player_id}')
+        name = player.get('full_name') or ' '.join(filter(None, [player.get('first_name'), player.get('last_name')]))
+        if not isinstance(name, str) or not name.strip():
+            raise FetchError(f'could not identify starting player {player_id}')
+        names[player_id] = {'name': name.strip(), 'position': player.get('position') or '', 'team': player.get('team') or ''}
+    return names
 
 
 def _dump(obj):

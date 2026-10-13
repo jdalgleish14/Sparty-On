@@ -46,6 +46,8 @@ class FakeSleeper:
             return [{"user_id": f"user{r}", "display_name": f"Mgr{r}", "metadata": {"team_name": f"Team {r}"}} for r in sorted(self.omap["rosters"])]
         if path == "/state/nfl":
             return {"season": "2026", "season_type": "regular", "week": self.last + 1, "display_week": self.last + 1, "leg": self.last + 1}
+        if path == "/players/nfl":
+            return {"NEW5": {"full_name": "New Starter", "position": "WR", "team": "DET"}}
         if path.startswith(f"/league/{lid}/matchups/"):
             week = int(path.rsplit("/", 1)[1])
             data = self.weeks.get(week)
@@ -71,6 +73,20 @@ class CommandLine(unittest.TestCase):
     def status(self):
         with open(self.out, encoding="utf-8") as fh:
             return dict(line.strip().split("=", 1) for line in fh if "=" in line)
+
+    def test_new_week_includes_names_for_new_starters_without_shipping_player_catalog(self):
+        payload = fx.synthetic_week(5)
+        payload["matchups"][0]["starters"] = ["NEW5"]
+        fake = FakeSleeper(self.base, last_scored=5, weeks={5: payload})
+        with mock.patch.object(api, "get_json", fake):
+            code, _, err = run(self.argv("run"))
+        self.assertEqual(code, 0, err)
+        self.assertIn("/players/nfl", fake.calls)
+        with open(os.path.join(self.data, "sleeper-sample.js"), encoding="utf-8") as fh:
+            preview = fh.read()
+        self.assertIn('"NEW5":{"name":"New Starter","position":"WR","team":"DET"}', preview)
+        self.assertNotIn('"players":{"NEW5":', preview)  # Existing names were retained.
+        self.assertLess(len(preview), 30000)
 
     def test_full_run_produces_a_verified_week_five(self):
         fake = FakeSleeper(self.base, last_scored=5)

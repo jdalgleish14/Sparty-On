@@ -1,112 +1,77 @@
 # Sleeper weekly update automation
 
-Status: **proposal-only**. Nothing here publishes by itself. A person reviews and merges every week.
+After the one-time setup PR is merged, scheduled GitHub Actions runs publish a new completed
+regular-season week automatically. The first check is Tuesday at 8:13 a.m. Eastern, with
+retries at 11:13 a.m. and 12:43 p.m.; Wednesday at 8:13 a.m. is a fallback. GitHub may
+delay scheduled runs. There is no 18-hour score-stability wait and no weekly PR to merge.
 
-## What it does
+## Publication
 
-After a week's games and stat corrections have settled, a GitHub Actions workflow reads that week's
-matchups from Sleeper (league `1386532723459362816`), rebuilds the 2026 current-season data using the
-site's existing definitions, verifies it, and opens a **draft pull request**. The Excel exporter keeps
-working and stays the publisher of record during the comparison period.
+The workflow reads public Sleeper league `1386532723459362816`, rebuilds the current-season
+data in the established site format, runs unit tests and the independent data verifier,
+and commits only `site-data/` to `main` using a normal, non-force push. If `main` changes
+while it runs, the push fails rather than overwriting another edit. After a successful
+push it explicitly requests a GitHub Pages build through GitHub's Pages API. A commit
+using the workflow's built-in token alone does not trigger a branch-source Pages build.
+If the Pages request fails, the job fails and the data commit remains on GitHub; fix the
+Pages permission or build issue before assuming the live site has updated.
 
-## Data flow today (unchanged)
+Scheduled retries report "nothing new" once a week is published. Manual runs default to
+`dry_run: true`, which builds and reports without committing or publishing. Turn dry run
+off only when you want an immediate publication. A manual `baseline_ref` can compare the
+generated data against an Excel-export branch; substantive differences stop publication.
+The Excel exporter is still available for postseason, championships and manual corrections.
 
-```
-Excel workbook --(exporter on your PC / ChatGPT)--> site-data/*.json + site-data.js
-                                                        |
-        pages (index, current-season, seasons, owners, records, head-to-head) read site-data.js
-        ask.html -> Ask Sparty Worker reads ai_*.json + ai_manifest.json (published copy)
-```
+## Gates
 
-Pages validate at load: `validation_report` PASS, one publication cutoff everywhere, game pairing,
-weekly completeness, row counts. The Worker's own checks are not in this repo and could not be reviewed.
+The run stops before publication if Sleeper has not marked the week scored; the league,
+season or owner mapping is unexpected; a matchup is missing, unpaired, null, tied or
+otherwise invalid; weeks are not contiguous; an already-published week disagrees with
+Sleeper; or the rebuilt data fails parity or verification. New starter names are obtained
+from Sleeper's player catalog on the runner and saved in the compact site preview, with
+existing names preserved. No full player catalog is downloaded in a visitor's browser.
+The worker behind Ask Sparty was not available here for an end-to-end test.
 
-## What the new process generates
+Published outputs include `games.json`, `current_standings.json`,
+`season_summaries.json`, `head_to_head.json`, `owner_careers.json`,
+`validation_report.json`, `manifest.json`, `site-data.js`, the `ai_*.json`
+files, `ai_manifest.json`, `sleeper-sample.js`, and Sleeper provenance/raw
+snapshots. Existing page HTML, scripts, completed season rows and the workbook
+are not edited by the weekly workflow. If the workbook exporter later overwrites
+the generated files, the next run requires the published weeks to match Sleeper.
 
-All of these are rewritten together from one dataset, so the site and Ask Sparty always share one cutoff:
+## One-time setup and first live check
 
-`games.json`, `current_standings.json`, `season_summaries.json`, `head_to_head.json`, `owner_careers.json`,
-`validation_report.json`, `manifest.json`, `site-data.js`, `ai_games.json`, `ai_all_games.json`,
-`ai_seasons.json`, `ai_league_years.json`, `ai_manifest.json`.
+1. Update the Claude feature branch with the supplied replacement files, then merge
+   its **setup PR #1** once. This is the one manual merge required to install the workflow.
+   Confirm the 12 roster-to-owner entries in `site-data/sleeper/owner_map.json`.
+2. In Settings > Actions > General, grant the workflow **Read and write permissions**.
+   This design does not require the "create and approve pull requests" setting.
+   Allow `github-actions[bot]` to push to `main` if branch rules restrict pushes.
+   It never uses a force push or bypasses branch protection.
+3. Keep GitHub Pages publishing from the existing `main` branch/root. Run the new
+   workflow once manually with dry run on. Check its report and tests.
+4. When a new scored week is available, run it manually with dry run off to verify
+   the first real end-to-end publication: the main commit, Pages build request and
+   the live site. Subsequent weeks can use the schedule alone.
 
-New files it owns: `site-data/sleeper/raw/*.json` (the exact Sleeper payloads, for traceability),
-`site-data/sleeper/provenance.json`, `site-data/sleeper/owner_map.json` (roster id to owner id; edit if a
-team changes hands), and the code in `tools/sleeper/`.
+If a Pages build request returns a permissions error, the run cannot complete live
+publication with the default GitHub token. Inspect the failed step before changing
+credentials or switching the Pages publishing source; avoid assuming a successful
+commit means the live site changed. If branch protection prohibits bot pushes,
+adjust the rule or use an approved publishing approach before relying on automation.
 
-It does **not** touch: `championships.json`, any completed season's rows, `index.html` and all other pages
-and scripts, homepage text, styles, `sleeper-sample.js`, the Excel workbook.
+## Scope and limitations
 
-Metric definitions (standings tie-breaks, bonus standings, all-play/expected wins, luck, streaks, records,
-head-to-head, careers) are reimplemented from the exporter's behaviour and proven by tests that rebuild
-**all 14 committed files byte-for-byte** from `games.json`. Real Sleeper week-4 data also reproduces the
-committed week-4 export exactly (except cosmetic row order, below).
+- Postseason, ties, the first week of a new season, and corrections to a week
+  already published still require a manual Excel update.
+- Sleeper does not preserve the Excel sheet's row order within a week. New weeks
+  use deterministic roster order; comparisons use game identity.
+- The baseline `source_sha256` retains the Excel hash; Sleeper source details
+  live in `site-data/sleeper/provenance.json`.
+- The 2019 Maggie `average_bottom_5` historical quirk is kept as published.
+- Live Sleeper and GitHub Pages publishing cannot be tested in this sandbox.
 
-## Safety gates (fail safely, change nothing)
-
-A run stops with an explanation if: the league, season or status is unexpected; roster-to-owner mapping is
-incomplete or changed; Sleeper has not scored the week (`last_scored_leg`); any matchup is missing, unpaired,
-zero, null, or has more than 2 decimals; a snapshot belongs to another league or season; there is a tie;
-already-published weeks differ from Sleeper by more than 0.011 (a scoring correction to published history
-needs a human); the new weeks are not a contiguous block after the published cutoff; or the independent verifier (`tools/sleeper/verify.py`) fails. Data is built in a temp
-folder, verified, and only then written. Reruns are idempotent (a second run reports "nothing to publish").
-
-Exit codes: 0 ready, 10 nothing new, 2 gate failure, 3 verification failure, 4 Sleeper unreachable, 1 unexpected.
-
-## Weekly flow
-
-1. Wednesday ~8am ET: workflow fetches, builds, opens a **draft** PR on `sleeper-sync/2026-week-NN`.
-2. Thursday ~8am ET: runs again. If every new or corrected week's scores are identical to the previous look **and that look was at least 18 hours earlier**, the PR is marked **ready for review**. If scores changed (stat correction) or the look was too recent, it stays a draft and says so.
-
-Guard rails: only one sync PR may be open at a time (merge or close it first, so weeks are reviewed in order); if a person has added commits to the proposal branch the workflow refuses to overwrite them; if several weeks were missed, one PR catches up all of them. Before the draft (`pre_draft`/`drafting`) the run reports "nothing to publish" instead of failing.
-3. You review the report (standings, parity table) and merge. Merging is the only publish step.
-
-Run manually any time: Actions > "Sleeper weekly update" > Run workflow. `dry_run` (default on) builds and
-reports without pushing. Optional `baseline_ref` points at a branch with a fresh Excel export to compare.
-
-## Comparing with your Excel export (next few weeks)
-
-Each PR includes a **Sleeper-only rebuild vs committed export** table for already-published weeks.
-To compare the *new* week with your own Excel export:
-
-1. After the Excel export for week N is committed on a branch (for example `excel-week-N`), run the workflow with `baseline_ref = excel-week-N`; or locally:
-2. `python tools/sleeper/sync.py compare --baseline <folder with Excel export site-data> --candidate site-data`
-
-Differences are classified: identical, float noise, **substantive**, missing, extra, order-only. Only
-"substantive" matters (exit 3). Plan: once three consecutive weeks show no substantive differences, decide
-whether to move to the next phase.
-
-## Ownership transition
-
-| Phase | Who publishes the current-season slice | What you do |
-|---|---|---|
-| Now: comparison | Excel exporter (publisher of record). Sleeper PRs are reviewed but you merge only one source per week. | Compare each week; do not merge both for the same week. |
-| After ~3 clean weeks | Sleeper PRs. Excel exporter stays usable for history, season setup, championships, postseason. | Stop updating the workbook weekly; backfill it from the repo occasionally. |
-
-Switching source mid-season is safe: both write the same schema, and the generator rebuilds from `games.json`.
-If the Excel exporter later overwrites the files, the next Sleeper run simply continues from the new cutoff
-(it requires the published weeks to match Sleeper).
-
-## Known limitations (left on the Excel export, not guessed)
-
-- **Postseason, ties, and a new season's first week** are unsupported; the run fails safely.
-- **Row order in `games.json`**: within a week, which game/owner comes first follows your sheet. Sleeper has no such order, so new weeks use a deterministic roster-position rule. Comparisons are key-based; pages are unaffected.
-- **Team names** from Sleeper are reported as notes only; the site's established names are kept.
-- **`source_sha256` in manifest** stays the Excel baseline hash (schema unchanged); provenance lives in `site-data/sleeper/provenance.json`.
-- One long-standing 2019 quirk (Maggie `average_bottom_5`) is preserved as published.
-- Ask Sparty's Worker code is not in this repo; its checks of `ai_*` files could not be reviewed.
-- The standings tie-break and league-year sums are proven against all completed seasons and week-4 data; weeks 5 to 14 are exercised by synthetic tests only until real weeks are compared.
-- Sleeper's public API was not reachable from the development sandbox, so the live end-to-end run happens first in GitHub Actions (use the manual dry run).
-
-## One-time setup
-
-1. Settings > Actions > General > Workflow permissions: **Read and write**, and tick **Allow GitHub Actions to create and approve pull requests**.
-2. (Recommended) Protect `main`: require a pull request. The workflow only pushes `sleeper-sync/week-*`.
-3. Run the workflow manually once with `dry_run` on and read the job summary. In the offseason you can disable the schedule.
-4. If a team changes owners, update `site-data/sleeper/owner_map.json` (optionally add `sleeper_user_ids` to pin identities).
-
-No secrets are needed: only public, read-only Sleeper endpoints are used.
-
-## Developing
-
-`python -m unittest discover -s tools/sleeper/tests -p "test_*.py"` (65 tests, standard library only). Tests run against a frozen week-4 copy of the export in `tools/sleeper/tests/frozen/`, so they keep passing after newer weeks are merged.
-`python tools/sleeper/sync.py verify` checks the committed data independently.
+For local checks, run `python -m unittest discover -s tools/sleeper/tests -p "test_*.py"`
+and `python tools/sleeper/sync.py verify`. Tests use a frozen Week 4 fixture and
+also exercise a synthetic new week.

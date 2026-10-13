@@ -83,6 +83,17 @@ def do_fetch(args):
         existed = api.load_raw(raw_dir, name) is not None
         changed = api.save_raw(raw_dir, name, api.fetch_week(league_id, week, ctx["season"]))
         changes[name] = "changed" if (existed and changed) else ("new" if changed else "unchanged")
+    # Only newly published weeks need player names; fetch once on the runner, not on a phone.
+    published = site["league"]["current_season_through_week"]
+    if target > published:
+        latest = api.load_raw(raw_dir, f"week-{target:02d}.json")
+        ids = [pid for m in latest["matchups"] for pid in (m.get("starters") or []) if str(pid) != '0']
+        if ids:
+            players = api.fetch_player_names(ids)
+            api.save_raw(raw_dir, f"players-week-{target:02d}.json", {
+                "season": ctx["season"], "week": target, "players": players,
+                "fetched_at_utc": api.utc_now(),
+            })
     return ctx, target, changes
 
 
@@ -166,6 +177,23 @@ def write_provenance(sleeper_dir, raw_dir, base, ds, report, context):
     return False
 
 
+def player_preview_text(data, raw_dir, week):
+    """Merge verified week's names into the existing small ticker name map."""
+    snapshot = api.load_raw(raw_dir, f"players-week-{week:02d}.json")
+    if snapshot is None:
+        return None  # Offline rebuilds and older fixtures have no player-name snapshot.
+    if snapshot.get("week") != week or not isinstance(snapshot.get("players"), dict):
+        raise bd.GateError("player-name snapshot does not match the candidate week")
+    source = os.path.join(data, "sleeper-sample.js")
+    prefix = 'window.SPARTY_SLEEPER_SAMPLE = '
+    original = open(source, encoding="utf-8").read().strip()
+    if not original.startswith(prefix):
+        raise bd.GateError("ticker name map has an unexpected format")
+    preview = json.loads(original[len(prefix):].rstrip(';'))
+    preview["players"].update(snapshot["players"])
+    return prefix + json.dumps(preview, separators=(",", ":"), ensure_ascii=False) + ";\n"
+
+
 def cmd_build(args, stability="unknown"):
     data, sleeper_dir, raw_dir = paths(args)
     base, ds, report, stage, problems, context, raw_weeks = staged_build(args, "incremental", args.through)
@@ -178,11 +206,18 @@ def cmd_build(args, stability="unknown"):
         parity_md = None
         if args.parity:
             parity_md = parity_markdown(args)
+        preview = player_preview_text(data, raw_dir, report["through_week"])
         if args.dry_run:
             changed = [f for f, t in df.render(ds).items() if df.read_text(data, f) != t]
+            if preview is not None and df.read_text(data, "sleeper-sample.js") != preview:
+                changed.append("sleeper-sample.js")
             print("dry run; would change:", ", ".join(changed))
         else:
             changed = df.save(ds, data)
+            if preview is not None and df.read_text(data, "sleeper-sample.js") != preview:
+                with open(os.path.join(data, "sleeper-sample.js"), "w", encoding="utf-8", newline="") as fh:
+                    fh.write(preview)
+                changed.append("sleeper-sample.js")
             if write_provenance(sleeper_dir, raw_dir, base, ds, report, context):
                 changed.append("sleeper/provenance.json")
         write_report(args.report, build_report(base, ds, report, changed, context, raw_weeks, stability, parity_md))
