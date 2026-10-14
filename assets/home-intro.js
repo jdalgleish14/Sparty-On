@@ -36,11 +36,11 @@
     // Preserve the approved mobile proportions, leaving room to the right
     // for the entire final idle sprite on narrower phones.
     scale=Math.max(.4,Math.min(onRect.width/59,(heroRect.width-onLeft-4)/127,
-      (heroRect.width-onLeft-onRect.width-2)/58,(taglineTop-12)/134));
-    originX=onLeft-260*scale;
+      (heroRect.width-onLeft-onRect.width-2)/58,(taglineTop-12)/126));
+    originX=onLeft-260*scale+(heroRect.width<=700?4:0);
     const titleTop=onRect.top-heroRect.top;
     // The upright flag extends above the pole attachment; keep its fabric in view.
-    const showFlag=Math.max(0,8-(titleTop-72*scale));
+    const showFlag=Math.max(0,(heroRect.width<=700?2:8)-(titleTop-72*scale));
     const roomBelow=Math.max(0,taglineTop-4-(titleTop+62*scale));
     originY=titleTop-319*scale+Math.min(showFlag,roomBelow);
     idleShift=Math.max(0,(onLeft+onRect.width+2-(originX+329*scale))/scale);
@@ -97,7 +97,7 @@
     c.lineTo(83,141);c.lineTo(38,98);c.lineTo(38,50);c.closePath();c.fill();c.restore();
     // Draw the whole character above the entering end: his opaque body hides
     // the inserted part of the pole, while the shaft stays visible outside him.
-    if(attached)wolverine(baseX-32,baseY-35);
+    if(attached)wolverine(baseX-44,baseY-43);
   }
   function wolverine(x,y,k=1){
     c.imageSmoothingEnabled=false;
@@ -138,7 +138,7 @@
     let t=ms/1000;
     if(t<3.34){
       const bob=t<.5?Math.sin(t*8)*1:0;
-      wolverine(280,272+bob);
+      wolverine(268,264+bob);
     }
     if(t<.65)return;
     if(t<2.42){
@@ -154,7 +154,7 @@
       const q=ease((t-2.98)/.44),extension=10*q;
       pole(252+6*q+extension,338-4*q,-.55,q>.92,t,60);
       plantedSparty(222,301,q);thrustArm(222+6*q,extension,lerp(339,335,q));
-      if(! (q>.92) && t>=3.12)wolverine(280,272);
+      if(! (q>.92) && t>=3.12)wolverine(268,264);
       return;
     }
     if(t<3.78){
