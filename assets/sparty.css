@@ -1,0 +1,12 @@
+/* Shared, opt-in Sparty peek; sprite frames come from the Ask Sparty artwork. */
+.explore-heading,.record-intro{position:relative}
+.sparty-peek{position:absolute;right:12px;top:-38px;width:64px;height:66px;padding:0;border:0;background:transparent;overflow:hidden;z-index:2;touch-action:manipulation;clip-path:inset(0 0 27% 0)}
+.sparty-peek-sprite{display:block;width:96px;height:104px;background:url("sparty-v2-spritesheet.png") 0 0 / 768px 1144px no-repeat;image-rendering:pixelated;transform:scale(.65);transform-origin:top left}
+.sparty-peek.is-waving{clip-path:none}
+.explore-heading .sparty-peek{top:auto;bottom:-33px;right:13px}
+.record-intro{margin-top:37px}
+.record-intro .sparty-peek{right:15px}
+.record-intro>div:first-child{padding-right:58px}
+.record-intro-counts{padding-right:65px}
+@media(max-width:700px){.record-intro-counts{padding-right:0}.record-intro{margin-top:39px}.record-intro .sparty-peek{right:10px}.explore-heading .sparty-peek{right:8px}}
+@media(prefers-reduced-motion:reduce){.sparty-peek{clip-path:inset(0 0 27% 0)}.sparty-peek.is-waving{clip-path:inset(0 0 27% 0)}}
