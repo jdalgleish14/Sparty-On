@@ -1,4 +1,4 @@
-/* Shared, opt-in Sparty controls. Trophy frames use one scale from idle to return. */
+/* Shared opt-in mascot. Champion choreography uses original sprite poses. */
 (() => {
   'use strict';
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -8,45 +8,46 @@
       if (!sprite || button.dataset.spartyMounted) continue;
       button.dataset.spartyMounted = 'true';
       const champion = button.classList.contains('sparty-champion');
-      let interval = 0, timeout = 0, frame = 0, active = false, visible = false;
-      const draw = () => {
-        sprite.style.backgroundPosition = champion
-          ? `-${frame * 56}px 0`
-          : `-${frame * 96}px -${active ? 3 * 104 : 0}px`;
-      };
+      const trophy = champion ? document.createElement('span') : null;
+      if (trophy) { trophy.className = 'sparty-trophy'; trophy.setAttribute('aria-hidden','true'); button.append(trophy); }
+      let interval = 0, timeout = 0, frame = 0, row = 0, active = false, visible = false;
+      const draw = () => { sprite.style.backgroundPosition = `-${frame * 96}px -${row * 104}px`; };
       const stop = () => { clearInterval(interval); clearTimeout(timeout); interval = timeout = 0; };
-      const idle = () => { stop(); frame = 0; active = false; draw(); restart(); };
+      const idle = () => { stop(); frame = row = 0; active = false; if (trophy) trophy.style.bottom = '-46px'; draw(); restart(); };
       function restart() {
         clearInterval(interval); interval = 0;
-        if (champion || document.hidden || !visible || reduceMotion.matches || !button.isConnected) return;
-        interval = setInterval(() => {
-          frame = (frame + 1) % (active ? 4 : 7);
-          draw();
-        }, 240);
+        if (document.hidden || !visible || reduceMotion.matches || active || !button.isConnected) return;
+        interval = setInterval(() => { frame = (frame + 1) % 7; draw(); }, 240);
       }
-      function trophy() {
+      function trophyRaise() {
         if (active) return;
-        active = true; frame = 0; draw();
+        active = true; stop(); frame = 0; row = 0; draw();
         if (reduceMotion.matches) {
-          frame = 6; draw(); timeout = setTimeout(idle, 2100);
-          return;
+          row = 4; frame = 2; draw(); trophy.style.bottom = '78px';
+          timeout = setTimeout(idle, 2200); return;
         }
-        let step = 1;
-        function advance() {
+        // Source rows: idle 0, bend 5, raised arms 4. Descent retraces the lift.
+        const poses = [
+          [0,0,-46,180],[5,0,-46,200],[5,2,-30,190],[5,3,-15,200],
+          [0,0,8,200],[4,1,35,210],[4,2,78,220],
+          [4,3,78,2200],[4,2,78,190],[4,1,35,200],
+          [0,0,8,200],[5,3,-15,190],[5,2,-30,190],[5,0,-46,200],
+          [0,0,-46,170]
+        ];
+        let index = 0;
+        const next = () => {
           if (document.hidden || !button.isConnected) { idle(); return; }
-          frame = step <= 7 ? step : step <= 13 ? (step % 2 ? 7 : 6) : 20 - step;
-          draw();
-          if (step >= 20) { timeout = setTimeout(idle, 180); return; }
-          const delay = step < 7 ? 165 : step < 13 ? 350 : 180;
-          step++;
-          timeout = setTimeout(advance, delay);
-        }
-        timeout = setTimeout(advance, 150);
+          const [nextRow,nextFrame,height,duration] = poses[index++];
+          row = nextRow; frame = nextFrame; draw(); trophy.style.bottom = `${height}px`;
+          timeout = setTimeout(index < poses.length ? next : idle, duration);
+        };
+        next();
       }
       button.addEventListener('click', () => {
-        if (champion) { trophy(); return; }
+        if (champion) { trophyRaise(); return; }
         if (reduceMotion.matches) return;
-        idle(); active = true; draw(); restart();
+        idle(); active = true; row = 3; draw();
+        interval = setInterval(() => { frame = (frame + 1) % 4; draw(); }, 240);
         timeout = setTimeout(idle, 1900);
       });
       document.addEventListener('visibilitychange', () => { if (document.hidden && active) idle(); else restart(); });

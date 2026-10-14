@@ -12,7 +12,9 @@
 @media(max-width:850px){.page-tiles>.sparty-peek{right:10px}}
 @media(max-width:700px){.record-intro{margin-top:39px}.record-intro .sparty-peek{right:10px}}
 
-/* Eight equal frames in the trophy sheet. Idle and lifting share one scale. */
-.honors-card{position:relative;padding-right:78px;min-height:130px}
-.honors-card .sparty-champion{top:2px;right:11px;width:56px;height:122px;z-index:1}
-.honors-card .sparty-champion .sparty-peek-sprite{width:56px;height:122px;transform:none;background:url("sparty-trophy-raise.png") 0 0 / 448px 122px no-repeat}
+/* Champion always uses the site's original Sparty frames. Only the trophy is separate. */
+.honors-card{position:relative;padding-right:94px;min-height:132px}
+.honors-card .sparty-champion{top:4px;right:10px;width:80px;height:122px;z-index:1;overflow:hidden}
+.honors-card .sparty-champion .sparty-peek-sprite{position:absolute;top:38px;left:0;transform:scale(.8)}
+.sparty-trophy{position:absolute;left:25px;bottom:-46px;width:30px;height:44px;background:url("sparty-trophy.png") center / contain no-repeat;image-rendering:pixelated;transition:bottom 180ms linear;pointer-events:none}
+@media(prefers-reduced-motion:reduce){.sparty-trophy{transition:none}}
