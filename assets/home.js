@@ -34,7 +34,9 @@
     $('ticker-content').hidden = false;
     const stage = $('ticker-stage'), pause = $('ticker-pause'), leaders = $('ticker-leaders');
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let paused = motion.matches, index = 0, dwellTimer = null, fadeTimer = null, scorers = null;
+    let paused = motion.matches, index = 0, dwellTimer = null, fadeTimer = null, scorers = null, avatarVersion = '';
+    let avatars = new Map();
+    const failedAvatars = new Set();
     const holdMs = 10000, fadeMs = 300;
     function clearTimers() { clearTimeout(dwellTimer); clearTimeout(fadeTimer); dwellTimer = null; fadeTimer = null; }
     function description(g) { return `${g.owner_name}, ${g.team}, record ${teamRecord(g.owner_id)}, ${num(g.points_for)} points. ${g.opponent_owner_name}, ${g.opponent_team}, record ${teamRecord(g.opponent_owner_id)}, ${num(g.points_against)} points. ${labels(g).join('. ')}. Margin ${num(marginOf(g))}.`; }
@@ -53,7 +55,13 @@
       return `${wins}–${losses}${ties ? `–${ties}` : ''}`;
     }
     function identity(ownerId,owner,team,away=false) {
-      return `<div class="ticker-identity${away ? ' ticker-away' : ''}"><strong>${esc(team)}</strong><span class="ticker-record">${teamRecord(ownerId)} · ${esc(owner)}</span></div>`;
+      const image = avatars.get(ownerId);
+      const match = typeof image === 'string' && /^assets\/avatars\/(owner-[a-z0-9-]+)\.(?:png|jpe?g|gif|webp)$/.exec(image);
+      const safeImage = match && match[1] === ownerId && !failedAvatars.has(image) ? image : null;
+      const initials = owner.trim().length <= 2 ? owner.toUpperCase() :
+        owner.trim().split(/\s+/).slice(0,2).map(word => word[0].toUpperCase()).join('');
+      const avatar = `<span class="ticker-avatar" aria-hidden="true"><span>${esc(initials)}</span>${safeImage ? `<img src="${esc(safeImage)}?v=${esc(avatarVersion)}" alt="" width="28" height="28">` : ''}</span>`;
+      return `<div class="ticker-identity${away ? ' ticker-away' : ''}"><strong>${esc(team)}</strong><div class="ticker-owner">${avatar}<span class="ticker-record">${teamRecord(ownerId)} · ${esc(owner)}</span></div></div>`;
     }
     function render(announce=false) {
       const g = games[index];
@@ -88,11 +96,26 @@
       stage.setAttribute('aria-live',paused ? 'polite' : 'off');
     }
     pause.addEventListener('click', () => { paused=!paused; clearTimers(); stage.classList.remove('is-fading'); updatePause(); schedule(); });
+    stage.addEventListener('error', event => {
+      if (event.target.matches('.ticker-avatar img')) {
+        failedAvatars.add(event.target.getAttribute('src').split('?')[0]);
+        event.target.remove();
+      }
+    }, true);
     $('ticker-prev').addEventListener('click', () => change(-1,true));
     $('ticker-next').addEventListener('click', () => change(1,true));
     document.addEventListener('visibilitychange', () => { clearTimers(); stage.classList.remove('is-fading'); schedule(); });
     motion.addEventListener('change', () => { if (motion.matches) paused=true; clearTimers(); stage.classList.remove('is-fading'); updatePause(); schedule(); });
     render(); updatePause(); schedule();
+    fetch('assets/avatars/owners.json', {cache:'no-cache'}).then(response => {
+      if (!response.ok) throw new Error('Avatars unavailable');
+      return response.json();
+    }).then(manifest => {
+      if (manifest.league_id !== '1386532723459362816' || !Array.isArray(manifest.owners)) return;
+      avatarVersion = typeof manifest.generated_at_utc === 'string' ? encodeURIComponent(manifest.generated_at_utc) : '';
+      avatars = new Map(manifest.owners.map(row => [row.owner_id,row.image]));
+      render();
+    }).catch(() => { /* Published scores and initials remain available. */ });
     if(window.SPARTY_SLEEPER)window.SPARTY_SLEEPER.completedWeek(season.year,week,currentGames.filter(g=>g.week===week)).then(rows=>{scorers=rows;renderLeaders(games[index]);});
   } catch (_) {
     $('ticker-content').hidden = true;

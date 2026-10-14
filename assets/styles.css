@@ -73,6 +73,10 @@ nav a[aria-current]{border-bottom-color:var(--bronze)}
 .ticker-matchup{display:grid;grid-template-columns:minmax(0,1fr) auto auto minmax(0,1fr);gap:22px;align-items:center}
 .ticker-identity{min-width:0}.ticker-identity strong{display:block;font-size:17px;line-height:1.35;color:var(--green);overflow-wrap:anywhere}
 .ticker-record{display:block;margin-top:5px;font-size:12px;line-height:1.4;color:var(--muted);font-variant-numeric:tabular-nums}
+.ticker-owner{display:flex;align-items:center;gap:7px;margin-top:5px;min-width:0}.ticker-owner .ticker-record{margin-top:0;min-width:0}
+.ticker-avatar{position:relative;display:inline-grid;place-items:center;flex:none;width:28px;height:28px;border-radius:50%;overflow:hidden;background:var(--green);color:white;font-size:11px;font-weight:800;line-height:1}
+.ticker-avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ticker-away .ticker-owner{flex-direction:row-reverse}
 .ticker-away{text-align:right}.ticker-score{font-size:30px;line-height:1.2;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
 .ticker-winning-score{color:var(--green)}
 .season-detail-section{margin:30px 0 10px}.analytics-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
@@ -86,6 +90,7 @@ nav a[aria-current]{border-bottom-color:var(--bronze)}
 .analytics-mobile-note{display:none;font-size:11px;color:var(--muted)}
 @media(max-width:1100px){.analytics-grid{grid-template-columns:minmax(0,1fr)}.analytics-table .owner-cell{min-width:175px}}
 @media(max-width:700px){.ticker-matchup{display:grid;grid-template-columns:minmax(0,1fr) auto auto minmax(0,1fr);gap:10px}.ticker-identity strong{font-size:13px}.ticker-record{font-size:10px}.ticker-score{font-size:22px}.ticker-stage{min-height:135px}.analytics-grid{gap:18px}.analytics-description{padding:0 16px}.analytics-note{padding:14px 16px}.analytics-mobile-note{display:block}}
+@media(max-width:700px){.ticker-owner{gap:5px}.ticker-avatar{width:22px;height:22px;font-size:9px}}
 @media(max-width:360px){.ticker-matchup{gap:7px}.ticker-score{font-size:19px}.ticker-identity strong{font-size:12px}}
 
 /* Season archive: shared Spartan colors and statistical table treatments. */
