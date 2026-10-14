@@ -12,7 +12,9 @@
 @media(max-width:850px){.page-tiles>.sparty-peek{right:10px}}
 @media(max-width:700px){.record-intro{margin-top:39px}.record-intro .sparty-peek{right:10px}}
 
-/* Original animated mascot in the championship honors card. */
-.honors-card{position:relative;padding-right:96px;min-height:122px}
-.honors-card .sparty-champion{top:30px;right:5px;width:80px;height:86px;z-index:1}
+/* Original idle frames, then a single eight-frame, full-character trophy sequence. */
+.honors-card{position:relative;padding-right:96px;min-height:136px}
+.honors-card .sparty-champion{top:43px;right:5px;width:80px;height:86px;z-index:1}
 .honors-card .sparty-champion .sparty-peek-sprite{transform:scale(.8)}
+.honors-card .sparty-champion.is-trophy{top:7px;right:7px;width:77px;height:120px}
+.honors-card .sparty-champion.is-trophy .sparty-peek-sprite{width:77px;height:120px;transform:none;background:url("sparty-trophy-sequence.png") 0 0 / 616px 120px no-repeat}
