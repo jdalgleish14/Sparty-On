@@ -1,0 +1,90 @@
+{
+  "generated_at_utc": "2026-10-14T00:51:59+00:00",
+  "league_id": "1386532723459362816",
+  "owners": [
+    {
+      "owner_id": "owner-nick",
+      "sleeper_user_id": "1386532330365009921",
+      "display_name": "baldusni",
+      "avatar_ref": "d22e52781a5d7a94bcbf2aa70e748382",
+      "image": "assets/avatars/owner-nick.webp"
+    },
+    {
+      "owner_id": "owner-ryan",
+      "sleeper_user_id": "1387426206508412928",
+      "display_name": "BigTaxGuy",
+      "avatar_ref": "https://sleepercdn.com/uploads/7bb32504f39e3bd4ed4c4ae5e3b0acc1.jpg",
+      "image": "assets/avatars/owner-ryan.jpg"
+    },
+    {
+      "owner_id": "owner-tj",
+      "sleeper_user_id": "1266462909588840448",
+      "display_name": "TJGoBrits",
+      "avatar_ref": "da110a88b5daa02e2566e3ef3adb40ae",
+      "image": "assets/avatars/owner-tj.jpg"
+    },
+    {
+      "owner_id": "owner-brian",
+      "sleeper_user_id": "1387435228821225472",
+      "display_name": "bvandercruyssen",
+      "avatar_ref": "2fdd0a0a0efc5722326a0bb9a0156fae",
+      "image": "assets/avatars/owner-brian.jpg"
+    },
+    {
+      "owner_id": "owner-spencer",
+      "sleeper_user_id": "1387137242522189824",
+      "display_name": "naultspe",
+      "avatar_ref": "https://sleepercdn.com/uploads/102a600247410a629ecf9ba398cdabfb.jpg",
+      "image": "assets/avatars/owner-spencer.jpg"
+    },
+    {
+      "owner_id": "owner-kyle",
+      "sleeper_user_id": "1004076495381340160",
+      "display_name": "Sawyerk39",
+      "avatar_ref": "https://sleepercdn.com/uploads/f370378878eef1a4209d7f4f18ca6e47.jpg",
+      "image": "assets/avatars/owner-kyle.jpg"
+    },
+    {
+      "owner_id": "owner-wilson",
+      "sleeper_user_id": "1387453038607740928",
+      "display_name": "onebigwillie69",
+      "avatar_ref": "https://sleepercdn.com/uploads/ce55fb83ef7ce68909252309b8e96a47.jpg",
+      "image": "assets/avatars/owner-wilson.jpg"
+    },
+    {
+      "owner_id": "owner-tyler",
+      "sleeper_user_id": "1387458367550652416",
+      "display_name": "TPorritt",
+      "avatar_ref": "7572250c2fb084c434fed0e82229e183",
+      "image": "assets/avatars/owner-tyler.webp"
+    },
+    {
+      "owner_id": "owner-dan",
+      "sleeper_user_id": "1387465892522131456",
+      "display_name": "danburton327339",
+      "avatar_ref": "578c6b253dd7b4bab45382e1af102204",
+      "image": "assets/avatars/owner-dan.webp"
+    },
+    {
+      "owner_id": "owner-alex",
+      "sleeper_user_id": "867847606192201728",
+      "display_name": "WroboAl",
+      "avatar_ref": "4f4090e5e9c3941414db40a871e3e909",
+      "image": "assets/avatars/owner-alex.webp"
+    },
+    {
+      "owner_id": "owner-jack",
+      "sleeper_user_id": "1387628411928731648",
+      "display_name": "jdalgleish14",
+      "avatar_ref": "f2e3889a6f59c9fa9d404164d0dc8c02",
+      "image": "assets/avatars/owner-jack.jpg"
+    },
+    {
+      "owner_id": "owner-andres",
+      "sleeper_user_id": "1387862164160647168",
+      "display_name": "acardoso",
+      "avatar_ref": "d22e52781a5d7a94bcbf2aa70e748382",
+      "image": "assets/avatars/owner-andres.webp"
+    }
+  ]
+}
