@@ -37,7 +37,7 @@
       button.addEventListener('click', () => {
         if (champion) { trophy(); return; }
         if (reduceMotion.matches) return;
-        idle(); active = true; row = 3; draw();
+        stop(); active = true; frame = 0; row = 3; draw();
         interval = setInterval(() => { frame = (frame + 1) % 4; draw(); }, 240);
         timeout = setTimeout(idle, 1900);
       });
