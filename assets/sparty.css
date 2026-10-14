@@ -1,5 +1,5 @@
 /* Shared mascot. Existing cards mask the lower sprite; the exposed head is interactive. */
-.sparty-peek{position:absolute;right:12px;top:-49px;width:64px;height:66px;padding:0;border:0;background:transparent;z-index:0;touch-action:manipulation}
+.sparty-peek{position:absolute;right:12px;top:-55px;width:64px;height:66px;padding:0;border:0;background:transparent;z-index:0;touch-action:manipulation}
 .sparty-peek-sprite{display:block;width:96px;height:104px;background:url("sparty-v2-spritesheet.png") 0 0 / 768px 1144px no-repeat;image-rendering:pixelated;transform:scale(.65);transform-origin:top left}
 .sparty-peek:focus-visible{outline-offset:0;outline:3px solid var(--bronze);border-radius:8px}
 .page-tiles{position:relative;isolation:isolate}
@@ -11,3 +11,8 @@
 .record-intro .sparty-peek{right:12px}
 @media(max-width:850px){.page-tiles>.sparty-peek{right:10px}}
 @media(max-width:700px){.record-intro{margin-top:39px}.record-intro .sparty-peek{right:10px}}
+
+/* Champion badge lives inside the existing honors card and leaves room for long names. */
+.honors-card{position:relative;padding-right:76px;min-height:88px}
+.honors-card .sparty-champion{top:10px;right:9px;width:58px;height:63px;z-index:1}
+.honors-card .sparty-champion .sparty-peek-sprite{transform:scale(.58)}
