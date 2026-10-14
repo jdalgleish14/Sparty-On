@@ -6,7 +6,7 @@
 .page-tiles>.page-tile{position:relative;z-index:1}
 .page-tiles>.sparty-peek{right:calc(16.6667% + 10px)}
 .record-intro{position:relative;isolation:isolate;margin-top:39px}
-.record-intro::after{content:"";position:absolute;inset:0;background:var(--green);border-radius:inherit;z-index:1;pointer-events:none}
+.record-intro::after{content:"";position:absolute;inset:-4px 0 0;background:linear-gradient(to bottom,var(--bronze) 0 4px,var(--green) 4px);border-radius:inherit;z-index:1;pointer-events:none}
 .record-intro>div{position:relative;z-index:2}
 .record-intro .sparty-peek{right:12px}
 @media(max-width:850px){.page-tiles>.sparty-peek{right:10px}}
