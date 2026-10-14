@@ -13,6 +13,10 @@
 @media(max-width:700px){.record-intro{margin-top:39px}.record-intro .sparty-peek{right:10px}}
 
 /* Champion badge lives inside the existing honors card and leaves room for long names. */
-.honors-card{position:relative;padding-right:76px;min-height:88px}
-.honors-card .sparty-champion{top:10px;right:9px;width:58px;height:63px;z-index:1}
+.honors-card{position:relative;padding-right:76px;min-height:122px}
+.honors-card .sparty-champion{top:28px;right:9px;width:58px;height:63px;z-index:1}
 .honors-card .sparty-champion .sparty-peek-sprite{transform:scale(.58)}
+
+/* Six equal trophy frames, 362 x 724 source pixels per cell. */
+.honors-card .sparty-champion.is-trophy{top:4px;height:112px}
+.honors-card .sparty-champion.is-trophy .sparty-peek-sprite{width:56px;height:112px;transform:none;background-image:url("sparty-trophy-raise.png");background-size:336px 112px}

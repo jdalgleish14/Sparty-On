@@ -9,21 +9,23 @@
     button.dataset.spartyMounted = 'true';
     let animation = 0, reset = 0, frame = 0, waving = false, visible = false;
     const champion = button.classList.contains('sparty-champion');
-    const draw = () => { sprite.style.backgroundPosition = `-${frame * 96}px -${(waving ? (champion ? 4 : 3) : 0) * 104}px`; };
+    const draw = () => { sprite.style.backgroundPosition = champion && waving ? `-${frame * 56}px 0` : `-${frame * 96}px -${waving ? 3 * 104 : 0}px`; };
     const stop = () => { clearInterval(animation); animation = 0; };
-    const idle = () => { clearTimeout(reset); reset = 0; waving = false; frame = 0; draw(); restart(); };
+    const idle = () => { clearTimeout(reset); reset = 0; waving = false; frame = 0; button.classList.remove('is-trophy'); draw(); restart(); };
     function restart() {
       stop();
       if (document.hidden || !visible || reduceMotion.matches) return;
       animation = setInterval(() => {
-        frame = (frame + 1) % (waving ? (champion ? 5 : 4) : 7);
+        frame = (frame + 1) % (waving ? (champion ? 6 : 4) : 7);
         draw();
       }, 240);
     }
     button.addEventListener('click', () => {
-      if (reduceMotion.matches) return;
+      if (reduceMotion.matches && !champion) return;
       clearTimeout(reset);
-      waving = true; frame = 0; draw(); restart();
+      waving = true; frame = reduceMotion.matches ? 3 : 0;
+      if (champion) button.classList.add('is-trophy');
+      draw(); restart();
       reset = setTimeout(idle, 1900);
     });
     document.addEventListener('visibilitychange', restart);
