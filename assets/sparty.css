@@ -1,12 +1,13 @@
-/* Shared, opt-in Sparty peek; sprite frames come from the Ask Sparty artwork. */
-.explore-heading,.record-intro{position:relative}
-.sparty-peek{position:absolute;right:12px;top:-38px;width:64px;height:66px;padding:0;border:0;background:transparent;overflow:hidden;z-index:2;touch-action:manipulation;clip-path:inset(0 0 27% 0)}
+/* Shared mascot. Existing cards mask the lower sprite; the exposed head is interactive. */
+.sparty-peek{position:absolute;right:12px;top:-49px;width:64px;height:66px;padding:0;border:0;background:transparent;z-index:0;touch-action:manipulation}
 .sparty-peek-sprite{display:block;width:96px;height:104px;background:url("sparty-v2-spritesheet.png") 0 0 / 768px 1144px no-repeat;image-rendering:pixelated;transform:scale(.65);transform-origin:top left}
-.sparty-peek.is-waving{clip-path:none}
-.explore-heading .sparty-peek{top:auto;bottom:-33px;right:13px}
-.record-intro{margin-top:37px}
-.record-intro .sparty-peek{right:15px}
-.record-intro>div:first-child{padding-right:58px}
-.record-intro-counts{padding-right:65px}
-@media(max-width:700px){.record-intro-counts{padding-right:0}.record-intro{margin-top:39px}.record-intro .sparty-peek{right:10px}.explore-heading .sparty-peek{right:8px}}
-@media(prefers-reduced-motion:reduce){.sparty-peek{clip-path:inset(0 0 27% 0)}.sparty-peek.is-waving{clip-path:inset(0 0 27% 0)}}
+.sparty-peek:focus-visible{outline-offset:0;outline:3px solid var(--bronze);border-radius:8px}
+.page-tiles{position:relative;isolation:isolate}
+.page-tiles>.page-tile{position:relative;z-index:1}
+.page-tiles>.sparty-peek{right:calc(16.6667% + 10px)}
+.record-intro{position:relative;isolation:isolate;margin-top:39px}
+.record-intro::after{content:"";position:absolute;inset:0;background:var(--green);border-radius:inherit;z-index:1;pointer-events:none}
+.record-intro>div{position:relative;z-index:2}
+.record-intro .sparty-peek{right:12px}
+@media(max-width:850px){.page-tiles>.sparty-peek{right:10px}}
+@media(max-width:700px){.record-intro{margin-top:39px}.record-intro .sparty-peek{right:10px}}
