@@ -3,7 +3,8 @@
   'use strict';
   const hero=document.querySelector('.landing-hero');
   const on=hero?.querySelector('#page-title span');
-  if (!hero || !on) return;
+  const tagline=hero?.querySelector('.landing-tagline');
+  if (!hero || !on || !tagline) return;
   const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
   const canvas=document.createElement('canvas');
   canvas.className='home-intro-canvas';
@@ -21,21 +22,27 @@
   sprites.src='assets/sparty-v2-spritesheet.png';
   foe.src='assets/sparty-home-wolverine.png';
   let pixelRatio=1,scale=1,originX=0,originY=0,idleShift=0;
-  let request=0,idleTimer=0,waveTimer=0,started=0,lastFrame=-Infinity,phase='waiting',visible=true;
+  let request=0,idleTimer=0,waveTimer=0,bubbleTimer=0,bubbleUntil=0,started=0,lastFrame=-Infinity,phase='waiting',visible=true;
   const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
   const ease=t=>{t=clamp(t,0,1);return t*t*(3-2*t)};
   const lerp=(a,b,t)=>a+(b-a)*t;
   function measure(){
     const heroRect=hero.getBoundingClientRect(),onRect=on.getBoundingClientRect();
+    const taglineTop=tagline.getBoundingClientRect().top-heroRect.top;
     pixelRatio=Math.min(window.devicePixelRatio||1,2);
     canvas.width=Math.max(1,Math.round(heroRect.width*pixelRatio));
     canvas.height=Math.max(1,Math.round(heroRect.height*pixelRatio));
     const onLeft=onRect.left-heroRect.left;
     // Preserve the approved mobile proportions, leaving room to the right
     // for the entire final idle sprite on narrower phones.
-    scale=Math.max(.4,Math.min(onRect.width/59,(heroRect.width-onLeft-4)/127,(heroRect.width-onLeft-onRect.width-2)/58));
+    scale=Math.max(.4,Math.min(onRect.width/59,(heroRect.width-onLeft-4)/127,
+      (heroRect.width-onLeft-onRect.width-2)/58,(taglineTop-12)/134));
     originX=onLeft-260*scale;
-    originY=onRect.top-heroRect.top-319*scale;
+    const titleTop=onRect.top-heroRect.top;
+    // The upright flag extends above the pole attachment; keep its fabric in view.
+    const showFlag=Math.max(0,8-(titleTop-72*scale));
+    const roomBelow=Math.max(0,taglineTop-4-(titleTop+62*scale));
+    originY=titleTop-319*scale+Math.min(showFlag,roomBelow);
     idleShift=Math.max(0,(onLeft+onRect.width+2-(originX+329*scale))/scale);
     tap.style.left=`${Math.min(heroRect.width-44,originX+(329+idleShift)*scale)}px`;
     tap.style.top=`${originY+318*scale}px`;
@@ -127,7 +134,7 @@
     c.setTransform(1,0,0,1,0,0);
     c.clearRect(0,0,canvas.width,canvas.height);
     c.setTransform(pixelRatio*scale,0,0,pixelRatio*scale,originX*pixelRatio,originY*pixelRatio);
-    if(reduceMotion.matches){sparty(0,0,341+idleShift,320);bubble();return}
+    if(reduceMotion.matches){sparty(0,0,341+idleShift,320);if(bubbleUntil>performance.now())bubble();return}
     let t=ms/1000;
     if(t<3.34){
       const bob=t<.5?Math.sin(t*8)*1:0;
@@ -179,7 +186,7 @@
     }
     if(t<6.30){const q=ease((t-5.58)/.72);sparty(1,Math.floor(t*12)%8,lerp(222,341+idleShift,q),lerp(301,320,q));return}
     sparty(waveFrame>=0?3:0,waveFrame>=0?waveFrame:Math.floor((t-6.30)*4)%7,341+idleShift,320);
-    if(t>6.82)bubble();
+    if((phase==='playing' && t>6.82 && t<9.82) || bubbleUntil>performance.now())bubble();
   }
 
   function stop(){
@@ -188,7 +195,7 @@
   }
   function idle(){
     stop();phase='idle';frame(8400);
-    tap.hidden=reduceMotion.matches;
+    tap.hidden=false;
     if (reduceMotion.matches || document.hidden || !visible) return;
     let idleFrame=0;
     idleTimer=setInterval(()=>{
@@ -204,7 +211,7 @@
     if (now-lastFrame>=38 || elapsed===8400) {
       frame(elapsed);lastFrame=now;
     }
-    if (elapsed===8400) idle();
+    if (elapsed===8400) { bubbleUntil=now+1420;idle(); }
     else request=requestAnimationFrame(animate);
   }
   function begin(){
@@ -218,7 +225,11 @@
     request=requestAnimationFrame(animate);
   }
   tap.addEventListener('click',()=>{
-    if (phase!=='idle' || reduceMotion.matches) return;
+    if (phase!=='idle') return;
+    bubbleUntil=performance.now()+3000;
+    clearTimeout(bubbleTimer);
+    bubbleTimer=setTimeout(()=>{if(phase==='idle')frame(8400)},3050);
+    if (reduceMotion.matches) {frame(8400);return;}
     stop();phase='waving';tap.hidden=true;
     let count=0;
     frame(8400,0);
