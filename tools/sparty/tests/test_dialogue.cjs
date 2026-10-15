@@ -64,8 +64,8 @@ test('Rapid taps replace immediately and restart four-second timer',()=>{
  x.advance(3999);assert.equal(x.bubble.hidden,false);x.advance(1);assert.equal(x.bubble.hidden,true);
 });
 test('Records intro is fixed, then all 200 facts cycle without repeating',()=>{
- const x=setup({records:true});assert.equal(x.bubble.children[0].textContent,'Tap me for a random record, or explore below');
- x.advance(4000);assert.equal(x.bubble.hidden,true);
+ const x=setup({records:true});assert.equal(x.bubble.children[0].textContent,'Tap me for a random stat');
+ x.advance(5999);assert.equal(x.bubble.hidden,false);x.advance(1);assert.equal(x.bubble.hidden,true);
  const texts=[];for(let i=0;i<200;i++){x.button.dispatch('click');texts.push(x.bubble.children[0].textContent);}
  assert.equal(new Set(texts).size,200);
  assert.equal(x.bubble.children[1].textContent,'Through 2026 Week 5');
@@ -91,4 +91,10 @@ test('Bubble placement stays within 320/390/768px viewports and below navigation
 test('Escape dismisses and polite live-region semantics are present',()=>{
  const x=setup();x.button.dispatch('click');x.button.dispatch('keydown',{key:'Escape'});assert.equal(x.bubble.hidden,true);
  assert.equal(x.bubble.attributes['aria-live'],'polite');assert.equal(x.button.attributes['aria-controls'],x.bubble.id);
+});
+
+test('Records rapid taps restart the six-second timer',()=>{
+ const x=setup({records:true});x.button.dispatch('click');const first=x.bubble.children[0].textContent;
+ x.advance(5000);x.button.dispatch('click');assert.notEqual(x.bubble.children[0].textContent,first);
+ x.advance(5999);assert.equal(x.bubble.hidden,false);x.advance(1);assert.equal(x.bubble.hidden,true);
 });
