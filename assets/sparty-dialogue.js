@@ -25,7 +25,7 @@
       return last;
     };
   }
-  function attach(button, items, context = '') {
+  function attach(button, items, context = '', duration = 4000) {
     if (button.dataset.dialogueMounted) return;
     button.dataset.dialogueMounted = 'true';
     const bubble = document.createElement('div');
@@ -71,9 +71,9 @@
       note.textContent = detail;
       note.hidden = !detail;
       bubble.hidden = false;
-      expires = performance.now() + 4000;
+      expires = performance.now() + duration;
       position();
-      timer = setTimeout(hide, 4000);
+      timer = setTimeout(hide, duration);
     }
     button.addEventListener('click', () => show(next()));
     button.addEventListener('keydown', event => { if (event.key === 'Escape') hide(); });
@@ -118,7 +118,7 @@
     } catch (_) {
       sayings = ['The record book is taking a breather. Explore the verified records below.'];
     }
-    const controller = attach(button, sayings, detail);
+    const controller = attach(button, sayings, detail, 6000);
     if (!controller) return;
     button.setAttribute('aria-label', 'Tap Sparty for a random league record');
     let introduced = false, interacted = false;
@@ -127,7 +127,7 @@
     function intro() {
       if (introduced || interacted || document.hidden) return;
       introduced = true;
-      controller.show('Tap me for a random record, or explore below', '');
+      controller.show('Tap me for a random stat', '');
     }
     window.SpartyDialogue.recordsIntro = intro;
     if ('IntersectionObserver' in window) {
