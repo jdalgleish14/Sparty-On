@@ -71,11 +71,14 @@
     // as he braces, leaving a longer bare end for the thrust.
     const topX=hx-topDistance*dx,topY=hy-topDistance*dy;
     const baseX=hx+(112-topDistance)*dx,baseY=hy+(112-topDistance)*dy;
-    c.lineCap='round';c.strokeStyle='#18201a';c.lineWidth=6;
-    c.beginPath();c.moveTo(topX,topY);c.lineTo(baseX,baseY);c.stroke();
-    c.strokeStyle='#ac7d3b';c.lineWidth=4;c.beginPath();c.moveTo(topX,topY);c.lineTo(baseX,baseY);c.stroke();
-    // A blunt wooden butt, not a blade or an added spear tip.
-    c.fillStyle='#d7b571';c.beginPath();c.arc(baseX,baseY,3,0,2*Math.PI);c.fill();
+    c.lineCap='butt';c.strokeStyle='#18201a';c.lineWidth=6;
+    c.beginPath();c.moveTo(topX,topY);c.lineTo(baseX-5*dx,baseY-5*dy);c.stroke();
+    c.strokeStyle='#ac7d3b';c.lineWidth=4;c.beginPath();c.moveTo(topX,topY);c.lineTo(baseX-5*dx,baseY-5*dy);c.stroke();
+    // Shape the bottom of this same wooden flagpole into a short pointed end.
+    c.fillStyle='#18201a';c.beginPath();c.moveTo(baseX-7*dx-3*dy,baseY-7*dy+3*dx);
+    c.lineTo(baseX,baseY);c.lineTo(baseX-7*dx+3*dy,baseY-7*dy-3*dx);c.closePath();c.fill();
+    c.fillStyle='#d7b571';c.beginPath();c.moveTo(baseX-6*dx-1.5*dy,baseY-6*dy+1.5*dx);
+    c.lineTo(baseX-1*dx,baseY-1*dy);c.lineTo(baseX-6*dx+1.5*dy,baseY-6*dy-1.5*dx);c.closePath();c.fill();
     // Rotate the entire fixed-size rectangular flag with the same shaft.
     c.save();c.translate(topX,topY);c.rotate(angle);
     c.fillStyle='#124e35';c.strokeStyle='#08271c';c.lineWidth=2;
@@ -97,7 +100,7 @@
     c.lineTo(83,141);c.lineTo(38,98);c.lineTo(38,50);c.closePath();c.fill();c.restore();
     // Draw the whole character above the entering end: his opaque body hides
     // the inserted part of the pole, while the shaft stays visible outside him.
-    if(attached)wolverine(baseX-44,baseY-43);
+    if(attached)wolverine(baseX-28,baseY-30);
   }
   function wolverine(x,y,k=1){
     c.imageSmoothingEnabled=false;
@@ -147,31 +150,31 @@
     }
     if(t<2.98){
       const q=ease((t-2.42)/.56);
-      pole(252,lerp(344,338,q),lerp(Math.PI/2,-.55,q),false,t,lerp(74,60,q));
+      pole(lerp(252,242,q),lerp(344,338,q),lerp(Math.PI/2,-.9,q),false,t,lerp(74,60,q));
       plantedSparty(222,301,0);thrustArm(222,0,lerp(340,339,q));return;
     }
     if(t<3.42){
       const q=ease((t-2.98)/.44),extension=10*q;
-      pole(252+6*q+extension,338-4*q,-.55,q>.92,t,60);
+      pole(242+16*q+extension,338-4*q,-.9,q>.92,t,60);
       plantedSparty(222,301,q);thrustArm(222+6*q,extension,lerp(339,335,q));
       if(! (q>.92) && t>=3.12)wolverine(268,264);
       return;
     }
     if(t<3.78){
       const q=ease((t-3.42)/.36),lean=lerp(1,.35,q),extension=lerp(10,4,q);
-      pole(252+6*lean+extension,338-4*lean,-.55,true,t,60);
+      pole(252+6*lean+extension,338-4*lean,-.9,true,t,60);
       plantedSparty(222,301,lean);thrustArm(222+6*lean,extension,lerp(335,339,q));
       return;
     }
     if(t<4.08){
       const q=ease((t-3.78)/.30);
-      pole(260-8*q,334+4*q,-.55,true,t,60);
+      pole(260-8*q,334+4*q,-.9,true,t,60);
       plantedSparty(222,301,-.15*q);thrustArm(222-2*q,4,339);return;
     }
     if(t<4.36){
       const q=ease((t-4.08)/.28);
       // Feet plant; torso and original-pixel arm drive the SAME pole forward.
-      pole(252+16*q,338-8*q,lerp(-.55,-.35,q),true,t,60);
+      pole(252+16*q,338-8*q,lerp(-.9,-.35,q),true,t,60);
       plantedSparty(222,301,1.1*q);thrustArm(222+6*q,10*q,lerp(339,331,q));return;
     }
     if(t<4.88){
