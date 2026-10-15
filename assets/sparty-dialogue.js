@@ -65,15 +65,15 @@
       bubble.style.setProperty('--sparty-pointer', `${Math.max(12, Math.min(box.width-20, rect.left+rect.width/2-left))}px`);
       bubble.classList.toggle('is-below', below);
     }
-    function show(message, detail = context) {
+    function show(message, detail = context, displayMs = duration) {
       clearTimeout(timer);
       text.textContent = message;
       note.textContent = detail;
       note.hidden = !detail;
       bubble.hidden = false;
-      expires = performance.now() + duration;
+      expires = performance.now() + displayMs;
       position();
-      timer = setTimeout(hide, duration);
+      timer = setTimeout(hide, displayMs);
     }
     button.addEventListener('click', () => show(next()));
     button.addEventListener('keydown', event => { if (event.key === 'Escape') hide(); });
@@ -127,7 +127,7 @@
     function intro() {
       if (introduced || interacted || document.hidden) return;
       introduced = true;
-      controller.show('Tap me for a random stat', '');
+      controller.show('Tap me for a random stat', '', 4000);
     }
     window.SpartyDialogue.recordsIntro = intro;
     if (window.SpartyRecordsEntrance?.active) {
