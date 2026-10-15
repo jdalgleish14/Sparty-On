@@ -10,7 +10,7 @@
  if(!g)return;
  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
  const sprite=new Image();
- const sessionKey='sparty:ask-arrival:v1';
+ const sessionKey='sparty:ask-arrival:v2';
  let start=0,request=0,active=false,bubbleTimer=0,cancelled=false;
  function showGreeting(){
    clearTimeout(bubbleTimer);greeting.hidden=false;
@@ -34,6 +34,7 @@
  trigger.addEventListener('click',()=>{if(!active)showGreeting()});
  document.addEventListener('visibilitychange',()=>{if(document.hidden&&active)finish(false)});
  reduce.addEventListener('change',()=>{if(reduce.matches&&active)finish(true)});
+const ease=v=>{v=Math.max(0,Math.min(1,v));return v*v*(3-2*v)};
 function pose(x,y,row,frame){g.imageSmoothingEnabled=false;g.drawImage(sprite,frame*192,row*208,192,208,Math.round(x),Math.round(y),77,84)}
 function can(x,y,angle=0,held=true){
  g.save();g.translate(Math.round(x),Math.round(y));g.rotate(angle);

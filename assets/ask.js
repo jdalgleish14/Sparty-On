@@ -13,10 +13,7 @@
   let pose = 'idle', frame = 0, animation, resetPose;
   function drawMascot() {
     const {row} = poses[pose];
-    const position = `-${frame * 96}px -${row * 104}px`;
-    sprite.style.backgroundPosition = position;
-    const answerScale = window.matchMedia('(max-width:700px)').matches ? 58 / 96 : 1;
-    $('ask-answer-sprite').style.backgroundPosition = `-${frame * 96 * answerScale}px -${row * 104 * answerScale}px`;
+    sprite.style.backgroundPosition = `-${frame * 96}px -${row * 104}px`;
   }
   function startMascot() {
     clearInterval(animation);
@@ -35,7 +32,6 @@
     startMascot();
     if (duration) resetPose = setTimeout(() => setMascot('idle'), duration);
   }
-  window.addEventListener('resize', drawMascot);
   document.addEventListener('visibilitychange', startMascot);
   reduceMotion.addEventListener('change', startMascot);
   startMascot();
@@ -76,6 +72,8 @@
   function render(result) {
     $('answer-heading').textContent = String(result.title || 'Answer');
     $('ask-result').textContent = String(result.answer || 'No answer returned.');
+    $('ask-speech').hidden = false;
+    $('ask-intro').classList.add('has-answer');
     $('ask-scope').textContent = String(result.scope || '');
     renderTable($('ask-results-table'), result.columns, result.rows, 'League query results');
     const evidence = $('ask-evidence');
@@ -110,6 +108,8 @@
     if (question.length < 6 || question.length > 180) { setStatus('Enter a question between 6 and 180 characters.', true); return; }
     button.disabled = true;
     answer.hidden = true;
+    $('ask-speech').hidden = true;
+    $('ask-intro').classList.remove('has-answer');
     setMascot('thinking');
     setStatus('Checking the league records…');
     const controller = new AbortController();

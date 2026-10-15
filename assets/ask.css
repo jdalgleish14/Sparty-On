@@ -45,16 +45,15 @@
 #ask-entrance{position:absolute;right:-20px;top:-100px;width:450px;height:237.5px;max-width:none;pointer-events:none;image-rendering:pixelated}
 .ask-greeting{position:absolute;right:0;top:0;max-width:230px;padding:7px 11px;margin:0;border:1px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink);font-size:12px;font-weight:650;line-height:1.35;pointer-events:none}
 .ask-greeting::after{content:"";position:absolute;right:40px;bottom:-5px;width:8px;height:8px;background:var(--paper);border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg)}
-.ask-spoken-answer{display:flex;gap:16px;align-items:flex-start;margin:5px 0 16px;min-width:0}
-.ask-spoken-answer>.ask-mascot-sprite{flex:none}
-.ask-answer-bubble{position:relative;min-width:0;flex:1;padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
-.ask-answer-bubble::before{content:"";position:absolute;left:-6px;top:28px;width:10px;height:10px;transform:rotate(45deg);border-left:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg)}
-.ask-speaker{margin:0 0 6px;color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase}
-.ask-answer-bubble .ask-result{margin:0;font-size:clamp(17px,2.5vw,25px);line-height:1.45}
+.ask-intro.has-answer{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center}
+.ask-speech[hidden]{display:none}
+.ask-speech{grid-column:1 / -1;position:relative;min-width:0;margin:0 0 4px;padding:13px 16px;border:1px solid var(--line);border-radius:12px;background:var(--paper);box-shadow:0 3px 12px #18453b0a}
+.ask-speech::before{content:"";position:absolute;right:36px;top:-6px;width:10px;height:10px;transform:rotate(45deg);border-left:1px solid var(--line);border-top:1px solid var(--line);background:var(--paper)}
+.ask-speaker{margin:0 0 5px;color:var(--accent);font-size:10px;font-weight:800;letter-spacing:.7px;text-transform:uppercase}
+.ask-speech .ask-result{font-size:clamp(16px,2.4vw,22px);line-height:1.45;margin:0;overflow-wrap:anywhere}
 @media(max-width:700px){
  #ask-entrance{right:-16px;top:-80px;width:360px;height:190px}
- .ask-spoken-answer{gap:9px}
- .ask-spoken-answer>.ask-mascot-sprite{width:58px;height:63px;transform:none;background-size:464px 691.166667px}
- .ask-answer-bubble{padding:12px}
+ .ask-intro.has-answer{gap:12px}
+ .ask-speech{padding:12px}
  .ask-greeting{font-size:11px;max-width:210px}
 }
