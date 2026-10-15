@@ -14,10 +14,12 @@ No package installation, service connection, API key, or workbook change is requ
 Home retains the approved intro, Go Green bubble and original timing. After the intro,
 clicking the mascot shows one of the 17 supplied sayings verbatim and keeps the existing
 wave. During a wave, further taps update the saying immediately without restarting or
-extending the animation. The four-second dialogue timer restarts on every tap.
+extending the animation. The Home four-second dialogue timer restarts on every tap.
 
 Records retains its existing idle/wave behavior. The fixed introductory saying appears
-once per page load when the validated Records mascot is visible, and lasts four seconds.
+once per page load when the validated Records mascot is visible, and lasts six seconds.
+Its opening text is “Tap me for a random stat”. Records statistical bubbles also last six
+seconds, with each tap restarting that timer.
 It is separate from the 200-record shuffle queue. Taps supersede it immediately.
 Home and Records have independent shuffle queues, reset on page reload. Every item is
 used before reshuffling; the last item cannot immediately repeat at the cycle boundary.
