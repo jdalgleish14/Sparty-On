@@ -59,11 +59,12 @@ questions, then fills category targets with additional ranked records. Semantic 
 are removed. Rankings use competition ranks, represent ties explicitly, and compare values
 to ten decimal places to prevent floating-point noise from breaking mathematical ties.
 Each fact contains template, category, numeric value, rank, scope and source identifiers.
-Facts include their population/scope; some game records intentionally overlap a specific
+Dialogue uses conversational sentences, with explicit rankings, ties and scope. Future
+data updates automatically use the same conversational templates. Facts include their population/scope; some game records intentionally overlap a specific
 postseason or championship record because those are distinct comparisons.
 
 The published collection is limited to 200 items and 180,000 UTF-8 bytes. There is no
-history of prior collections appended to the file. Current output is approximately 76 KB,
+history of prior collections appended to the file. Current output is approximately 80 KB,
 with 200 sayings representing 101 distinct registered questions. Categories currently meet
 all target allocations: games 30, careers 30, completed seasons 30, playoffs 25, rivalries
 25, streaks/consistency 25, luck/oddities 20, league history 15. These are selection targets;
