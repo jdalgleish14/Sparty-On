@@ -107,6 +107,30 @@ class CommandLine(unittest.TestCase):
         code, _, _ = run(["verify", "--data-dir", self.data])
         self.assertEqual(code, 0)
 
+    def test_dialogue_matches_new_week_and_is_capped(self):
+        fake = FakeSleeper(self.base, last_scored=5)
+        with mock.patch.object(api, "get_json", fake):
+            code, _, err = run(self.argv("run"))
+        self.assertEqual(code, 0, err)
+        text = df.read_text(self.data, "sparty-records.js")
+        collection = json.loads(text[len(sync.sparty_dialogue.PREFIX):].strip().rstrip(";"))
+        self.assertEqual(collection["cutoff"], {"year": 2026, "week": 5})
+        self.assertEqual(collection["source_fingerprint"], sync.sparty_dialogue.fingerprint(df.load(self.data).site))
+        self.assertEqual(len(collection["sayings"]), 200)
+
+    def test_dialogue_failure_blocks_publication_and_preserves_last_file(self):
+        target = os.path.join(self.data, "sparty-records.js")
+        with open(target, "w", encoding="utf-8") as stream:
+            stream.write("LAST VALID COLLECTION")
+        before = df.read_text(self.data, "site-data.js")
+        fake = FakeSleeper(self.base, last_scored=5)
+        with mock.patch.object(api, "get_json", fake), mock.patch.object(sync.sparty_dialogue, "generate", side_effect=ValueError("bad candidate")):
+            code, _, err = run(self.argv("run"))
+        self.assertEqual(code, sync.EXIT_VERIFY)
+        self.assertEqual(self.status()["reason"], "dialogue")
+        self.assertEqual(df.read_text(self.data, "site-data.js"), before)
+        self.assertEqual(df.read_text(self.data, "sparty-records.js"), "LAST VALID COLLECTION")
+
     def test_second_run_with_unchanged_scores_is_a_no_op(self):
         fake = FakeSleeper(self.base, last_scored=5)
         with mock.patch.object(api, "get_json", fake):
