@@ -37,8 +37,8 @@ function ball(x,y,a=0){g.save();g.translate(x,y);g.rotate(a);g.fillStyle='#28190
     g.setTransform(ratio,0,0,ratio,(width-360)*ratio,23*ratio);
     const push=ease((t-4.40)/1.16),gx=t<4.40?275:275+push*145,rot=t<4.40?0:push*.42;
     if(t<5.6)goalFar(gx,105,rot);
-    if(t<1.72){line(172,105,172,89,3,'#caa36d');ball(172,84,-.28)}
-    if(t>=1.72&&t<3.27){const q=(t-1.72)/1.55;ball(172+q*200,91-190*q+100*q*q-7*(1-q),q*10)}
+    if(t<1.72){line(172,105,172,81,3,'#caa36d');ball(172,76,-.28)}
+    if(t>=1.72&&t<3.27){const q=(t-1.72)/1.55;ball(172+q*200,91-190*q+100*q*q-15*(1-q),q*10)}
     if(t<5.6)goalNear(gx,105,rot);
     let x=286,row=0,f=0;
     if(t<1.42){x=-65+ease(t/1.42)*188;row=1;f=Math.floor(t*10)%8}
@@ -49,7 +49,7 @@ function ball(x,y,a=0){g.save();g.translate(x,y);g.rotate(a);g.fillStyle='#28190
     else if(t<4.40){x=123+ease((t-3.75)/.65)*112;row=1;f=Math.floor(t*10)%8}
     else if(t<5.6){x=235+Math.round(push*145);row=1;f=push<.2?3:7}
     else if(t<6.72){x=380-ease((t-5.6)/1.12)*94;row=1;f=Math.floor(t*9)%8}
-    sparty(x,40,row,f);
+    sparty(x,30,row,f);
   }
   function finish(){
     if(finished)return;

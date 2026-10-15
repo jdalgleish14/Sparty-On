@@ -8,7 +8,7 @@
 .record-intro{position:relative;isolation:isolate;margin-top:39px}
 .record-intro::after{content:"";position:absolute;inset:-4px 0 0;background:linear-gradient(to bottom,var(--bronze) 0 4px,var(--green) 4px);border-radius:inherit;z-index:1;pointer-events:none}
 .record-intro>div{position:relative;z-index:2}
-.record-intro .sparty-peek{right:12px;top:-62px}
+.record-intro .sparty-peek{right:12px;top:-72px}
 @media(max-width:850px){.page-tiles>.sparty-peek{right:10px}}
 @media(max-width:700px){.record-intro{margin-top:39px}.record-intro .sparty-peek{right:10px}}
 
