@@ -60,7 +60,7 @@ class GeneratorTests(unittest.TestCase):
 
     def test_equal_records_are_tied(self):
         rows=self.rows(gen.build_registry(fixture()),'games.losing_low')
-        self.assertIn('tied #',rows[1]['text'])
+        self.assertIn('ties for No. 2',rows[1]['text'])
         self.assertGreater(len(rows[1]['evidence']['sources']),1)
 
     def test_expected_wins_give_half_credit_for_equal_scores(self):
@@ -137,6 +137,14 @@ class GeneratorTests(unittest.TestCase):
             output.write_text(gen.serialize(changed))
             repaired,did_write=gen.generate(gen.ROOT/'site-data',output)
             self.assertTrue(did_write);self.assertEqual(result,repaired)
+
+    def test_conversational_copy_preserves_record_context(self):
+        registry=gen.build_registry(fixture())
+        high=self.rows(registry,'games.high')[0]
+        self.assertIn('put up 999.00 points',high['text'])
+        self.assertIn('highest individual score',high['text'])
+        self.assertNotIn(' — #',high['text'])
+        self.assertIn('Completed regular seasons only',self.rows(registry,'season.points')[0]['text'])
 
     def test_failure_preserves_previous_output(self):
         with tempfile.TemporaryDirectory() as temp:
