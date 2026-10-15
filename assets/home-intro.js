@@ -16,6 +16,7 @@
   tap.setAttribute('aria-label','Wave to Sparty');
   tap.hidden=true;
   hero.append(tap);
+  const dialogue=window.SpartyDialogue?.mountHome(tap);
   const c=canvas.getContext('2d',{alpha:true});
   if (!c) { canvas.remove();tap.remove();return; }
   const sprites=new Image(),foe=new Image();
@@ -228,12 +229,17 @@
     request=requestAnimationFrame(animate);
   }
   tap.addEventListener('click',()=>{
-    if (phase!=='idle') return;
-    bubbleUntil=performance.now()+3000;
+    if (phase!=='idle' && phase!=='waving') return;
+    if (dialogue) {
+      bubbleUntil=0;
+      clearTimeout(bubbleTimer);
+      if (phase==='waving') return;
+    }
+    bubbleUntil=dialogue?0:performance.now()+3000;
     clearTimeout(bubbleTimer);
     bubbleTimer=setTimeout(()=>{if(phase==='idle')frame(8400)},3050);
     if (reduceMotion.matches) {frame(8400);return;}
-    stop();phase='waving';tap.hidden=true;
+    stop();phase='waving';tap.hidden=false;
     let count=0;
     frame(8400,0);
     waveTimer=setInterval(()=>{

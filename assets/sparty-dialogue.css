@@ -1,0 +1,8 @@
+/* DOM bubbles match the approved canvas bubble; animations retain their own styles. */
+.sparty-dialogue{position:fixed;z-index:40;box-sizing:border-box;width:max-content;max-width:min(310px,calc(100vw - 16px));padding:10px 12px;background:#fff;color:#122218;border:2px solid #192820;border-radius:6px;font:bold 14px/1.35 Arial,sans-serif;overflow-wrap:anywhere;pointer-events:none;box-shadow:0 2px 5px #0002}
+.sparty-dialogue[hidden]{display:none}
+.sparty-dialogue::after{content:"";position:absolute;left:var(--sparty-pointer,50%);bottom:-8px;width:12px;height:12px;background:#fff;border-right:2px solid #192820;border-bottom:2px solid #192820;transform:rotate(45deg)}
+.sparty-dialogue.is-below::after{bottom:auto;top:-8px;border:0;border-left:2px solid #192820;border-top:2px solid #192820}
+.sparty-dialogue small{display:block;margin-top:5px;font:11px/1.25 Arial,sans-serif;color:#4b5a50}
+.sparty-dialogue small[hidden]{display:none}
+@media(max-height:350px){.sparty-dialogue{font-size:12px;padding:6px 8px;max-width:min(360px,calc(100vw - 16px))}}
