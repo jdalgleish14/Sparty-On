@@ -30,6 +30,9 @@ import datafiles as df      # noqa: E402
 import sleeper_api as api   # noqa: E402
 import verify as vf         # noqa: E402
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "sparty"))
+import generate as sparty_dialogue  # noqa: E402
+
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 DEFAULT_DATA = os.path.join(ROOT, "site-data")
 EXIT_OK, EXIT_NOTHING, EXIT_GATE, EXIT_VERIFY, EXIT_FETCH, EXIT_ERROR = 0, 10, 2, 3, 4, 1
@@ -204,14 +207,35 @@ def cmd_build(args, stability="unknown"):
         parity_md = None
         if args.parity:
             parity_md = parity_markdown(args)
+        # Generate against the verified staged snapshot before any published writes.
+        # Failure blocks this publication and preserves the committed collection.
+        try:
+            sparty_dialogue.generate(stage)
+        except Exception as error:
+            message = f"Sparty dialogue validation failed; nothing published: {error}"
+            print(message, file=sys.stderr)
+            write_report(args.report, message + "\n")
+            emit(args, status="blocked", reason="dialogue")
+            return EXIT_VERIFY
+        dialogue_name = "sparty-records.js"
+        dialogue_text = df.read_text(stage, dialogue_name)
         preview = player_preview_text(data, raw_dir, report["through_week"])
         if args.dry_run:
             changed = [f for f, t in df.render(ds).items() if df.read_text(data, f) != t]
             if preview is not None and df.read_text(data, "sleeper-sample.js") != preview:
                 changed.append("sleeper-sample.js")
+            if not os.path.exists(os.path.join(data, dialogue_name)) or df.read_text(data, dialogue_name) != dialogue_text:
+                changed.append(dialogue_name)
             print("dry run; would change:", ", ".join(changed))
         else:
             changed = df.save(ds, data)
+            if not os.path.exists(os.path.join(data, dialogue_name)) or df.read_text(data, dialogue_name) != dialogue_text:
+                target = os.path.join(data, dialogue_name)
+                with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=data, delete=False) as fh:
+                    fh.write(dialogue_text)
+                    dialogue_temp = fh.name
+                os.replace(dialogue_temp, target)
+                changed.append(dialogue_name)
             if preview is not None and df.read_text(data, "sleeper-sample.js") != preview:
                 with open(os.path.join(data, "sleeper-sample.js"), "w", encoding="utf-8", newline="") as fh:
                     fh.write(preview)
