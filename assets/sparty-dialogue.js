@@ -2,11 +2,11 @@
 (() => {
   'use strict';
   const HOME = [
-    'Spartans Will', 'Fuck those Wolverines', 'Victory for MSU', 'MSU we love thy Shadows',
+    'Spartans Will', 'Fuck those Wolverines!', 'Victory for MSU!', 'MSU we love thy Shadows',
     'On the banks of the Red Cedar...', 'FTP', 'I miss Cassius Winston',
-    'Remember Schubby? What a cunt', 'What do you think happens after you die?',
-    "Rick's later?", 'I could use a beer', 'WOAH He has trouble with the snap',
-    'Touchdown MSU', 'He got it! He got it!', 'Pride comes before the fall',
+    'Remember Schubby? What a cunt.', 'What do you think happens after you die?',
+    'Rick’s later?', 'I could use a beer', 'WOAH He has trouble with the snap',
+    'Touchdown MSU!', 'He got it! He got it!', 'Pride comes before the fall',
     'Did you just touch my dick?',
     'A Michigan fan walks into a bar, what does the bartender say? Get the fuck out!'
   ];

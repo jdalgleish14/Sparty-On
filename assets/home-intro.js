@@ -132,7 +132,7 @@
     c.fillStyle='#fff';c.strokeStyle='#192820';c.lineWidth=2;
     c.beginPath();c.roundRect(305,276,87,29,6);c.fill();c.stroke();
     c.beginPath();c.moveTo(346,304);c.lineTo(355,315);c.lineTo(357,304);c.fill();c.stroke();
-    c.fillStyle='#122218';c.font='bold 14px Arial';c.fillText('Go Green',314,295);
+    c.fillStyle='#122218';c.font='bold 14px Arial';c.fillText('Go Green!',314,295);
   }
   function frame(ms,waveFrame=-1){
     c.setTransform(1,0,0,1,0,0);
