@@ -125,6 +125,149 @@ def validate_source(site):
     return seasons, weeks
 
 
+def conversational(category, key, row, value, unit, rank, tied, scope, minimum):
+    """Turn a verified ranked fact into spoken copy; wording never changes the evidence."""
+    number = fmt(value, unit)
+    plain = fmt(value, 'count')
+    points = f'{value:.2f}'
+    subject = row['name']
+    if category == 'games' or (category == 'playoffs' and key.startswith('final_')) or (category == 'luck' and key == 'sub80'):
+        who, opponent = row['owner_name'], row['opponent_owner_name']
+        where = f"Week {row['week']} of {row['year']}"
+        if row.get('stage') == 'Postseason':
+            where = f"the {row['year']} {row['round']}"
+        if key in ('margin','post_narrow','narrow','final_margin','final_narrow','sub80'):
+            sentence = f'{who} beat {opponent} by just {number} in {where}.' if 'narrow' in key else f'{who} beat {opponent} by {number} in {where}.'
+            if key == 'sub80': sentence += f" And {who} only scored {row['points_for']:.2f}!"
+        elif key in ('total_high','total_low'):
+            sentence = f'{who} and {opponent} combined for {number} in {where}.'
+        else:
+            result = ' and still lost' if key == 'losing_high' else ' in a win' if key in ('winning_low','winning_high','final_score') else ''
+            sentence = f'{who} put up {number}{result} against {opponent} in {where}.'
+    elif category in ('career','season','streaks','luck') and '/' in row['id'] and row['id'].split('/')[0].isdigit():
+        owner, year = subject.rsplit(', ',1)
+        s = f'In {year}, {owner}'
+        phrases = {
+            'wins':f'finished with {plain} wins', 'losses':f'finished with {plain} losses',
+            'win_pct':f'won {number} of regular-season games', 'worst_pct':f'won just {number} of regular-season games',
+            'points':f'piled up {number}', 'avg':f'averaged {number} a game', 'low_avg':f'averaged only {number} a game',
+            'margin':f'outscored opponents by an average of {number}', 'low_margin':f'finished with an average scoring margin of {number}',
+            'opponent':f'faced opponents averaging {number} a game',
+            '100':f'reached 100 points {plain} times', '120':f'reached 120 points {plain} times', '140':f'reached 140 points {plain} times',
+            'rate100':f'reached 100 points in {number} of games',
+            'floor':f'never scored below {number}', 'ceiling':f'hit a season high of {number}',
+            'close':f'won {plain} games by five points or fewer', 'blowouts':f'won {plain} games by at least 30 points',
+            'steady':f'had a scoring standard deviation of just {number}', 'volatile':f'had a scoring standard deviation of {number}',
+            'range_low':f'had only {number} between the best and worst scores', 'range_high':f'had {number} between the best and worst scores',
+            'expected':f'played well enough for {plain} all-play expected wins',
+            'low_expected':f'finished with just {plain} all-play expected wins',
+            'top_losses':f'lost {plain} times despite scoring in the weekly top half',
+            'bottom_wins':f'won {plain} times while scoring in the weekly bottom half',
+            'second_losses':f'lost {plain} times with the second-highest score of the week',
+        }
+        if category == 'streaks' and key == 'floor':
+            phrase = f'scored below 80 points only {plain} times'
+        elif category == 'luck' and key in ('lucky','unlucky'):
+            direction = 'more' if value >= 0 else 'fewer'
+            phrase = f'won {abs(value):.2f} {direction} games than all-play scoring would predict'
+        else: phrase = phrases[key]
+        sentence = f'{s} {phrase}.'
+    elif category == 'career':
+        phrases = {
+            'wins':f'has piled up {plain} career wins', 'losses':f'has taken {plain} career losses',
+            'games':f'has played {plain} games', 'points':f'has scored {number} over a career',
+            'allowed':f'has faced {number} from opponents', 'win_pct':f'has won {number} of career games',
+            'avg_score':f'averages {number} a game', 'avg_margin':f'has an average scoring margin of {number}',
+            'opponent':f'faces opponents scoring {number} a game on average',
+            '100':f'has reached the 100-point mark {plain} times', '120':f'has reached 120 points {plain} times',
+            '140':f'has reached 140 points {plain} times', 'close_wins':f'has won {plain} nail-biters by five points or fewer',
+            'close_losses':f'has lost {plain} games by five points or fewer', 'big_wins':f'has won {plain} games by at least 30 points',
+            'rate100':f'reaches 100 points in {number} of games', 'rate120':f'reaches 120 points in {number} of games'}
+        sentence = f'{subject} {phrases[key]}.'
+    elif category == 'playoffs':
+        phrases = {'titles':f'has lifted the trophy {plain} times', 'finals':f'has reached the championship game {plain} times',
+                   'runner_up':f'has finished runner-up {plain} times', 'appearances':f'has played postseason football in {plain} seasons',
+                   'semis':f'has played in {plain} semifinals', 'wins':f'has won {plain} playoff games',
+                   'games':f'has played {plain} playoff games', 'points':f'has scored {number} in the playoffs',
+                   'avg':f'averages {number} in the playoffs', 'win_pct':f'has won {number} of playoff games'}
+        sentence = f'{subject} {phrases[key]}.'
+    elif category == 'rivalries':
+        pair = row['name'].replace(' vs ', ' and ')
+        opponent = next((name for name in row['name'].split(' in ',1)[-1].split(' vs ') if name != row['dominant']), '')
+        phrases = {'meetings':f'{pair} have met {plain} times',
+                   'total':f'{pair} have combined for {number} across their meetings',
+                   'avg_total':f'{pair} average a combined {number} when they meet',
+                   'competitive':f'{pair} are separated by just {number} per meeting on average',
+                   'lopsided':f'{pair} are separated by {number} per meeting on average',
+                   'close':f'{pair} have played {plain} games decided by five points or fewer',
+                   'blowouts':f'{pair} have played {plain} games decided by at least 30 points',
+                   'gap':f'{pair} are separated by {plain} wins in their head-to-head record',
+                   'max_margin':f'The biggest win between {pair} was by {number}',
+                   'dominance':f"{row['dominant']} has won {number} of meetings with {opponent}"}
+        sentence = phrases[key]+'.'
+    elif category == 'streaks':
+        owner, dates = subject.split(', ',1)
+        phrases = {'wins':f'won {plain} straight games', 'losses':f'lost {plain} straight games',
+                   '100':f'scored 100+ in {plain} straight games', '120':f'scored 120+ in {plain} straight games',
+                   'under100':f'went {plain} straight games without reaching 100 points',
+                   'close':f'played {plain} straight games decided by five points or fewer',
+                   'rivalry':f'won {plain} successive meetings'}
+        if key == 'rivalry':
+            winner, opponent = owner.split(' vs ', 1)
+            sentence = f'{winner} won {plain} successive meetings against {opponent}, from {dates}.'
+        else:
+            sentence = f'{owner} {phrases[key]}, from {dates}.'
+    elif category == 'league':
+        phrases = {'high_total':f'the league combined for {number}', 'low_total':f'the league combined for only {number}',
+                   'high_avg':f'teams averaged {number}', 'low_avg':f'teams averaged only {number}',
+                   'winner':f'even the winners averaged {number}', 'loser':f'the losing teams still averaged {number}',
+                   'close':f'the average game was decided by just {number}', 'wide':f'the average game was decided by {number}',
+                   '100':f'{number} of teams reached 100 points', '120':f'{number} of teams reached 120 points'}
+        sentence = f'In {subject}, {phrases[key]}.'
+    else:
+        raise ValueError(f'Missing conversational template: {category}.{key}')
+    label = {
+        ('games','high'):'highest individual score', ('games','low'):'lowest individual score',
+        ('games','losing_high'):'highest score in a loss', ('games','losing_low'):'lowest score in a loss',
+        ('games','winning_low'):'lowest score in a win', ('games','winning_high'):'highest score in a win',
+        ('games','margin'):'biggest blowout', ('games','narrow'):'closest win',
+        ('games','total_high'):'highest combined game score', ('games','total_low'):'lowest combined game score',
+        ('games','reg_high'):'highest regular-season score', ('games','reg_low'):'lowest regular-season score',
+        ('games','post_high'):'highest playoff score', ('games','post_low'):'lowest playoff score',
+        ('games','post_narrow'):'closest playoff win', ('playoffs','final_margin'):'biggest championship blowout',
+        ('playoffs','final_narrow'):'closest championship', ('playoffs','final_score'):'highest championship winning score',
+        ('luck','sub80'):'biggest win with a score below 80'}
+    label.update({
+        ('season','low_avg'):'lowest completed-season scoring average',
+        ('season','worst_pct'):'lowest completed-season win percentage',
+        ('season','low_margin'):'lowest completed-season average scoring margin',
+        ('streaks','steady'):'lowest completed-season score variation',
+        ('streaks','volatile'):'highest completed-season score variation',
+        ('streaks','range_low'):'smallest completed-season scoring range',
+        ('streaks','range_high'):'largest completed-season scoring range',
+        ('streaks','floor'):'fewest sub-80 scores in a completed season',
+        ('rivalries','competitive'):'smallest average margin in a rivalry',
+        ('luck','low_expected'):'lowest completed-season all-play expected win total',
+        ('luck','unlucky'):'biggest completed-season shortfall against all-play expectation',
+        ('league','low_total'):'lowest weekly league scoring total',
+        ('league','low_avg'):'lowest weekly average team score',
+        ('league','close'):'smallest weekly average margin'})
+    comparison = label.get((category,key))
+    if rank == 1:
+        ending = f"That's {'tied for the' if tied else 'the'} {comparison} in league history." if comparison else ("That shares the league record." if tied else "That's a league record.")
+    else:
+        ending = f"That {'ties for' if tied else 'ranks'} No. {rank} on the {'all-time '+comparison if comparison else 'all-time'} list."
+    qualification = ''
+    if category in ('career','rivalries'):
+        qualification = ' Regular season and playoffs included.'
+    elif category in ('season','luck') and key != 'sub80':
+        qualification = ' Completed regular seasons only.'
+    elif category == 'streaks':
+        qualification = ' Completed regular seasons only.' if key in ('steady','volatile','range_low','range_high','floor') else ' Regular season and playoffs included.'
+    if minimum: qualification += f' Minimum: {minimum}.'
+    return sentence + ' ' + ending + qualification
+
+
 class Registry:
     def __init__(self):
         self.templates = {}
@@ -145,9 +288,7 @@ class Registry:
             subject = '; '.join(names) if len(names) <= 2 else f"{names[0]} and {len(names)-1} others"
             rank = 1 + sum(r[field] > value if high else r[field] < value for r in valid)
             position = ('tied ' if len(matches) > 1 else '') + f'#{rank}'
-            text = f"{subject}: {fmt(value, unit)} — {position} for {label} ({scope})."
-            if minimum:
-                text = text[:-2] + f'; minimum {minimum}).'
+            text = conversational(category, key, matches[0], value, unit, rank, len(matches)>1, scope, minimum)
             if len(text) > 310:
                 continue
             evidence = {'field': field, 'value': value, 'rank': rank, 'sources': [r['id'] for r in matches], 'scope': scope}
