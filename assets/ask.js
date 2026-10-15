@@ -13,7 +13,10 @@
   let pose = 'idle', frame = 0, animation, resetPose;
   function drawMascot() {
     const {row} = poses[pose];
-    sprite.style.backgroundPosition = `-${frame * 96}px -${row * 104}px`;
+    const position = `-${frame * 96}px -${row * 104}px`;
+    sprite.style.backgroundPosition = position;
+    const answerScale = window.matchMedia('(max-width:700px)').matches ? 58 / 96 : 1;
+    $('ask-answer-sprite').style.backgroundPosition = `-${frame * 96 * answerScale}px -${row * 104 * answerScale}px`;
   }
   function startMascot() {
     clearInterval(animation);
@@ -25,12 +28,14 @@
     }, pose === 'thinking' ? 310 : 240);
   }
   function setMascot(next, duration = 0) {
+    window.SpartyAskEntrance?.finish(false);
     clearTimeout(resetPose);
     pose = next;
     frame = 0;
     startMascot();
     if (duration) resetPose = setTimeout(() => setMascot('idle'), duration);
   }
+  window.addEventListener('resize', drawMascot);
   document.addEventListener('visibilitychange', startMascot);
   reduceMotion.addEventListener('change', startMascot);
   startMascot();
