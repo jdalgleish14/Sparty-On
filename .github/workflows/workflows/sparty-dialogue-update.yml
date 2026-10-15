@@ -1,0 +1,51 @@
+name: Sparty dialogue update
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['site-data/**', 'tools/sparty/**', 'tools/sleeper/**', '.github/workflows/sparty-dialogue-update.yml']
+  pull_request:
+    paths: ['site-data/**', 'tools/sparty/**', 'tools/sleeper/**', '.github/workflows/sparty-dialogue-update.yml']
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: sleeper-weekly-update
+  cancel-in-progress: false
+jobs:
+  dialogue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test generator
+        run: python -m unittest discover -s tools/sparty/tests -p 'test_*.py'
+      - name: Test mascot interactions
+        run: node --test tools/sparty/tests/test_dialogue.cjs
+      - name: Rebuild from verified historical data
+        run: python tools/sparty/generate.py
+      - name: Publish changed dialogue
+        id: publish
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        shell: bash
+        run: |
+          git add site-data/sparty-records.js
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Refresh verified Sparty dialogue'
+          git push origin HEAD:refs/heads/main
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Request Pages rebuild
+        if: steps.publish.outputs.sha != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PUBLISHED_SHA: ${{ steps.publish.outputs.sha }}
+        shell: bash
+        run: |
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$PUBLISHED_SHA"
+          gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds" > "$RUNNER_TEMP/sparty-pages-build.json"
