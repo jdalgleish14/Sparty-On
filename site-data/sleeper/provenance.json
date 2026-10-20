@@ -3,17 +3,19 @@
   "generator_version": "1.0.0",
   "league_id": "1386532723459362816",
   "season": "2026",
-  "published_through_week": 5,
+  "published_through_week": 6,
   "excel_export_source_sha256": "3da91a0c74f9c6c99f808d857634398b25599c73a26b022ad1cd58a1b7ce5e73",
-  "excel_export_covers_through_week": 4,
-  "context_fetched_at_utc": "2026-10-13T14:19:46+00:00",
+  "excel_export_covers_through_week": 5,
+  "context_fetched_at_utc": "2026-10-20T12:36:24+00:00",
   "raw_payload_sha256": {
-    "context.json": "20c6a71c15f287bcfad404f0be5cfa93085956c156ab66a0ea135e53b6390848",
+    "context.json": "605ce817fe7fefb23fcd2a5e9081952015f8f0f46363b2badeaa439660691bb7",
     "players-week-05.json": "baaad95f0ed1d15722544686ed04c8ffcee873e950d3a044805eff25ee1e7df2",
+    "players-week-06.json": "3ba36d6eab2fc2428bf34e6ec1e71be7031302ebcc62231e2a1778fbbc198590",
     "week-01.json": "3e7ebeec08cca3a3f3b4db6caedc8a1d4ef6c67ba82b249aa046f2e9a83588f1",
     "week-02.json": "a0ebe0047a6bcc04cc703fe8f7617bed599c6b75ec1d78137eafd3d0b9c1693f",
     "week-03.json": "fb92f094ab8e9352172b497acde56257494176d7db234e6eeec218f4c7327305",
     "week-04.json": "795b67a5f6e29c3d5752842631b631dacbf12acd4c2bb0c0e6acdec2870cc2ae",
-    "week-05.json": "5a9df1febac27810c3ce45c86e943a5ab2a11726ae167466bc66677f3a399310"
+    "week-05.json": "5a9df1febac27810c3ce45c86e943a5ab2a11726ae167466bc66677f3a399310",
+    "week-06.json": "d4bafac27e5c58f0270ecaadc6438484b5dec2ee8dd1af67041994d6b2ce88d2"
   }
 }

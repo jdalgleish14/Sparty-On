@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0.0",
-  "generated_at_utc": "2026-10-13T14:19:46+00:00",
+  "generated_at_utc": "2026-10-20T12:36:24+00:00",
   "source_sha256": "3da91a0c74f9c6c99f808d857634398b25599c73a26b022ad1cd58a1b7ce5e73",
   "publication_cutoff": {
-    "current_season_through_week": 5
+    "current_season_through_week": 6
   },
   "files": {
     "championships.json": {
@@ -11,24 +11,24 @@
       "bytes": 2893
     },
     "current_standings.json": {
-      "sha256": "0ae86c3e79b36c8b30c04269719c3e74fcf0f9cfee1ad852c0dd4ed7d770ff47",
-      "bytes": 4720
+      "sha256": "3171c9823981386c3dc3911693b71356356c00bde159db7839a2e0b1b449cfa1",
+      "bytes": 4711
     },
     "games.json": {
-      "sha256": "c77c68f8de384ede113d71a7d2504b71c73565c46bad5f654680994d5ea31540",
-      "bytes": 1117928
+      "sha256": "04f900d9958011afb7a5e8a4636f5063fb52782ff9a1bfd68aacafaa90a2fb6d",
+      "bytes": 1123726
     },
     "head_to_head.json": {
-      "sha256": "978f56388e08318dc96c6e0661125b1e05c0e68d0a5ac259d6c680f63d8d8231",
-      "bytes": 33173
+      "sha256": "e9cfa824c9c6ca99bc9e9b030a1c7572fc89a07427d42b81014bde53ed0b7dcc",
+      "bytes": 33174
     },
     "league.json": {
-      "sha256": "6f5c259174aaea03b4d826e63b0cdf072fe73f354643b1717c9f2c92f05f8957",
+      "sha256": "5a457f1375f0834c15a98d8c39afe7e384dd054ee0666da11454364fd436b6e6",
       "bytes": 153
     },
     "owner_careers.json": {
-      "sha256": "82699112a8833104c5e6c3898caa737c860d8c6af72cffda71c2198149403bca",
-      "bytes": 5253
+      "sha256": "86c03d83b1106374e281f06c62f579695c1e39edec7bac3786ac6f6fe0e83bb0",
+      "bytes": 5258
     },
     "owners.json": {
       "sha256": "1776b1cf26a900ebdce610fe65714b85ad3f382ebe55706ba5eb4dbc938000d6",
@@ -39,15 +39,15 @@
       "bytes": 52628
     },
     "season_summaries.json": {
-      "sha256": "af2d2caf4aecf90a7adb49c1b3047636cf5356fc127d16c9922cd3fd7fb02784",
-      "bytes": 63307
+      "sha256": "17224d12b18fc29f7d4a63f1e9838a1b9f3c87723c6649008c9d2ba6915006b1",
+      "bytes": 63298
     },
     "seasons.json": {
       "sha256": "c47c99d2feed3c5d42eabc18925299bbd9a3b929314e2d22106f4647fbb2a1be",
       "bytes": 8329
     },
     "validation_report.json": {
-      "sha256": "72fbde2c58be1b92220507af1a15e2757c59c15d2d43f4c16b3c2309c2fa8e8a",
+      "sha256": "90308748da701ca789468d34ad96bd2cf19d35b98944d16c0132f277ef3f5f5e",
       "bytes": 1388
     }
   }
