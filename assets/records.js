@@ -36,7 +36,39 @@
     ];
     $('week-category').innerHTML=weekTypes.map(([key,title])=>`<option value="${key}">${title}</option>`).join('');
     const gameTypes={highest_scores:['Highest scores','Points scored','Top individual scores from regular-season and postseason games.'],lowest_scores:['Lowest scores','Points scored','Lowest individual scores from regular-season and postseason games.'],largest_margins:['Biggest winning margins','Winning margin','Largest margins in completed matchups.'],closest_games:['Closest games','Final margin','Narrowest final scores, including postseason games.']};
-    const seasonTypes={record:['Best win percentage','Win %','Regular-season win percentage among completed owner-seasons.'],points_for:['Most points scored','Season PF','Full-season regular-season points scored; season lengths vary.'],average_points_for:['Highest average score','Avg PF','Regular-season points per game across completed owner-seasons.'],average_margin:['Best average margin','Avg margin','Regular-season average points scored minus average points allowed.']};
+    // Totals and records require completed seasons; rate metrics also admit
+    // published current-season games, matching Historical Rankings.
+    const seasonTypes={
+      record:['Best win percentage','Win %','record',true,false],
+      worst_record:['Worst win percentage','Win %','record',false,false],
+      points_for:['Most points scored','Season PF','points_for',true,false],
+      least_points_for:['Fewest points scored','Season PF','points_for',false,false],
+      points_against:['Most points allowed','Season PA','points_against',true,false],
+      least_points_against:['Fewest points allowed','Season PA','points_against',false,false],
+      average_points_for:['Highest average score','Avg PF','average_points_for',true,true],
+      lowest_average_points_for:['Lowest average score','Avg PF','average_points_for',false,true],
+      average_points_against:['Highest average points allowed','Avg PA','average_points_against',true,true],
+      lowest_average_points_against:['Lowest average points allowed','Avg PA','average_points_against',false,true],
+      average_margin:['Best average margin','Avg margin','average_margin',true,true],
+      worst_average_margin:['Worst average margin','Avg margin','average_margin',false,true]
+    };
+    $('season-category').innerHTML=Object.entries(seasonTypes).map(([key,[title]])=>`<option value="${key}">${title}</option>`).join('');
+    const streakTypes={
+      wins:['Longest winning streaks',true,g=>g.result==='W'],
+      losses:['Longest losing streaks',true,g=>g.result==='L'],
+      hundred:['Longest 100+ scoring streaks',false,g=>g.points_for>=100],
+      top:['Longest top-half scoring streaks',false,g=>weeklyRank.get(g)<=weeklyHalf.get(g)],
+      bottom:['Longest streaks outside the top half',false,g=>weeklyRank.get(g)>weeklyHalf.get(g)],
+      first:['Longest weekly #1 scoring streaks',false,g=>weeklyRank.get(g)===1]
+    };
+    // Workbook uses competition ranks: tied scores share a rank, including
+    // at the top-half boundary. Scoring streaks reset at the start of a season.
+    const weeklyRank=new Map(),weeklyHalf=new Map();
+    for(const rows of weekly.values())for(const g of rows){
+      weeklyRank.set(g,1+rows.filter(o=>o.points_for>g.points_for).length);
+      weeklyHalf.set(g,Math.ceil(rows.filter(o=>o.points_for>0).length/2));
+    }
+    $('streak-category').innerHTML=Object.entries(streakTypes).map(([key,[title]])=>`<option value="${key}">${title}</option>`).join('');
     set('records-freshness',`${current[0].year} · Through Week ${week}`);
     set('records-footer',`${current[0].year} · Through Week ${week} · Read-only snapshot`);
     $('record-counts').innerHTML=`<div><strong>${pairs.size.toLocaleString('en-US')}</strong><span>all matchups</span></div><div><strong>${completed.length}</strong><span>completed owner-seasons</span></div><div><strong>${weeks.length}</strong><span>regular-season weeks</span></div>`;
@@ -52,10 +84,34 @@
     }
     function seasonTable(key){
       if(!Object.prototype.hasOwnProperty.call(seasonTypes,key))return;
-      const [title,unit,note]=seasonTypes[key];set('season-heading',title);set('season-value-heading',unit);set('season-description',note);
-      const value=s=>key==='record'?s.wins/s.games_played:key==='average_points_for'?s.points_for/s.games_played:key==='average_margin'?(s.points_for-s.points_against)/s.games_played:s.points_for;
-      const ranked=[...completed].sort((a,b)=>value(b)-value(a)||b.points_for-a.points_for||a.year-b.year||a.owner_id.localeCompare(b.owner_id)).slice(0,25);
-      $('season-records-body').innerHTML=ranked.map((s,i)=>`<tr><td class="rank-number">${i+1}</td><td class="numeric standing-record">${key==='record'?(value(s)*100).toFixed(1)+'%':num(value(s))}</td><td class="owner-cell"><strong>${esc(d.owners.find(o=>o.owner_id===s.owner_id)?.owner_name)}</strong><span class="team-name">${esc(s.team)}</span></td><td>${s.year}</td><td class="numeric">${s.wins}–${s.losses}${s.ties?`–${s.ties}`:''}</td><td class="numeric">${s.games_played}</td></tr>`).join('');
+      const [title,unit,field,high,includeCurrent]=seasonTypes[key];
+      const scope=includeCurrent?'Completed + current seasons':'Completed seasons only';
+      set('season-heading',title);set('season-value-heading',unit);set('season-scope',scope.toUpperCase());
+      set('season-description',field==='record'?'Regular-season win percentage among completed owner-seasons.':field==='average_margin'?'Average points scored minus average points allowed per regular-season game.':`${unit.includes('Avg')?'Points per regular-season game':'Regular-season points in a completed season'}${field.includes('against')?' scored by opponents':' scored by the team'}.`);
+      set('season-notes',`Top 25 owner-seasons. ${includeCurrent?'Current-season averages include only published weeks and can change substantially early in the season.':'Current seasons cannot qualify until complete; season lengths vary.'} PF = points for; PA = points against.`);
+      const value=s=>field==='record'?(s.wins+0.5*s.ties)/s.games_played:field==='average_points_for'?s.points_for/s.games_played:field==='average_points_against'?s.points_against/s.games_played:field==='average_margin'?(s.points_for-s.points_against)/s.games_played:s[field];
+      const pool=includeCurrent?d.season_summaries:completed;
+      const ranked=pool.filter(s=>s.games_played>0).slice().sort((a,b)=>(high?-1:1)*(value(a)-value(b))||b.points_for-a.points_for||a.year-b.year||a.owner_id.localeCompare(b.owner_id)).slice(0,25);
+      $('season-records-body').innerHTML=ranked.map((s,i)=>`<tr><td class="rank-number">${i+1}</td><td class="numeric standing-record">${field==='record'?(value(s)*100).toFixed(1)+'%':num(value(s))}</td><td class="owner-cell"><strong>${esc(d.owners.find(o=>o.owner_id===s.owner_id)?.owner_name)}</strong><span class="team-name">${esc(s.team)}</span></td><td>${s.year}${s.season_status==='Current'?' <small class="record-current">Current</small>':''}</td><td class="numeric">${s.wins}–${s.losses}${s.ties?`–${s.ties}`:''}</td><td class="numeric">${s.games_played}</td></tr>`).join('');
+    }
+    function streakTable(key){
+      if(!Object.prototype.hasOwnProperty.call(streakTypes,key))return;
+      const [title,allGames,predicate]=streakTypes[key];
+      set('streak-heading',title);
+      set('streak-description',allGames?'Consecutive played games, including postseason. Runs can span seasons; a tie breaks a winning or losing streak.':'Consecutive regular-season weeks within one season. Tied scores share their weekly rank, including at the top-half cutoff.');
+      const grouped=new Map(),runs=[];
+      const roundOrder={Quarterfinal:1,Semifinal:2,Championship:3};
+      const ordered=(allGames?d.games:regular).slice().sort((a,b)=>a.year-b.year||(a.stage==='Postseason'?100+roundOrder[a.round]:a.week)-(b.stage==='Postseason'?100+roundOrder[b.round]:b.week)||a.owner_id.localeCompare(b.owner_id));
+      for(const g of ordered){
+        const group=allGames?g.owner_id:`${g.owner_id}/${g.year}`;
+        let run=grouped.get(group);
+        if(!predicate(g)){grouped.delete(group);continue;}
+        if(!run){run={owner_id:g.owner_id,owner_name:g.owner_name,start:g,end:g,length:0};grouped.set(group,run);runs.push(run);}
+        run.length++;run.end=g;
+      }
+      const ranked=runs.sort((a,b)=>b.length-a.length||a.start.year-b.start.year||a.start.week-b.start.week||a.owner_id.localeCompare(b.owner_id)).slice(0,25);
+      const label=g=>`${g.year} · ${location(g)}`;
+      $('streak-records-body').innerHTML=ranked.map((r,i)=>`<tr><td class="rank-number">${i+1}</td><td class="numeric standing-record">${r.length}</td><td class="owner-cell"><strong>${esc(r.owner_name)}</strong><span class="team-name">${esc(r.start.team)}</span></td><td>${label(r.start)}</td><td>${label(r.end)}</td></tr>`).join('');
     }
     function weekTable(key){
       const type=weekTypes.find(row=>row[0]===key);if(!type)return;
@@ -71,7 +127,8 @@
     $('game-category').addEventListener('change',event=>gameTable(event.target.value));
     $('season-category').addEventListener('change',event=>seasonTable(event.target.value));
     $('week-category').addEventListener('change',event=>weekTable(event.target.value));
-    gameTable('highest_scores');seasonTable('record');weekTable('totalHigh');
+    $('streak-category').addEventListener('change',event=>streakTable(event.target.value));
+    gameTable('highest_scores');seasonTable('record');streakTable('wins');weekTable('totalHigh');
     $('load-status').hidden=true;$('records-page').hidden=false;
   }catch(_){$('records-page').hidden=true;$('load-status').hidden=false;set('load-status','The record book could not be loaded. Keep the extracted site together and verify the exporter output.');}
 })();
