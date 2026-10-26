@@ -1,0 +1,66 @@
+name: Sleeper transaction daily update
+
+# Publishes only the independent transaction snapshot.
+on:
+  workflow_dispatch:
+  schedule:
+    # Daily at 9 AM Eastern.
+    - cron: "0 9 * * *"
+      timezone: "America/New_York"
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: sleeper-transaction-update
+  cancel-in-progress: false
+
+jobs:
+  transactions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check transaction counting
+        run: python -m unittest discover -s tools/transactions -p "test_*.py"
+      - name: Fetch complete season transactions
+        run: python tools/transactions/sync.py
+      - name: Commit and push changed transaction totals
+        id: publish
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site-data/transactions.json
+          if git diff --cached --quiet; then
+            echo "No transaction changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git commit -m "Sleeper transactions: refresh team totals"
+          git push origin HEAD:refs/heads/main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "published_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Request the live Pages build
+        if: steps.publish.outputs.changed == 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PUBLISHED_SHA: ${{ steps.publish.outputs.published_sha }}
+        run: |
+          # Bot commits do not automatically trigger branch-source Pages builds.
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$PUBLISHED_SHA" || {
+            echo "::error::main moved after the transaction push; no Pages build requested."
+            exit 1
+          }
+          gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds" > /dev/null
+          echo "Published $PUBLISHED_SHA and requested a GitHub Pages build." >> "$GITHUB_STEP_SUMMARY"
