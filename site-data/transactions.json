@@ -1,0 +1,136 @@
+{
+  "league_id": "1386532723459362816",
+  "season": 2026,
+  "fetched_at_utc": "2026-10-26T13:26:19+00:00",
+  "weeks_scanned": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "teams": [
+    {
+      "roster_id": 1,
+      "owner_id": "owner-nick",
+      "team": "Fresh & Explosive",
+      "total": 8,
+      "trades": 5,
+      "free_agents": 2,
+      "waivers": 1
+    },
+    {
+      "roster_id": 2,
+      "owner_id": "owner-ryan",
+      "team": "Homegrown",
+      "total": 26,
+      "trades": 8,
+      "free_agents": 12,
+      "waivers": 6
+    },
+    {
+      "roster_id": 3,
+      "owner_id": "owner-tj",
+      "team": "Motor City Dan Campbell",
+      "total": 10,
+      "trades": 1,
+      "free_agents": 8,
+      "waivers": 1
+    },
+    {
+      "roster_id": 4,
+      "owner_id": "owner-brian",
+      "team": "The Vandercruyssen Empire",
+      "total": 9,
+      "trades": 1,
+      "free_agents": 4,
+      "waivers": 4
+    },
+    {
+      "roster_id": 5,
+      "owner_id": "owner-spencer",
+      "team": "3x & B2B",
+      "total": 5,
+      "trades": 1,
+      "free_agents": 2,
+      "waivers": 2
+    },
+    {
+      "roster_id": 6,
+      "owner_id": "owner-kyle",
+      "team": "Return of the Mc\u2019s",
+      "total": 12,
+      "trades": 3,
+      "free_agents": 7,
+      "waivers": 2
+    },
+    {
+      "roster_id": 7,
+      "owner_id": "owner-wilson",
+      "team": "Willie\u2019s Chubb",
+      "total": 12,
+      "trades": 2,
+      "free_agents": 5,
+      "waivers": 5
+    },
+    {
+      "roster_id": 8,
+      "owner_id": "owner-tyler",
+      "team": "Porritt Drink It Chase It",
+      "total": 7,
+      "trades": 1,
+      "free_agents": 4,
+      "waivers": 2
+    },
+    {
+      "roster_id": 9,
+      "owner_id": "owner-dan",
+      "team": "Room 40",
+      "total": 3,
+      "trades": 1,
+      "free_agents": 1,
+      "waivers": 1
+    },
+    {
+      "roster_id": 10,
+      "owner_id": "owner-alex",
+      "team": "The Prodigal Sons",
+      "total": 8,
+      "trades": 5,
+      "free_agents": 0,
+      "waivers": 3
+    },
+    {
+      "roster_id": 11,
+      "owner_id": "owner-jack",
+      "team": "Touchy Time",
+      "total": 8,
+      "trades": 3,
+      "free_agents": 3,
+      "waivers": 2
+    },
+    {
+      "roster_id": 12,
+      "owner_id": "owner-andres",
+      "team": "2 Much Salsa ",
+      "total": 35,
+      "trades": 7,
+      "free_agents": 20,
+      "waivers": 8
+    }
+  ]
+}
