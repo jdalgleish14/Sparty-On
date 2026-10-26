@@ -294,3 +294,9 @@ footer{padding-top:20px;padding-bottom:23px}
   .season-metrics,.owner-metrics{margin-bottom:15px}
   footer{padding-top:18px;padding-bottom:20px}
 }
+
+/* Transaction categories stay in their own scroll region on phones. */
+#transactions-section{margin-top:24px}
+#transactions-table{min-width:460px;width:100%}
+#transactions-table th:first-child{min-width:150px;text-align:left;white-space:normal;overflow-wrap:anywhere}
+#transactions-table th button{min-height:44px}
