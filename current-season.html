@@ -14,6 +14,7 @@
   <script type="text/plain" data-sparty-src="assets/season-analytics.js"></script>
   <script type="text/plain" data-sparty-src="assets/app.js"></script>
   <script type="text/plain" data-sparty-src="assets/standings-race.js"></script>
+  <script type="text/plain" data-sparty-src="assets/transactions.js"></script>
   <script src="assets/data-refresh.js?v=1" defer></script>
 </head>
 <body id="top">
@@ -58,6 +59,18 @@
         <p class="race-intro">See how each team's regular-season standing changed. Drag the slider beneath the chart or press Play to watch the race.</p>
         <div class="race-grid"><div class="race-graph" tabindex="0" role="region" aria-label="Standings race chart; scroll horizontally on a narrow screen"><svg id="race-chart" viewBox="0 0 740 420" role="img" aria-label="Weekly standing ranks. A full text table is beside the chart."></svg></div><div class="race-controls"><label for="race-week">Week <span id="race-week-label">Week 1</span></label><input type="range" id="race-week" min="1" max="14" value="1" step="any" aria-label="Standings through week"><button type="button" id="race-play" aria-pressed="false">Play</button><label for="race-team" class="race-team-label">Focus on team</label><select id="race-team" aria-label="Focus on a team"><option value="">All teams</option></select></div><div class="race-table-wrap" tabindex="0" role="region" aria-label="Standings through selected week"><table class="race-table"><thead><tr><th scope="col">#</th><th scope="col">Team</th><th scope="col">W–L</th><th scope="col">PF</th></tr></thead><tbody id="race-table-body"></tbody></table></div></div>
         <p class="race-summary" id="race-week-summary" role="status"></p><p class="race-note">Ranked by wins, then losses, then points for. Select a team to highlight its path. Current seasons stop at the last verified week.</p>
+      </section>
+      <section class="panel analytics-panel" id="transactions-section" aria-labelledby="transactions-title">
+        <div class="section-heading"><div><p class="eyebrow">ROSTER MOVES</p><h2 id="transactions-title">Transaction tracker</h2></div><span class="chip" id="transactions-season">Current season</span></div>
+        <p class="analytics-description">Who’s making moves? Completed trades, free agent pickups and waiver claims this Sleeper season, including offseason moves.</p>
+        <p id="transactions-status" class="analytics-note" role="status">Transaction totals will appear after the first automatic sync.</p>
+        <div class="analytics-scroll" tabindex="0" role="region" aria-label="Transactions by team; swipe to see every category">
+          <table class="analytics-table" id="transactions-table" hidden><caption class="sr-only">Transactions by team. Select a column to sort.</caption>
+            <thead><tr><th scope="col">Team</th><th scope="col" class="numeric" data-tx-sort="total" aria-sort="descending"><button type="button">Total</button></th><th scope="col" class="numeric" data-tx-sort="trades"><button type="button">Trades</button></th><th scope="col" class="numeric" data-tx-sort="free_agents"><button type="button">Free agents</button></th><th scope="col" class="numeric" data-tx-sort="waivers"><button type="button">Waivers</button></th></tr></thead>
+            <tbody id="transactions-body"></tbody>
+          </table>
+        </div>
+        <p class="analytics-note">One move per completed transaction; each trade counts once for every participating team. Drop-only moves and unsuccessful claims are excluded. Total = trades + free agent pickups + waiver claims. Synced daily; tap a column to sort.</p>
       </section>
       <section class="leaders-section" aria-labelledby="leaders-title"><div class="section-line"><h2 id="leaders-title">Setting the pace</h2><p id="leaders-context"></p></div><div class="leaders-grid" id="leaders"></div></section>
       <section class="season-detail-section" aria-labelledby="season-detail-title">
