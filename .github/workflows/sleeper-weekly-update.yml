@@ -14,7 +14,7 @@ on:
         default: true
   schedule:
     # Tuesday morning and midday, Wednesday fallback, Eastern local time.
-    - cron: "13 8 * * 2"
+    - cron: "0 6 * * 2"
       timezone: "America/New_York"
     - cron: "13 11 * * 2"
       timezone: "America/New_York"
