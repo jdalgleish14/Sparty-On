@@ -1,7 +1,7 @@
 # Sleeper weekly update automation
 
 After the one-time setup PR is merged, scheduled GitHub Actions runs publish a new completed
-regular-season week automatically. The first check is Tuesday at 8:13 a.m. Eastern, with
+regular-season week automatically. The first check is Tuesday at 6:00 a.m. Eastern, with
 retries at 11:13 a.m. and 12:43 p.m.; Wednesday at 8:13 a.m. is a fallback. GitHub may
 delay scheduled runs. There is no 18-hour score-stability wait and no weekly PR to merge.
 
@@ -25,7 +25,7 @@ The Excel exporter is still available for postseason, championships and manual c
 ## Gates
 
 The run stops before publication if Sleeper has not marked the week scored; the league,
-season or owner mapping is unexpected; a matchup is missing, unpaired, null, tied or
+season or owner mapping is unexpected; a matchup is missing, unpaired, null or
 otherwise invalid; weeks are not contiguous; an already-published week disagrees with
 Sleeper; or the rebuilt data fails parity or verification. New starter names are obtained
 from Sleeper's player catalog on the runner and saved in the compact site preview, with
@@ -61,9 +61,12 @@ credentials or switching the Pages publishing source; avoid assuming a successfu
 commit means the live site changed. If branch protection prohibits bot pushes,
 adjust the rule or use an approved publishing approach before relying on automation.
 
+Regular-season ties are supported. Sleeper’s playoff boundary is checked against
+the configured regular-season length before fetching and building.
+
 ## Scope and limitations
 
-- Postseason, ties, the first week of a new season, and corrections to a week
+- Postseason, the first week of a new season, and corrections to a week
   already published still require a manual Excel update.
 - Sleeper does not preserve the Excel sheet's row order within a week. New weeks
   use deterministic roster order; comparisons use game identity.
