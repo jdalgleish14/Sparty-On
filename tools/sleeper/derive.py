@@ -70,6 +70,7 @@ def season_summary_rows(games, season, owners, status):
         a["gp"] += 1
         a["w"] += g["result"] == "W"
         a["l"] += g["result"] == "L"
+        a["t"] += g["result"] == "T"
         a["pf"] += g["points_for"]
         a["pa"] += g["points_against"]
         a["team"] = g["team"]
@@ -189,8 +190,10 @@ def ai_game_rows(games, season, era, status):
             s = streak[g["owner_id"]]
             if g["result"] == "W":
                 s[0], s[1] = s[0] + 1, 0
-            else:
+            elif g["result"] == "L":
                 s[1], s[0] = s[1] + 1, 0
+            else:
+                s[0], s[1] = 0, 0
             rank = higher + 1
             keyed[(week, g["owner_id"])] = ai_row([
                 ("year", year), ("week", week), ("team", g["team"]), ("owner", g["owner_name"]),
@@ -225,8 +228,11 @@ def ai_all_game_rows(games, seasons_by_year, year):
         if g["result"] == "W":
             s[0], s[1] = s[0] + 1, 0
             rival[r] += 1
-        else:
+        elif g["result"] == "L":
             s[1], s[0] = s[1] + 1, 0
+            rival[r] = 0
+        else:
+            s[0], s[1] = 0, 0
             rival[r] = 0
         if g["year"] != year:
             continue
@@ -276,7 +282,7 @@ def ai_season_rows(games, season, owners_by_name_order, ai_games_rows, era, stat
         close = lambda g: round(abs(g["margin"]), 2) <= CLOSE_MARGIN
         out[owner] = ai_row([
             ("year", year), ("owner", owner), ("team", rows[-1]["team"]), ("games_played", n),
-            ("wins", wins), ("losses", n - wins), ("win_percentage", wins / n),
+            ("wins", wins), ("losses", sum(g["result"] == "L" for g in rows)), ("win_percentage", wins / n),
             ("points_for", ssum(pf)), ("points_against", ssum(pa)),
             ("average_points_for", ssum(pf) / n), ("average_opponent_score", ssum(pa) / n),
             ("average_margin", (ssum(pf) - ssum(pa)) / n), ("expected_wins", ew), ("luck", wins - ew),
@@ -293,6 +299,9 @@ def ai_season_rows(games, season, owners_by_name_order, ai_games_rows, era, stat
             ("losses_top_half", sum(1 for g, x in zip(rows, a) if g["result"] == "L" and x["top_half"])),
             ("second_place_losses", _second_place_losses(rows, ai_by)),
             ("season_status", status), ("era", era)])
+        ties = sum(g["result"] == "T" for g in rows)
+        if ties:
+            out[owner]["ties"] = ties
     return out
 
 
@@ -308,6 +317,10 @@ def ai_league_year_row(games, season, era, status):
     losses = [g for g in rows if g["result"] == "L"]
     n = len(rows)
     margins = [abs(g["margin"]) for g in wins]
+    tied_pairs = [g for g in rows if g["result"] == "T" and g["owner_id"] < g["opponent_owner_id"]]
+    margins += [0] * len(tied_pairs)
+    matchups = wins + tied_pairs
+    mean = lambda values: ssum(values) / len(values) if values else None
     week_totals = defaultdict(float)
     for g in sorted(rows, key=lambda g: g["week"]):
         week_totals[g["week"]] += g["points_for"]
@@ -315,10 +328,10 @@ def ai_league_year_row(games, season, era, status):
     return ai_row([
         ("year", year), ("teams", teams), ("matchups", n // 2),
         ("average_score", ssum(g["points_for"] for g in rows) / n),
-        ("average_winning_score", ssum(g["points_for"] for g in wins) / len(wins)),
-        ("average_losing_score", ssum(g["points_for"] for g in losses) / len(losses)),
-        ("average_margin", ssum(g["margin"] for g in wins) / len(wins)),
-        ("average_matchup_total", ssum(g["points_for"] + g["points_against"] for g in wins) / len(wins)),
+        ("average_winning_score", mean([g["points_for"] for g in wins])),
+        ("average_losing_score", mean([g["points_for"] for g in losses])),
+        ("average_margin", mean([g["margin"] for g in matchups])),
+        ("average_matchup_total", mean([g["points_for"] + g["points_against"] for g in matchups])),
         ("percent_games_under_5", sum(1 for m in margins if m < 5) / len(margins)),
         ("percent_games_under_10", sum(1 for m in margins if m < 10) / len(margins)),
         ("percent_games_under_20", sum(1 for m in margins if m < 20) / len(margins)),

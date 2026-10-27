@@ -40,6 +40,24 @@ def owner_names(site):
     return {o["owner_id"]: o["owner_name"] for o in site["owners"]}
 
 
+def regular_season_limit(cur, context):
+    """Check the live playoff boundary before fetching or publishing any weeks.
+
+    Old offline fixtures may omit league settings. Live contexts include them;
+    a changed boundary requires updating the season configuration first.
+    """
+    limit = cur["regular_season_weeks"]
+    if type(limit) is not int or limit < 1:
+        raise GateError("invalid regular-season length in the site configuration")
+    if context.get("start_week") not in (None, 1):
+        raise GateError("the site currently requires a regular season starting in week 1")
+    playoff = context.get("playoff_week_start")
+    if playoff not in (None, 0):
+        if type(playoff) is not int or playoff < 2 or playoff - 1 != limit:
+            raise GateError(f"Sleeper playoff_week_start={playoff} disagrees with the site's {limit} regular-season weeks; review the season configuration")
+    return limit
+
+
 def game_pairs(games):
     pairs = {}
     for g in games:
@@ -228,9 +246,6 @@ def parse_week(week, payload, roster_ids, league_id=None, season=None):
                 break
             scores.append(round(s, 2))
         else:
-            if scores[0] == scores[1]:
-                problems.append(f"week {week}: matchup {mid} is an exact tie ({scores[0]}); ties are not supported, so this week stays on the Excel export")
-                continue
             pairs.append((group[0]["roster_id"], group[1]["roster_id"], scores[0], scores[1]))
     if problems:
         raise GateError(problems)
@@ -241,7 +256,7 @@ def _row(year, season_id, week, team, owner_id, owner_name, opp_team, opp_id, op
     return {"game_id": game_id, "season_id": season_id, "year": year, "stage": "Regular Season", "week": week,
             "round": None, "team": team, "owner_id": owner_id, "owner_name": owner_name, "opponent_team": opp_team,
             "opponent_owner_id": opp_id, "opponent_owner_name": opp_name, "points_for": pf, "points_against": pa,
-            "margin": round(pf - pa, 2), "result": "W" if pf > pa else "L"}
+            "margin": round(pf - pa, 2), "result": "W" if pf > pa else "L" if pf < pa else "T"}
 
 
 def game_rows_for_week(cur, week, pairs, roster_to_owner, names, teams):
@@ -314,7 +329,7 @@ def build_from_sleeper(base, owner_map, context, raw_weeks, mode="incremental", 
     last_scored = context.get("last_scored_leg")
     if not isinstance(last_scored, int):
         raise GateError("Sleeper did not report last_scored_leg, so scoring cannot be confirmed as final")
-    target = min(last_scored, cur["regular_season_weeks"])
+    target = min(last_scored, regular_season_limit(cur, context))
     if through is not None:
         if through > target:
             raise GateError(f"week {through} is not yet scored in Sleeper (last scored week is {last_scored})")

@@ -73,7 +73,8 @@ def verify_dir(directory):
     if bad_pairs:
         problems.append(f"{len(bad_pairs)} games do not have two mirrored owner rows (first: {bad_pairs[0]})")
     for g in games:
-        if g["result"] not in ("W", "L") or (g["result"] == "W") != (g["points_for"] > g["points_against"]):
+        expected = "W" if g["points_for"] > g["points_against"] else "L" if g["points_for"] < g["points_against"] else "T"
+        if g["result"] != expected or (expected == "T" and g["stage"] != "Regular Season"):
             problems.append(f"{g['game_id']} ({g['owner_id']}): result {g['result']} contradicts the score")
             break
         if round(g["points_for"] - g["points_against"], 2) != g["margin"]:

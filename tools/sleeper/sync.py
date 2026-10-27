@@ -76,7 +76,7 @@ def do_fetch(args):
     last = ctx.get("last_scored_leg")
     if not isinstance(last, int):
         raise bd.GateError("Sleeper did not report last_scored_leg")
-    target = min(last, cur["regular_season_weeks"])
+    target = min(last, bd.regular_season_limit(cur, ctx))
     if args.through:
         target = min(target, args.through)
     changes = {}
@@ -132,17 +132,22 @@ def build_report(base, ds, report, changed, context, raw_weeks, stability, parit
              f"{report['verification']['within_tolerance']} within 0.011).",
              "- Independent verifier: **all checks passed** (manifests, hashes, cutoffs, game integrity, full recomputation).", ""]
     standings = ds["current_standings"]
-    lines += ["### Standings after the new week", "", "| # | Owner | Team | W–L | PF |", "| --- | --- | --- | --- | --- |"]
+    has_ties = any(r["ties"] for r in standings)
+    record_heading = "W–L–T" if has_ties else "W–L"
+    lines += ["### Standings after the new week", "", f"| # | Owner | Team | {record_heading} | PF |", "| --- | --- | --- | --- | --- |"]
     for r in standings:
-        lines.append(f"| {r['rank']} | {names[r['owner_id']]} | {r['team']} | {r['wins']}–{r['losses']} | {r['points_for']:.2f} |")
+        record = f"{r['wins']}–{r['losses']}" + (f"–{r['ties']}" if has_ties else "")
+        lines.append(f"| {r['rank']} | {names[r['owner_id']]} | {r['team']} | {record} | {r['points_for']:.2f} |")
     lines += [""]
     for w in report["new_weeks"]:
         lines += [f"### Week {w} results", "", "| Matchup | Score |", "| --- | --- |"]
         seen = set()
         for g in ds["games"]:
-            if g["year"] == cur["year"] and g["stage"] == "Regular Season" and g["week"] == w and g["result"] == "W" and g["game_id"] not in seen:
+            qualifies = g["result"] == "W" or (g["result"] == "T" and g["owner_id"] < g["opponent_owner_id"])
+            if g["year"] == cur["year"] and g["stage"] == "Regular Season" and g["week"] == w and qualifies and g["game_id"] not in seen:
                 seen.add(g["game_id"])
-                lines.append(f"| {g['owner_name']} def. {g['opponent_owner_name']} | {g['points_for']:.2f}–{g['points_against']:.2f} |")
+                outcome = "def." if g["result"] == "W" else "tied"
+                lines.append(f"| {g['owner_name']} {outcome} {g['opponent_owner_name']} | {g['points_for']:.2f}–{g['points_against']:.2f} |")
         lines.append("")
     if report["notes"]:
         lines += ["### Notes", ""] + [f"- {n}" for n in report["notes"]] + [""]
