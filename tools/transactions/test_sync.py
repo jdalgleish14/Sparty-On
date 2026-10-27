@@ -1,5 +1,5 @@
 import unittest
-from sync import count_transactions, build
+from sync import count_transactions, build, max_points
 
 
 def tx(id, kind='free_agent', status='complete', **kwargs):
@@ -7,6 +7,13 @@ def tx(id, kind='free_agent', status='complete', **kwargs):
 
 
 class Counts(unittest.TestCase):
+    def test_max_points(self):
+        self.assertEqual(max_points({'ppts': 1234, 'ppts_decimal': 5}), 1234.05)
+        self.assertEqual(max_points({'ppts': 0}), 0)
+        self.assertIsNone(max_points({}))
+        for settings in ({'ppts': -1}, {'ppts': True}, {'ppts': float('nan')}, {'ppts': 1, 'ppts_decimal': 100}):
+            with self.assertRaises(ValueError): max_points(settings)
+
     def test_counts_and_deduplication(self):
         rows = [tx(1, adds={'a':1,'b':1}), tx(2, drops={'c':1}),
                 tx(3, 'waiver', adds={'d':1}), tx(4, 'waiver', 'failed', adds={'e':1}),
@@ -33,14 +40,16 @@ class Counts(unittest.TestCase):
         def fetch(path):
             calls.append(path)
             if path.endswith('/rosters'):
-                return [dict(roster_id=i,owner_id=str(i)) for i in range(1,13)]
+                return [dict(roster_id=i,owner_id=str(i),settings={'ppts': 1000+i, 'ppts_decimal': 5}) for i in range(1,13)]
             if path.endswith('/users'):
                 return []
             if '/transactions/' in path:
                 return [tx(1,adds={'a':1})] if path.endswith('/0') else []
-            return dict(league_id='1386532723459362816',season='2026')
+            return dict(league_id='1386532723459362816',season='2026',settings={'last_scored_leg': 7})
         output=build(fetch,lambda:'test')
         self.assertEqual(output['teams'][0]['total'],1)
+        self.assertEqual(output['teams'][0]['max_pf'],1001.05)
+        self.assertEqual(output['max_pf_through_week'],7)
         self.assertEqual(len([c for c in calls if '/transactions/' in c]),19)
         def failing(path):
             if path.endswith('/transactions/18'): raise RuntimeError('API failure')

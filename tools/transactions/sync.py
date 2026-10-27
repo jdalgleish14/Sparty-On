@@ -1,5 +1,6 @@
 """Rebuild current Sleeper-season transaction totals; publish only complete fetches."""
 import json
+import math
 import os
 from pathlib import Path
 import sys
@@ -42,6 +43,18 @@ def count_transactions(batches, roster_ids):
     return totals
 
 
+def max_points(settings):
+    """Sleeper stores potential points as whole points plus hundredths."""
+    whole = settings.get('ppts')
+    decimal = settings.get('ppts_decimal', 0)
+    if whole is None:
+        return None
+    if (type(whole) not in (int, float) or not math.isfinite(whole) or whole < 0
+            or type(decimal) is not int or not 0 <= decimal <= 99):
+        raise ValueError('Invalid Sleeper Max PF')
+    return round(whole + decimal / 100, 2)
+
+
 def build(fetch=get_json, now=utc_now):
     config = json.loads((ROOT / 'site-data/sleeper/owner_map.json').read_text())
     league_id = config['league_id']
@@ -60,8 +73,9 @@ def build(fetch=get_json, now=utc_now):
         rid = roster['roster_id']
         user = users.get(roster.get('owner_id'), {})
         name = (user.get('metadata') or {}).get('team_name') or user.get('display_name') or f'Team {rid}'
-        rows.append(dict(roster_id=rid, owner_id=config['rosters'][str(rid)], team=name, **totals[rid]))
-    return dict(league_id=league_id, season=config['season'], fetched_at_utc=now(), weeks_scanned=list(range(19)), teams=sorted(rows, key=lambda r: r['roster_id']))
+        settings = roster.get('settings') or {}
+        rows.append(dict(max_pf=max_points(settings), roster_id=rid, owner_id=config['rosters'][str(rid)], team=name, **totals[rid]))
+    return dict(max_pf_through_week=(league.get('settings') or {}).get('last_scored_leg'), league_id=league_id, season=config['season'], fetched_at_utc=now(), weeks_scanned=list(range(19)), teams=sorted(rows, key=lambda r: r['roster_id']))
 
 
 def main():
