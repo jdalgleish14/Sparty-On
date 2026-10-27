@@ -155,11 +155,17 @@ class GatesRefuseUnsafeData(unittest.TestCase):
         raw, ctx = self.week5(mutate)
         self.refused(raw, ctx, "no numeric score")
 
-    def test_exact_tie_is_not_guessed(self):
+    def test_exact_tie_is_retained(self):
         def mutate(w):
             w["matchups"][1]["points"] = w["matchups"][0]["points"]
         raw, ctx = self.week5(mutate)
-        self.refused(raw, ctx, "exact tie")
+        ds, _ = bd.build_from_sleeper(self.base, self.omap, ctx, raw)
+        tied = [g for g in ds["games"] if g["year"] == 2026 and g["week"] == 5 and g["result"] == "T"]
+        self.assertEqual(len(tied), 2)
+        for game in tied:
+            row = next(r for r in ds["current_standings"] if r["owner_id"] == game["owner_id"])
+            self.assertEqual(row["ties"], 1)
+            self.assertEqual(row["wins"] + row["losses"] + row["ties"], 5)
 
     def test_score_with_extra_decimals(self):
         def mutate(w):
