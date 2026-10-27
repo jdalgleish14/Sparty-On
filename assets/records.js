@@ -35,7 +35,7 @@
       ['count100','Most scores of 100+','count100',true,'Teams scoring 100+','Share of teams'],['count120','Most scores of 120+','count120',true,'Teams scoring 120+','Share of teams'],['count140','Most scores of 140+','count140',true,'Teams scoring 140+','Share of teams']
     ];
     $('week-category').innerHTML=weekTypes.map(([key,title])=>`<option value="${key}">${title}</option>`).join('');
-    const gameTypes={highest_scores:['Highest scores','Points scored','Top individual scores from regular-season and postseason games.'],lowest_scores:['Lowest scores','Points scored','Lowest individual scores from regular-season and postseason games.'],largest_margins:['Biggest winning margins','Winning margin','Largest margins in completed matchups.'],closest_games:['Closest games','Final margin','Narrowest final scores, including postseason games.']};
+    const gameTypes={lowest_winning_scores:['Lowest scores in a win','Points scored','Lowest winning scores from regular-season and postseason games.'],highest_losing_scores:['Highest scores in a loss','Points scored','Highest losing scores from regular-season and postseason games.'],highest_scores:['Highest scores','Points scored','Top individual scores from regular-season and postseason games.'],lowest_scores:['Lowest scores','Points scored','Lowest individual scores from regular-season and postseason games.'],largest_margins:['Biggest winning margins','Winning margin','Largest margins in completed matchups.'],closest_games:['Closest games','Final margin','Narrowest final scores, including postseason games.']};
     // Totals and records require completed seasons; rate metrics also admit
     // published current-season games, matching Historical Rankings.
     const seasonTypes={
@@ -74,10 +74,10 @@
     $('record-counts').innerHTML=`<div><strong>${pairs.size.toLocaleString('en-US')}</strong><span>all matchups</span></div><div><strong>${completed.length}</strong><span>completed owner-seasons</span></div><div><strong>${weeks.length}</strong><span>regular-season weeks</span></div>`;
     function gameTable(key){
       if(!Object.prototype.hasOwnProperty.call(gameTypes,key))return;
-      const [title,unit,note]=gameTypes[key],rows=d.records[key];
+      const [title,unit,note]=gameTypes[key],rows=key==='lowest_winning_scores'||key==='highest_losing_scores' ? d.games.filter(g=>g.result===(key==='lowest_winning_scores'?'W':'L')).sort((a,b)=>(key==='lowest_winning_scores'?a.points_for-b.points_for:b.points_for-a.points_for)||a.year-b.year||a.week-b.week||a.game_id.localeCompare(b.game_id)||a.owner_id.localeCompare(b.owner_id)).slice(0,25) : d.records[key];
       if(!Array.isArray(rows)||rows.length!==25||rows.some(g=>!pairs.has(g.game_id)))throw Error('Game leaderboard');
       set('game-heading',title);set('game-value-heading',unit);set('game-description',note);
-      const showScores=key==='largest_margins'||key==='closest_games';
+      const showScores=['largest_margins','closest_games','lowest_winning_scores','highest_losing_scores'].includes(key);
       $('final-score-heading').hidden=!showScores;
       $('game-records-table').className=showScores?'record-table with-final-score':'record-table';
       $('game-records-body').innerHTML=rows.map((g,i)=>`<tr><td class="rank-number">${i+1}</td><td class="numeric standing-record">${num(key==='closest_games'?Math.abs(g.margin):key==='largest_margins'?g.margin:g.points_for)}</td><td class="owner-cell"><strong>${esc(g.owner_name)}</strong><span class="team-name">${esc(g.team)}</span></td><td class="owner-cell"><strong>${esc(g.opponent_owner_name)}</strong><span class="team-name">${esc(g.opponent_team)}</span></td>${showScores?`<td class="numeric final-score">${num(g.points_for)}–${num(g.points_against)}</td>`:''}<td>${g.year} · ${location(g)}</td></tr>`).join('');
