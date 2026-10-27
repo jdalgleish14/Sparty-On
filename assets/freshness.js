@@ -29,6 +29,7 @@
   let dailySnapshot = window.SPARTY_SLEEPER_SNAPSHOT;
   const footers = [];
   for (const table of document.querySelectorAll('main table')) {
+    if (table.dataset?.sync === 'off') continue;
     const daily = table.id === 'transactions-table';
     const footer = document.createElement('p');
     footer.className = 'table-sync';

@@ -322,61 +322,57 @@ select:focus-visible{outline:3px solid var(--bronze);outline-offset:3px}
  .analytics-scroll::after{content:'Swipe sideways for more columns';display:block;padding:6px 10px;color:var(--muted);font-size:10px;position:sticky;left:0;width:fit-content;max-width:100%}
 }
 
-/* Schedule swaps: confined scrolling, normal vertical headers, compact team names. */
+/* Schedule analysis uses compact rows and a separate difficulty table. */
 .swap-panel{margin-top:22px;border-top:3px solid var(--bronze)}
 .swap-panel .section-heading{padding-bottom:10px;flex-wrap:wrap}
-.swap-panel h3{margin:0;font-size:16px;line-height:1.4;color:var(--ink)}
-.swap-subheading{padding:0 22px 12px}.swap-subheading p{font-size:12px;line-height:1.6;color:var(--muted);margin:6px 0 0}
+.swap-panel .analytics-description{margin-bottom:12px}
+.swap-panel h3{margin:0;font-size:15px;line-height:1.4;color:var(--ink)}
+.swap-subheading{padding:0 22px 12px}
+.swap-table-hint{margin:0;padding:0 22px 10px;font-size:11px;color:var(--muted)}
 .swap-panel .swap-scroll{position:relative;isolation:isolate;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
 .swap-panel table{border-collapse:separate;border-spacing:0;table-layout:fixed}
 .swap-panel thead,.swap-panel thead th{position:static;top:auto}
-.swap-panel th{letter-spacing:0;font-size:11px}.swap-panel tbody th{background:var(--paper);color:var(--ink);font-weight:650;border-top:0;font-size:12px;white-space:normal;overflow-wrap:anywhere}
-.swap-panel td{font-size:12px}.swap-panel th button{min-height:44px}
-.swap-panel .swap-summary-table{min-width:750px}
-.swap-panel .swap-team-cell{width:170px;min-width:0;white-space:normal;overflow-wrap:anywhere;text-align:left}
-.swap-team-cell button{display:block;width:100%;text-align:left;color:var(--accent);white-space:normal;font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-.swap-panel button:focus-visible,.swap-panel summary:focus-visible,.swap-panel td:focus-visible{outline:3px solid var(--bronze);outline-offset:-3px}
-.swap-panel .swap-note{margin:0;padding:10px 22px 16px;font-size:11px;line-height:1.6}
-.swap-selected .swap-team-cell button{font-weight:800}.swap-panel .swap-selected .swap-team-cell{background:var(--bg)}
-.swap-detail,.swap-difficulty{border-top:1px solid var(--line);padding-top:18px;scroll-margin-top:16px}
-.swap-picker{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:0 22px 16px;font-size:12px}
-.swap-picker label{font-weight:700;color:var(--muted)}
+.swap-panel th{letter-spacing:0;font-size:10px;vertical-align:middle}
+.swap-panel th,.swap-panel td{padding:9px 14px}
+.swap-panel th:first-child,.swap-panel td:first-child{padding-left:22px}
+.swap-panel th:last-child,.swap-panel td:last-child{padding-right:22px}
+.swap-panel tbody th{background:var(--paper);color:var(--ink);font-weight:600;border-top:0;font-size:12px;text-align:left;white-space:normal;overflow-wrap:anywhere}
+.swap-panel td{font-size:12px}
+.swap-panel thead button{min-height:44px}
+.swap-panel .swap-summary-table{min-width:580px}
+.swap-panel .swap-team-cell{width:30%;min-width:0;white-space:normal;overflow-wrap:anywhere;text-align:left}
+.swap-team-cell button{display:block;width:100%;text-align:left;white-space:normal;font:inherit;color:inherit;cursor:pointer}
+.swap-panel tbody .swap-team-cell button{padding:3px 0;min-height:32px;text-decoration:none}
+.swap-panel tbody .swap-team-cell button:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.swap-panel button:focus-visible{outline:3px solid var(--bronze);outline-offset:2px}
+.swap-panel .swap-note{margin:0;padding:12px 22px;font-size:11px;line-height:1.6;color:var(--muted)}
+.swap-panel .swap-selected .swap-team-cell{box-shadow:inset 3px 0 var(--bronze)}
+.swap-panel .swap-selected .swap-team-cell button{font-weight:750;color:var(--accent)}
+.swap-detail{border-top:1px solid var(--line);padding-top:16px;scroll-margin-top:16px}
+.swap-picker{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:0 22px 14px;font-size:12px}
+.swap-picker label{font-weight:650;color:var(--muted)}
 .swap-picker select{min-height:44px;min-width:180px;max-width:100%;padding:8px 12px;border:1px solid var(--line);border-radius:6px;font:inherit;font-size:16px;color:var(--ink);background:var(--paper)}
-.swap-stats{display:flex;flex-wrap:wrap;gap:12px 26px;margin:0;padding:0 22px 18px;font-variant-numeric:tabular-nums}
-.swap-stats dt{font-size:10px;color:var(--muted);margin-bottom:4px}.swap-stats dd{font-size:18px;font-weight:750;margin:0}
+.swap-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px 16px;margin:0;padding:0 22px 16px;font-variant-numeric:tabular-nums}
+.swap-stats dt{font-size:10px;color:var(--muted);margin-bottom:4px}.swap-stats dd{font-size:16px;font-weight:700;margin:0}
 .swap-panel .swap-compact-table th:first-child{width:auto}.swap-panel .swap-compact-table th.numeric{width:110px}
-.swap-panel .swap-difficulty th:first-child{width:54px}
+.swap-panel.swap-difficulty th:first-child{width:54px}
 .swap-panel .swap-actual th,.swap-panel .swap-actual td{background:var(--bg)}
 .swap-actual-label{color:var(--muted);font-size:10px;white-space:nowrap}
-.swap-matrix{border-top:1px solid var(--line)}
-.swap-matrix summary{padding:16px 22px;min-height:48px;cursor:pointer;font-size:14px;font-weight:750;color:var(--accent)}
-.swap-matrix summary span{display:inline-block;font-size:11px;font-weight:400;color:var(--muted);margin-left:8px}
-.swap-panel .swap-matrix-table{table-layout:auto;width:max-content;min-width:100%}
-.swap-panel .swap-matrix-table th{width:110px;min-width:100px;max-width:130px;white-space:normal;overflow-wrap:anywhere;vertical-align:bottom;text-align:center;font-size:10px;line-height:1.4}
-.swap-panel .swap-matrix-table .swap-team-cell{position:sticky;left:0;z-index:2;width:130px;min-width:130px;max-width:130px;text-align:left;background:var(--paper);box-shadow:1px 0 var(--line)}
-.swap-panel .swap-matrix-table thead .swap-team-cell{background:var(--bg)}
-.swap-panel .swap-matrix-table td{text-align:center;font-weight:650}
-.swap-panel .swap-better{background:color-mix(in srgb,var(--positive) 10%,var(--paper))}
-.swap-panel .swap-worse{background:color-mix(in srgb,var(--negative) 9%,var(--paper))}
-.swap-panel .swap-diagonal{box-shadow:inset 0 0 0 2px var(--bronze);font-weight:800}
-.swap-matrix-mobile{display:none}
-.swap-panel .table-sync{padding-left:22px;padding-right:22px}
 @media(max-width:700px){
- .swap-panel{margin-top:19px}.swap-subheading{padding:0 16px 12px}
- .swap-panel .swap-note{padding:10px 16px 14px}.swap-picker{padding:0 16px 14px;display:block}
- .swap-picker label{display:block;margin-bottom:7px}.swap-picker select{width:100%;min-width:0}
- .swap-stats{padding:0 16px 16px;gap:12px 22px}.swap-stats dd{font-size:17px}
- .swap-panel .swap-summary-table{min-width:670px}
- .swap-panel .swap-summary-table .swap-team-cell{position:sticky;left:0;z-index:2;width:108px;min-width:108px;max-width:108px;background:var(--paper);box-shadow:1px 0 var(--line)}
+ .swap-panel{margin-top:19px}.swap-subheading{padding:0 16px 10px}
+ .swap-table-hint{padding:0 16px 10px}.swap-table-hint .mobile-hint{display:inline}
+ .swap-panel .swap-note{padding:11px 16px}
+ .swap-panel th,.swap-panel td{padding:9px 8px}
+ .swap-panel th:first-child,.swap-panel td:first-child{padding-left:14px}
+ .swap-panel th:last-child,.swap-panel td:last-child{padding-right:14px}
+ .swap-picker{padding:0 16px 12px;display:block}
+ .swap-picker label{display:block;margin-bottom:6px}.swap-picker select{width:100%;min-width:0}
+ .swap-stats{grid-template-columns:repeat(3,minmax(0,1fr));padding:0 16px 14px;gap:12px}
+ .swap-panel .swap-summary-table{min-width:550px}
+ .swap-panel .swap-summary-table .swap-team-cell{position:sticky;left:0;z-index:2;width:116px;min-width:116px;max-width:116px;background:var(--paper);box-shadow:1px 0 var(--line)}
  .swap-panel .swap-summary-table thead .swap-team-cell{background:var(--bg)}
+ .swap-panel .swap-selected .swap-team-cell{box-shadow:inset 3px 0 var(--bronze),1px 0 var(--line)}
  .swap-panel .swap-team-cell button{font-size:11px;line-height:1.4}
- .swap-panel .swap-compact-table th.numeric{width:86px;font-size:10px;white-space:normal}
- .swap-panel .swap-compact-table td.numeric{font-size:12px}
- .swap-panel .swap-compact-table th,.swap-panel .swap-compact-table td{padding:10px 7px}
- .swap-panel .swap-compact-table th:first-child,.swap-panel .swap-compact-table td:first-child{padding-left:14px}
- .swap-panel .swap-compact-table th:last-child,.swap-panel .swap-compact-table td:last-child{padding-right:14px}
- .swap-panel .swap-difficulty th:first-child{width:42px}
- .swap-matrix-desktop{display:none}.swap-matrix-mobile{display:block}
- .swap-matrix summary{padding:16px}.swap-matrix summary span{display:block;margin:5px 0 0 16px}
- .swap-panel .table-sync{padding-left:16px;padding-right:16px}
+ .swap-panel .swap-compact-table th.numeric{width:82px;font-size:10px;white-space:normal}
+ .swap-panel.swap-difficulty th:first-child{width:42px}
 }

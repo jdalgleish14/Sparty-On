@@ -1,4 +1,4 @@
-/* Schedule exploration shares the existing snapshot, refresh loader and table footers. */
+/* Schedule exploration shares the verified snapshot and automatic refresh loader. */
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
@@ -8,12 +8,11 @@
   const signed = (value, decimals = false) => (value > 0 ? '+' : value < 0 ? '−' : '') + (decimals ? fmt(Math.abs(value)) : Math.abs(value));
   const record = r => `${r.wins}–${r.losses}${r.ties ? `–${r.ties}` : ''}`;
   const tone = n => n > 0 ? 'positive' : n < 0 ? 'negative' : '';
-  const cellTone = n => n > 0 ? 'swap-better' : n < 0 ? 'swap-worse' : '';
   try {
     const analysis = window.SpartyScheduleSwap.build(window.SPARTY_ON_DATA);
     const teams = new Map(analysis.teams.map(t => [t.owner_id, t]));
     let names = new Map(analysis.teams.map(t => [t.owner_id, t.team]));
-    let selected = analysis.teams[0].owner_id, borrowed = selected, sortKey = 'actual', direction = -1;
+    let selected = analysis.teams[0].owner_id, sortKey = 'actual', direction = -1;
     const name = id => names.get(id);
     function applyNames(snapshot) {
       if (snapshot?.season !== analysis.year || !Array.isArray(snapshot.teams) || snapshot.teams.length !== teams.size ||
@@ -22,7 +21,8 @@
       return true;
     }
     applyNames(window.SPARTY_SLEEPER_SNAPSHOT);
-    $('swap-context').textContent = `${analysis.year} · Through Week ${analysis.weeks} · ${analysis.teamCount} schedules`;
+    $('swap-context').textContent = `${analysis.year} · Through Week ${analysis.weeks}`;
+    $('swap-difficulty-context').textContent = $('swap-context').textContent;
     $('swap-status').hidden = true;
     if (!analysis.weeks) {
       $('swap-status').hidden = false;
@@ -30,10 +30,10 @@
       return;
     }
     $('swap-content').hidden = false;
+    $('schedule-difficulty-section').hidden = false;
     const options = () => analysis.teams.map(t => `<option value="${esc(t.owner_id)}">${esc(name(t.owner_id))}</option>`).join('');
     function selectors() {
       $('swap-team').innerHTML = options(); $('swap-team').value = selected;
-      $('swap-borrowed').innerHTML = options(); $('swap-borrowed').value = borrowed;
     }
     function summary() {
       const compare = (a, b) => {
@@ -56,36 +56,15 @@
       const scenarios = [...team.scenarios].sort((a, b) => (b.schedule_id === selected) - (a.schedule_id === selected) || window.SpartyScheduleSwap.compareRecords(a, b) || name(a.schedule_id).localeCompare(name(b.schedule_id)));
       $('swap-detail-body').innerHTML = scenarios.map(s => `<tr${s.schedule_id === selected ? ' class="swap-actual"' : ''}><th scope="row">${esc(name(s.schedule_id))}${s.schedule_id === selected ? ' <span class="swap-actual-label">(Actual)</span>' : ''}</th><td class="numeric">${record(s)}</td><td class="numeric ${tone(s.difference)}">${s.schedule_id === selected ? '—' : signed(s.difference)}</td></tr>`).join('');
     }
-    function matrix() {
-      $('swap-matrix-explanation').textContent = `Each cell is wins out of ${analysis.weeks} completed regular-season games. Outlined cells are actual schedules. Shading compares wins with that team's actual wins; full records, including ties, are available by focusing a cell or in Team Analysis.`;
-      $('swap-matrix-head').innerHTML = `<tr><th scope="col" class="swap-team-cell">Team ↓ / Schedule →</th>${analysis.teams.map(t => `<th scope="col">${esc(name(t.owner_id))}</th>`).join('')}</tr>`;
-      $('swap-matrix-body').innerHTML = analysis.teams.map(t => `<tr><th scope="row" class="swap-team-cell">${esc(name(t.owner_id))}</th>${analysis.teams.map(b => {
-        const s = t.scenarios.find(r => r.schedule_id === b.owner_id), actual = t.owner_id === b.owner_id;
-        const label = `${name(t.owner_id)} on ${name(b.owner_id)}'s schedule: ${record(s)}${actual ? ', actual schedule' : ''}`;
-        return `<td tabindex="0" class="numeric ${cellTone(s.difference)}${actual ? ' swap-diagonal' : ''}" title="${esc(label)}" aria-label="${esc(label)}">${s.wins}${s.ties ? '<sup>†</sup>' : ''}</td>`;
-      }).join('')}</tr>`).join('');
-      const hasTies = analysis.teams.some(t => t.scenarios.some(s => s.ties));
-      $('swap-tie-note').hidden = !hasTies;
-      $('swap-matrix-caption').textContent = `Schedule swaps: wins out of ${analysis.weeks} games. Rows are evaluated teams; columns are borrowed schedules.`;
-      mobileMatrix();
-    }
-    function mobileMatrix() {
-      $('swap-mobile-schedule').textContent = name(borrowed);
-      $('swap-mobile-matrix-body').innerHTML = analysis.teams.map(t => {
-        const s = t.scenarios.find(r => r.schedule_id === borrowed), actual = t.owner_id === borrowed;
-        return `<tr${actual ? ' class="swap-actual"' : ''}><th scope="row">${esc(name(t.owner_id))}${actual ? ' <span class="swap-actual-label">(Actual)</span>' : ''}</th><td class="numeric ${cellTone(s.difference)}${actual ? ' swap-diagonal' : ''}">${s.wins} / ${analysis.weeks}</td><td class="numeric">${record(s)}</td></tr>`;
-      }).join('');
-    }
     function difficulty() {
-      const reverse = $('swap-difficulty-order').value === 'easy';
-      const rows = [...analysis.difficulty].sort((a,b) => (reverse ? -1 : 1) * (a.averageWins - b.averageWins) || name(a.schedule_id).localeCompare(name(b.schedule_id)));
+      const rows = [...analysis.difficulty].sort((a,b) => a.averageWins - b.averageWins || name(a.schedule_id).localeCompare(name(b.schedule_id)));
       const hardOrder = [...analysis.difficulty].sort((a,b) => a.averageWins - b.averageWins);
       $('swap-difficulty-body').innerHTML = rows.map(s => {
         const rank = hardOrder.findIndex(other => other.averageWins === s.averageWins) + 1;
         return `<tr><td class="rank-number">${rank}</td><th scope="row">${esc(name(s.schedule_id))}</th><td class="numeric">${fmt(s.averageWins)}</td></tr>`;
       }).join('');
     }
-    function render() { selectors(); summary(); detail(); matrix(); difficulty(); }
+    function render() { selectors(); summary(); detail(); difficulty(); }
     function select(id) {
       if (!teams.has(id)) return;
       selected = id; $('swap-team').value = id; summary(); detail();
@@ -105,18 +84,12 @@
       sortKey = key; summary();
       $('swap-announcement').textContent = `Schedule summary sorted by ${button.textContent.trim()}, ${direction === 1 ? 'ascending' : 'descending'}.`;
     }));
-    $('swap-borrowed').addEventListener('change', event => {borrowed = event.target.value; mobileMatrix();});
-    $('swap-difficulty-order').addEventListener('change', difficulty);
-    const showCell = event => {
-      const cell = event.target.closest('td[aria-label]');
-      if (cell) $('swap-cell-detail').textContent = cell.getAttribute('aria-label');
-    };
-    for (const event of ['focusin', 'click', 'pointerover']) $('swap-matrix-body').addEventListener(event, showCell);
     window.addEventListener('sparty-sleeper-totals', event => {if (applyNames(event.detail)) render();});
     render();
   } catch (error) {
     $('swap-status').hidden = false;
     $('swap-status').textContent = `Schedule analysis is unavailable: ${error.message}`;
     $('swap-content').hidden = true;
+    $('schedule-difficulty-section').hidden = true;
   }
 })();
