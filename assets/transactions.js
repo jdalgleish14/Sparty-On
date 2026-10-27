@@ -25,11 +25,8 @@
     });
     table.hidden = false;
     document.getElementById('transactions-season').textContent = snapshot.season;
-    const checked = Date.parse(snapshot.checked_at_utc);
-    const format = value => new Date(value).toLocaleString('en-US', {timeZone:'America/New_York', month:'short', day:'numeric', hour:'numeric', minute:'2-digit', timeZoneName:'short'});
-    status.textContent = Number.isFinite(checked)
-      ? 'Sleeper checked ' + format(checked) + ' · Daily sync around 9 AM Eastern.' + (Date.now()-checked > 48*60*60*1000 ? ' The daily check is overdue; showing the last available totals.' : '')
-      : 'Totals last changed ' + format(snapshot.fetched_at_utc) + ' · Daily sync around 9 AM Eastern. Last-check tracking begins with the next successful sync.';
+    status.textContent = '';
+    status.hidden = true;
   }
   table.querySelectorAll('[data-tx-sort] button').forEach(button => button.addEventListener('click', () => {
     const key = button.parentElement.dataset.txSort;
@@ -49,9 +46,10 @@
       const current = window.SPARTY_ON_DATA?.seasons?.find(s => s.status === 'Current');
       if (!Array.isArray(next.teams) || !next.teams.length || !Number.isFinite(Date.parse(next.fetched_at_utc)) || (current && next.season !== current.year)) throw new Error('Invalid snapshot');
       if (next.teams.some(r => typeof r.team !== 'string' || keys.some(k => !Number.isSafeInteger(r[k]) || r[k]<0) || r.total !== r.trades+r.free_agents+r.waivers)) throw new Error('Invalid totals');
-      snapshot = next; render();
+      snapshot = next; window.SPARTY_SLEEPER_SNAPSHOT = next; render();
       window.dispatchEvent(new CustomEvent('sparty-sleeper-totals', {detail: next}));
     } catch (_) {
+      status.hidden = false;
       status.textContent = snapshot ? 'Could not check for updates. Showing totals last changed ' + new Date(snapshot.fetched_at_utc).toLocaleString() + '.' : 'Transaction totals are not available yet. They will appear after the first successful sync.';
     } finally { clearTimeout(timeout); loading = false; }
   }

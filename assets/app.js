@@ -45,7 +45,7 @@
         row.max_pf = matches && typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : null;
       });
       const available = standings.filter(row => Number.isFinite(row.max_pf)).length;
-      text('max-pf-status', available ? `Max PF through Week ${week} · Synced ${new Date(snapshot.fetched_at_utc).toLocaleString()}.` : 'Max PF is awaiting a Sleeper sync matching the standings week.');
+      text('max-pf-status', available ? `Max PF through Week ${week}.` : 'Max PF is awaiting a Sleeper sync matching the standings week.');
       renderStandings();
     });
     renderStandings();
