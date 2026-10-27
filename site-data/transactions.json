@@ -1,7 +1,7 @@
 {
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-10-26T13:26:19+00:00",
+  "fetched_at_utc": "2026-10-27T13:47:44+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -73,9 +73,9 @@
       "roster_id": 6,
       "owner_id": "owner-kyle",
       "team": "Return of the Mc\u2019s",
-      "total": 12,
+      "total": 13,
       "trades": 3,
-      "free_agents": 7,
+      "free_agents": 8,
       "waivers": 2
     },
     {
