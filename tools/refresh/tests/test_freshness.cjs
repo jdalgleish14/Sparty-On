@@ -5,7 +5,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const source=fs.readFileSync(path.join(__dirname,'../../../assets/freshness.js'),'utf8');
 function setup(now, snapshot) {
- const tables=['standings-table','transactions-table','bonus-table'].map(id=>({id,classList:{add(c){this[c]=true}},footer:null,closest(){return {insertAdjacentElement:(_,footer)=>this.footer=footer}}}));
+ const tables=['standings-table','transactions-table','bonus-table','swap-summary-table'].map(id=>({id,dataset:id==='swap-summary-table'?{sync:'off'}:{},classList:{add(c){this[c]=true}},footer:null,closest(){return {insertAdjacentElement:(_,footer)=>this.footer=footer}}}));
  const events={};
  class Clock extends Date{constructor(...args){super(...(args.length?args:[now]));}}
  const data={validation_report:{status:'PASS'},league:{generated_at_utc:'2026-10-27T12:38:21Z'}};
@@ -32,4 +32,11 @@ test('daily event refreshes its footer without replacing weekly publication',()=
  s.events['sparty-sleeper-totals']({detail:{fetched_at_utc:'2026-10-27T14:00:00Z'}});
  assert.match(s.tables[1].footer.textContent,/Last update: Oct 27, 10:00 AM EDT/);
  assert.match(s.tables[0].footer.textContent,/8:38 AM EDT/);
+});
+
+test('schedule tables can opt out of sync footers without affecting other tables',()=>{
+ const s=setup('2026-10-27T14:00:00Z');
+ assert.equal(s.tables[3].footer,null);
+ assert.match(s.tables[0].footer.textContent,/Last sync:/);
+ assert.match(s.tables[1].footer.textContent,/Next sync/);
 });
