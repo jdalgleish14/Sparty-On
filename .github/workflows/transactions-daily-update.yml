@@ -1,6 +1,6 @@
 name: Sleeper transaction daily update
 
-# Publishes only the independent transaction snapshot.
+# Publishes transaction totals and Max PF in the independent Sleeper snapshot.
 on:
   workflow_dispatch:
   schedule:
@@ -31,7 +31,7 @@ jobs:
           python-version: "3.12"
       - name: Check transaction counting
         run: python -m unittest discover -s tools/transactions -p "test_*.py"
-      - name: Fetch complete season transactions
+      - name: Fetch season transactions and Max PF
         run: python tools/transactions/sync.py
       - name: Commit and push changed transaction totals
         id: publish
