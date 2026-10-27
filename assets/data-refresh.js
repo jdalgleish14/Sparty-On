@@ -65,7 +65,7 @@
     await Promise.all(scripts.map(original => new Promise((resolve, reject) => {
       const script = document.createElement('script');
       const url = new URL(original.dataset.spartySrc, location.href);
-      if (onlineSite && url.pathname.includes('/site-data/')) url.searchParams.set('snapshot', version);
+      if (onlineSite) url.searchParams.set('snapshot', version);
       script.async = false;
       script.src = url.href;
       script.onload = resolve;

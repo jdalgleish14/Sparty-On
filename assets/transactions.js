@@ -25,7 +25,11 @@
     });
     table.hidden = false;
     document.getElementById('transactions-season').textContent = snapshot.season;
-    status.textContent = 'Last change synced ' + new Date(snapshot.fetched_at_utc).toLocaleString() + '.';
+    const checked = Date.parse(snapshot.checked_at_utc);
+    const format = value => new Date(value).toLocaleString('en-US', {timeZone:'America/New_York', month:'short', day:'numeric', hour:'numeric', minute:'2-digit', timeZoneName:'short'});
+    status.textContent = Number.isFinite(checked)
+      ? 'Sleeper checked ' + format(checked) + ' · Daily sync around 9 AM Eastern.' + (Date.now()-checked > 48*60*60*1000 ? ' The daily check is overdue; showing the last available totals.' : '')
+      : 'Totals last changed ' + format(snapshot.fetched_at_utc) + ' · Daily sync around 9 AM Eastern. Last-check tracking begins with the next successful sync.';
   }
   table.querySelectorAll('[data-tx-sort] button').forEach(button => button.addEventListener('click', () => {
     const key = button.parentElement.dataset.txSort;
@@ -55,4 +59,5 @@
   setInterval(refresh, 5*60*1000);
   document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
   window.addEventListener('online', refresh);
+  window.addEventListener('pageshow', refresh);
 })();

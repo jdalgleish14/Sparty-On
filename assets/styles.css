@@ -300,3 +300,28 @@ footer{padding-top:20px;padding-bottom:23px}
 #transactions-table{min-width:460px;width:100%}
 #transactions-table th:first-child{min-width:150px;text-align:left;white-space:normal;overflow-wrap:anywhere}
 #transactions-table th button{min-height:44px}
+
+/* Data coverage stays separate from the independent daily Sleeper snapshot. */
+.snapshot-status{display:flex;flex-wrap:wrap;gap:4px 18px;margin:18px 0;padding:12px 16px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--muted);font-size:12px}
+.snapshot-status strong{color:var(--ink)}
+.snapshot-status>span:last-child{flex-basis:100%}
+.snapshot-warning{color:var(--negative);font-weight:600}
+select:focus-visible{outline:3px solid var(--bronze);outline-offset:3px}
+.table-scroll,.analytics-scroll{max-width:100%;scrollbar-width:thin}
+@media(max-width:700px){
+ .season-grid>* ,.analytics-grid>*{min-width:0}
+ select,input[type="text"],input[type="search"]{font-size:16px}
+ nav{max-width:100%;overflow-x:auto}
+ nav a,nav button{min-height:44px}
+ th button,.table-tools button{min-height:44px}
+ .table-scroll,.analytics-scroll{position:relative;isolation:isolate}
+ #standings-table{min-width:690px}
+ #standings-table :is(th,td):nth-child(2),
+ #transactions-table th:first-child,
+ .analytics-table :is(th,td).owner-cell{position:sticky;left:0;z-index:1;background:var(--paper);box-shadow:2px 0 0 var(--line);min-width:128px;max-width:150px;overflow-wrap:anywhere}
+ #standings-table th:nth-child(2),#transactions-table thead th:first-child{z-index:2;background:var(--bg)}
+ .mobile-hint{display:block;font-size:12px}
+ .analytics-scroll::after{content:'Swipe sideways for more columns';display:block;padding:7px 10px;color:var(--muted);font-size:11px;position:sticky;left:0;width:fit-content;max-width:100%}
+ .snapshot-status{font-size:12px;gap:5px}
+ .snapshot-status>*{flex-basis:100%}
+}
