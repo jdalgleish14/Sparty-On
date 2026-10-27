@@ -7,7 +7,7 @@
   <meta name="color-scheme" content="light dark">
   <title>Current Season — Sparty On</title>
   <link rel="icon" href="assets/crest.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/styles.css?v=4">
+  <link rel="stylesheet" href="assets/styles.css?v=5">
   <script type="text/plain" data-sparty-src="site-data/site-data.js"></script>
   <script type="text/plain" data-sparty-src="assets/shared.js"></script>
   <script type="text/plain" data-sparty-src="assets/theme.js"></script><script type="text/plain" data-sparty-src="assets/suggestion-box.js"></script>
@@ -65,62 +65,43 @@
       </section>
       <section class="panel swap-panel" id="schedule-swap-section" aria-labelledby="swap-title">
         <div class="section-heading"><div><p class="eyebrow">THE SCHEDULE / WHAT IF?</p><h2 id="swap-title">Schedule Swap Analysis</h2></div><span class="chip" id="swap-context">Regular season</span></div>
-        <p class="analytics-description">Same weekly scores, different opponents. See how every team would fare on each team's schedule, including its own.</p>
+        <p class="analytics-description">Compare actual records with results on every schedule. Select a team for its breakdown.</p>
         <p id="swap-status" class="analytics-note" role="status">Loading verified schedule analysis…</p>
         <div id="swap-content" hidden>
-          <div class="swap-subheading"><h3>Schedule Swap Summary</h3><p>Select a team to explore its results. Tap a column to sort.</p></div>
+          <p class="swap-table-hint">Tap a column to sort. <span class="mobile-hint">Swipe sideways for more columns.</span></p>
           <div class="table-scroll swap-scroll" tabindex="0" role="region" aria-label="Schedule swap summary; swipe sideways for every statistic">
-            <table id="swap-summary-table" class="swap-summary-table">
+            <table id="swap-summary-table" class="swap-summary-table" data-sync="off">
               <caption class="sr-only">Actual and hypothetical regular-season records. Team buttons open the detailed analysis.</caption>
               <thead><tr>
                 <th scope="col" class="swap-team-cell" data-swap-sort="team"><button type="button">Team <span aria-hidden="true">↕</span></button></th>
-                <th scope="col" class="numeric" data-swap-sort="actual" aria-sort="descending"><button type="button">Actual Record <span aria-hidden="true">↓</span></button></th>
-                <th scope="col" class="numeric" data-swap-sort="averageWins"><button type="button">Average Wins <span aria-hidden="true">↕</span></button></th>
-                <th scope="col" class="numeric" data-swap-sort="best"><button type="button">Best Record <span aria-hidden="true">↕</span></button></th>
-                <th scope="col" class="numeric" data-swap-sort="worst"><button type="button">Worst Record <span aria-hidden="true">↕</span></button></th>
-                <th scope="col" class="numeric" data-swap-sort="impact"><button type="button">Schedule Impact <span aria-hidden="true">↕</span></button></th>
+                <th scope="col" class="numeric" data-swap-sort="actual" aria-sort="descending"><button type="button">Actual <span aria-hidden="true">↓</span></button></th>
+                <th scope="col" class="numeric" data-swap-sort="averageWins"><button type="button">Avg Wins <span aria-hidden="true">↕</span></button></th>
+                <th scope="col" class="numeric" data-swap-sort="best"><button type="button">Best <span aria-hidden="true">↕</span></button></th>
+                <th scope="col" class="numeric" data-swap-sort="worst"><button type="button">Worst <span aria-hidden="true">↕</span></button></th>
+                <th scope="col" class="numeric" data-swap-sort="impact"><button type="button">Impact <span aria-hidden="true">↕</span></button></th>
               </tr></thead><tbody id="swap-summary-body"></tbody>
             </table>
           </div>
-          <p class="analytics-note swap-note"><strong>Schedule Impact</strong> = actual wins − average wins across all schedules. Positive means the actual schedule helped; negative means it hurt. Average Wins counts wins only; ties stay separate. <span class="mobile-hint">Swipe sideways for every summary column.</span></p>
+          <p class="analytics-note swap-note"><strong>Schedule Impact</strong> = actual wins − average wins across all schedules. Positive means the actual schedule helped; negative means it hurt. Avg Wins counts wins only; ties stay separate. <span class="mobile-hint">Swipe sideways for every summary column.</span></p>
           <div class="swap-detail" id="swap-detail">
             <div class="swap-picker"><label for="swap-team">Explore a team</label><select id="swap-team"></select></div>
             <div class="swap-subheading"><h3 id="swap-detail-title" tabindex="-1">Team analysis</h3></div>
             <dl class="swap-stats" id="swap-stats"></dl>
             <div class="table-scroll swap-scroll" tabindex="0" role="region" aria-label="Selected team's record on every schedule">
-              <table class="swap-compact-table"><caption class="sr-only">Hypothetical records compared with the selected team's actual wins.</caption><thead><tr><th scope="col">Borrowed Schedule</th><th scope="col" class="numeric">Record</th><th scope="col" class="numeric">Difference</th></tr></thead><tbody id="swap-detail-body"></tbody></table>
+              <table class="swap-compact-table" data-sync="off"><caption class="sr-only">Hypothetical records compared with the selected team's actual wins.</caption><thead><tr><th scope="col">Borrowed Schedule</th><th scope="col" class="numeric">Record</th><th scope="col" class="numeric">Difference</th></tr></thead><tbody id="swap-detail-body"></tbody></table>
             </div>
-            <p class="analytics-note swap-note">Difference compares wins with the actual record. Best and worst records compare wins first, then losses. If a borrowed schedule would pit a team against itself, it faces the schedule owner's score instead, as a full swap would.</p>
+            <p class="analytics-note swap-note">Difference = change in wins. Self-matchups use the schedule owner’s score, as a full swap would. Completed regular-season games only.</p>
           </div>
-          <details class="swap-matrix" id="swap-matrix">
-            <summary>Complete Schedule Swap Matrix <span>Every team × every schedule</span></summary>
-            <p class="analytics-description" id="swap-matrix-explanation"></p>
-            <div class="swap-matrix-desktop">
-              <p class="analytics-note swap-note">Scroll sideways to see every schedule.</p>
-              <div class="table-scroll swap-scroll" tabindex="0" role="region" aria-label="Complete schedule matrix; scroll horizontally for more schedules">
-                <table class="swap-matrix-table"><caption id="swap-matrix-caption" class="sr-only">Schedule swap wins</caption><thead id="swap-matrix-head"></thead><tbody id="swap-matrix-body"></tbody></table>
-              </div>
-              <p class="analytics-note swap-note" id="swap-cell-detail" role="status">Select a cell to see its full record.</p>
-              <p class="analytics-note swap-note" id="swap-tie-note" hidden>† This scenario also includes a tie. Focus its cell for the full record, or select the team above.</p>
-            </div>
-            <div class="swap-matrix-mobile">
-              <div class="swap-picker"><label for="swap-borrowed">Borrowed schedule</label><select id="swap-borrowed"></select></div>
-              <p class="analytics-description">All teams playing <strong id="swap-mobile-schedule"></strong>'s schedule. Choose any schedule to view its column of the full matrix.</p>
-              <div class="table-scroll swap-scroll" tabindex="0" role="region" aria-label="Matrix column for the selected borrowed schedule">
-                <table class="swap-compact-table"><caption class="sr-only">Every evaluated team's wins and full record on the selected schedule.</caption><thead><tr><th scope="col">Team</th><th scope="col" class="numeric">Wins</th><th scope="col" class="numeric">Record</th></tr></thead><tbody id="swap-mobile-matrix-body"></tbody></table>
-              </div>
-            </div>
-          </details>
-          <div class="swap-difficulty">
-            <div class="swap-subheading"><h3>Schedule Difficulty</h3><p>How many wins would all teams average on each schedule? Lower means harder; higher means easier. This measures the schedule, rather than its impact on one team.</p></div>
-            <div class="swap-picker"><label for="swap-difficulty-order">Schedule order</label><select id="swap-difficulty-order"><option value="hard">Hardest to easiest</option><option value="easy">Easiest to hardest</option></select></div>
-            <div class="table-scroll swap-scroll" tabindex="0" role="region" aria-label="Schedule difficulty rankings">
-              <table class="swap-compact-table"><caption class="sr-only">Difficulty rank one is hardest. Average wins include all teams and each schedule owner's actual result.</caption><thead><tr><th scope="col">Rank</th><th scope="col">Schedule</th><th scope="col" class="numeric">Average Wins</th></tr></thead><tbody id="swap-difficulty-body"></tbody></table>
-            </div>
-          </div>
-          <p class="analytics-note swap-note">Verified, completed regular-season weeks only. Future games and playoffs are excluded. These are independent what-if scenarios; their combined records need not balance like a real season.</p>
           <p class="sr-only" id="swap-announcement" role="status" aria-live="polite"></p>
         </div>
+      </section>
+      <section class="panel swap-panel swap-difficulty" id="schedule-difficulty-section" aria-labelledby="swap-difficulty-title" hidden>
+        <div class="section-heading"><div><p class="eyebrow">THE OPPONENTS</p><h2 id="swap-difficulty-title">Schedule Difficulty</h2></div><span class="chip" id="swap-difficulty-context"></span></div>
+        <p class="analytics-description">Hardest to easiest, based on the wins all teams would average on each schedule. Lower means harder.</p>
+        <div class="table-scroll swap-scroll" tabindex="0" role="region" aria-label="Schedule difficulty rankings, hardest to easiest">
+          <table class="swap-compact-table" data-sync="off"><caption class="sr-only">Difficulty rank one is hardest. Average wins include all teams and each schedule owner's actual result.</caption><thead><tr><th scope="col">Rank</th><th scope="col">Schedule</th><th scope="col" class="numeric">Avg Wins</th></tr></thead><tbody id="swap-difficulty-body"></tbody></table>
+        </div>
+        <p class="analytics-note swap-note">Difficulty measures the schedule. Impact measures how that schedule affected one team.</p>
       </section>
       <section class="panel analytics-panel" id="transactions-section" aria-labelledby="transactions-title">
         <div class="section-heading"><div><p class="eyebrow">ROSTER MOVES</p><h2 id="transactions-title">Transaction tracker</h2></div><span class="chip" id="transactions-season">Current season</span></div>
