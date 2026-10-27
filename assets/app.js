@@ -31,11 +31,23 @@
     const record = s => `${s.wins}–${s.losses}${hasTies ? `–${s.ties}` : ''}`;
     let sortKey = 'rank', direction = 1;
     function renderStandings() {
-      const sorted = [...standings].sort((a,b) => direction * (a[sortKey] - b[sortKey]) || a.rank - b.rank);
-      $('standings-body').innerHTML = sorted.map(s => `<tr data-owner="${esc(s.owner_id)}"><td class="rank-number">${s.rank}</td><td class="owner-cell"><strong>${esc(owners.get(s.owner_id))}</strong><span class="team-name">${esc(s.team)}</span></td><td class="numeric standing-record">${record(s)}</td><td class="numeric">${num(s.points_for)}</td><td class="numeric">${num(s.points_against)}</td><td class="numeric">${num(s.average_points_for)}</td><td class="numeric ${s.average_margin >= 0 ? 'positive' : 'negative'}">${signed(s.average_margin)}</td></tr>`).join('');
+      const sorted = [...standings].sort((a,b) => (Number.isFinite(a[sortKey]) !== Number.isFinite(b[sortKey]) ? (Number.isFinite(a[sortKey]) ? -1 : 1) : direction * (a[sortKey] - b[sortKey])) || a.rank - b.rank);
+      $('standings-body').innerHTML = sorted.map(s => `<tr data-owner="${esc(s.owner_id)}"><td class="rank-number">${s.rank}</td><td class="owner-cell"><strong>${esc(owners.get(s.owner_id))}</strong><span class="team-name">${esc(s.team)}</span></td><td class="numeric standing-record">${record(s)}</td><td class="numeric">${num(s.points_for)}</td><td class="numeric">${Number.isFinite(s.max_pf) ? num(s.max_pf) : '—'}</td><td class="numeric">${num(s.points_against)}</td><td class="numeric">${num(s.average_points_for)}</td><td class="numeric ${s.average_margin >= 0 ? 'positive' : 'negative'}">${signed(s.average_margin)}</td></tr>`).join('');
       document.querySelectorAll('th[data-sort]').forEach(th => { const active = th.dataset.sort === sortKey; th.setAttribute('aria-sort', active ? (direction === 1 ? 'ascending' : 'descending') : 'none'); th.querySelector('span').textContent = active ? (direction === 1 ? '↑' : '↓') : '↕'; });
       $('reset-sort').hidden = sortKey === 'rank' && direction === 1;
     }
+    window.addEventListener('sparty-sleeper-totals', event => {
+      const snapshot = event.detail;
+      const matches = snapshot.season === year && snapshot.max_pf_through_week === week;
+      const rows = new Map(snapshot.teams.map(row => [row.owner_id, row]));
+      standings.forEach(row => {
+        const value = rows.get(row.owner_id)?.max_pf;
+        row.max_pf = matches && typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : null;
+      });
+      const available = standings.filter(row => Number.isFinite(row.max_pf)).length;
+      text('max-pf-status', available ? `Max PF through Week ${week} · Synced ${new Date(snapshot.fetched_at_utc).toLocaleString()}.` : 'Max PF is awaiting a Sleeper sync matching the standings week.');
+      renderStandings();
+    });
     renderStandings();
     document.querySelectorAll('th[data-sort] button').forEach(button => button.addEventListener('click', () => { const key = button.parentElement.dataset.sort; direction = key === sortKey ? -direction : (key === 'rank' ? 1 : -1); sortKey = key; renderStandings(); text('sort-status',`Table sorted by ${button.title || 'rank'}, ${direction === 1 ? 'ascending' : 'descending'}.`); }));
     $('reset-sort').addEventListener('click', () => { sortKey = 'rank'; direction = 1; renderStandings(); text('sort-status','Standings order restored.'); document.querySelector('th[data-sort="rank"] button').focus(); });

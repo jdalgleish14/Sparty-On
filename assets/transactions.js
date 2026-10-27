@@ -46,6 +46,7 @@
       if (!Array.isArray(next.teams) || !next.teams.length || !Number.isFinite(Date.parse(next.fetched_at_utc)) || (current && next.season !== current.year)) throw new Error('Invalid snapshot');
       if (next.teams.some(r => typeof r.team !== 'string' || keys.some(k => !Number.isSafeInteger(r[k]) || r[k]<0) || r.total !== r.trades+r.free_agents+r.waivers)) throw new Error('Invalid totals');
       snapshot = next; render();
+      window.dispatchEvent(new CustomEvent('sparty-sleeper-totals', {detail: next}));
     } catch (_) {
       status.textContent = snapshot ? 'Could not check for updates. Showing totals last changed ' + new Date(snapshot.fetched_at_utc).toLocaleString() + '.' : 'Transaction totals are not available yet. They will appear after the first successful sync.';
     } finally { clearTimeout(timeout); loading = false; }
