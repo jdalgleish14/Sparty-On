@@ -3,16 +3,16 @@
   "season": "2026",
   "status": "in_season",
   "total_rosters": 12,
-  "last_scored_leg": 6,
-  "leg": 6,
+  "last_scored_leg": 7,
+  "leg": 7,
   "start_week": 1,
   "playoff_week_start": 15,
   "state": {
     "season": "2026",
     "season_type": "regular",
-    "week": 7,
-    "display_week": 6,
-    "leg": 7
+    "week": 8,
+    "display_week": 7,
+    "leg": 8
   },
   "rosters": [
     {
@@ -138,5 +138,5 @@
       "team_name": "2 Much Salsa "
     }
   ],
-  "fetched_at_utc": "2026-10-20T12:36:24+00:00"
+  "fetched_at_utc": "2026-10-27T12:38:21+00:00"
 }

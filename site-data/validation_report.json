@@ -2,7 +2,7 @@
   "status": "PASS",
   "source_sha256": "3da91a0c74f9c6c99f808d857634398b25599c73a26b022ad1cd58a1b7ce5e73",
   "publication_cutoff": {
-    "current_season_through_week": 6
+    "current_season_through_week": 7
   },
   "checks": [
     {
@@ -13,7 +13,7 @@
     {
       "name": "original_entries_match_normalized_regular_season",
       "status": "PASS",
-      "detail": "raw=2134, normalized=2134, missing=0, extra=0"
+      "detail": "raw=2146, normalized=2146, missing=0, extra=0"
     },
     {
       "name": "owner_mapping_complete",
@@ -33,7 +33,7 @@
     {
       "name": "two_owner_rows_per_game",
       "status": "PASS",
-      "detail": "games=1151, invalid=0"
+      "detail": "games=1157, invalid=0"
     },
     {
       "name": "postseason_winners_have_higher_score",
@@ -47,10 +47,10 @@
     }
   ],
   "counts": {
-    "regular_season_matchups": 1067,
+    "regular_season_matchups": 1073,
     "postseason_games": 84,
-    "all_games": 1151,
-    "game_rows": 2302,
+    "all_games": 1157,
+    "game_rows": 2314,
     "owners": 17,
     "active_season_summaries": 166
   }

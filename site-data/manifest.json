@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0.0",
-  "generated_at_utc": "2026-10-20T12:36:24+00:00",
+  "generated_at_utc": "2026-10-27T12:38:21+00:00",
   "source_sha256": "3da91a0c74f9c6c99f808d857634398b25599c73a26b022ad1cd58a1b7ce5e73",
   "publication_cutoff": {
-    "current_season_through_week": 6
+    "current_season_through_week": 7
   },
   "files": {
     "championships.json": {
@@ -11,23 +11,23 @@
       "bytes": 2893
     },
     "current_standings.json": {
-      "sha256": "3171c9823981386c3dc3911693b71356356c00bde159db7839a2e0b1b449cfa1",
+      "sha256": "77afd6054c926275da8c98c093df30627c451976bfc88092c8a3543dd9d924d0",
       "bytes": 4711
     },
     "games.json": {
-      "sha256": "04f900d9958011afb7a5e8a4636f5063fb52782ff9a1bfd68aacafaa90a2fb6d",
-      "bytes": 1123726
+      "sha256": "a1f4e80474b1317f7e83c95f0a39607343c79d9ac70f069baa0ed5e6c29ea07e",
+      "bytes": 1129534
     },
     "head_to_head.json": {
-      "sha256": "e9cfa824c9c6ca99bc9e9b030a1c7572fc89a07427d42b81014bde53ed0b7dcc",
-      "bytes": 33174
+      "sha256": "a6279b936f109aa013e593dcd0b21eb1d4586565ee3b355d72364f3bad04ef49",
+      "bytes": 33173
     },
     "league.json": {
-      "sha256": "5a457f1375f0834c15a98d8c39afe7e384dd054ee0666da11454364fd436b6e6",
+      "sha256": "e2e0e730f04f1a045830bda37912f0ab367ab4dec6c91e165c32bf0c8df078a2",
       "bytes": 153
     },
     "owner_careers.json": {
-      "sha256": "86c03d83b1106374e281f06c62f579695c1e39edec7bac3786ac6f6fe0e83bb0",
+      "sha256": "f6874cc4a2e0f0fc1381f283b4c151c12ae5ec24f4d23fc1d2024199808a7b4c",
       "bytes": 5258
     },
     "owners.json": {
@@ -39,7 +39,7 @@
       "bytes": 52628
     },
     "season_summaries.json": {
-      "sha256": "17224d12b18fc29f7d4a63f1e9838a1b9f3c87723c6649008c9d2ba6915006b1",
+      "sha256": "3f76fc5f44115d95e65d3b95b343d265bf7561463b275c7768fe6ab809ae5983",
       "bytes": 63298
     },
     "seasons.json": {
@@ -47,7 +47,7 @@
       "bytes": 8329
     },
     "validation_report.json": {
-      "sha256": "90308748da701ca789468d34ad96bd2cf19d35b98944d16c0132f277ef3f5f5e",
+      "sha256": "60477d4c6fa63d4268ef8583e129cf89ecc60d5e07e64ba2ee498255208d4139",
       "bytes": 1388
     }
   }
