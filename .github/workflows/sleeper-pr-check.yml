@@ -5,6 +5,10 @@ on:
     paths:
       - '.github/workflows/sleeper-*.yml'
       - 'tools/sleeper/**'
+      - 'tools/schedule-swap/**'
+      - 'assets/schedule-swap*.js'
+      - 'assets/styles.css'
+      - 'current-season.html'
       - 'site-data/**'
 
 permissions:
@@ -19,6 +23,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check schedule swap calculations
+        run: node --test tools/schedule-swap/tests/*.cjs
       - name: Run generator tests
         run: python -m unittest discover -s tools/sleeper/tests -p 'test_*.py'
       - name: Verify published data
