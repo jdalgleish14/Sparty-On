@@ -82,9 +82,11 @@ def main():
     result = build()  # All requests and validation finish before touching published data.
     target = ROOT / 'site-data/transactions.json'
     previous = json.loads(target.read_text()) if target.exists() else None
-    if previous and {k:v for k,v in previous.items() if k != 'fetched_at_utc'} == {k:v for k,v in result.items() if k != 'fetched_at_utc'}:
-        print('Transaction totals unchanged; keeping snapshot timestamp.')
-        return
+    # Record successful checks even when totals have not changed. Keep the
+    # original change timestamp for consumers that already use it.
+    if previous and {k:v for k,v in previous.items() if k not in ('fetched_at_utc', 'checked_at_utc')} == {k:v for k,v in result.items() if k not in ('fetched_at_utc', 'checked_at_utc')}:
+        result['fetched_at_utc'] = previous['fetched_at_utc']
+    result['checked_at_utc'] = utc_now()
     fd, temporary = tempfile.mkstemp(dir=target.parent)
     try:
         with os.fdopen(fd, 'w') as stream:

@@ -1,4 +1,9 @@
 import unittest
+import json
+import tempfile
+from pathlib import Path
+from unittest.mock import patch
+import sync
 from sync import count_transactions, build, max_points
 
 
@@ -7,6 +12,23 @@ def tx(id, kind='free_agent', status='complete', **kwargs):
 
 
 class Counts(unittest.TestCase):
+    def test_successful_unchanged_check_preserves_change_time(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root / 'site-data').mkdir()
+            target = root / 'site-data/transactions.json'
+            previous = {'teams': [], 'fetched_at_utc': 'old-change'}
+            target.write_text(json.dumps(previous))
+            with patch.object(sync, 'ROOT', root), patch.object(sync, 'build', return_value={'teams': [], 'fetched_at_utc': 'new-fetch'}), patch.object(sync, 'utc_now', return_value='new-check'):
+                sync.main()
+            result = json.loads(target.read_text())
+            self.assertEqual(result['fetched_at_utc'], 'old-change')
+            self.assertEqual(result['checked_at_utc'], 'new-check')
+            with patch.object(sync, 'ROOT', root), patch.object(sync, 'build', side_effect=RuntimeError('offline')):
+                with self.assertRaises(RuntimeError):
+                    sync.main()
+            self.assertEqual(json.loads(target.read_text()), result)
+
     def test_max_points(self):
         self.assertEqual(max_points({'ppts': 1234, 'ppts_decimal': 5}), 1234.05)
         self.assertEqual(max_points({'ppts': 0}), 0)
