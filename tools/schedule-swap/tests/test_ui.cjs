@@ -28,16 +28,19 @@ function setup(mutate){
  });
  elements.get('swap-summary-table').querySelectorAll=selector=>headers.map(h=>selector.endsWith('button')?h.button:h.head);
  const events={},win={SPARTY_ON_DATA:data,SpartyScheduleSwap:api,matchMedia:()=>({matches:true}),addEventListener:(n,f)=>events[n]=f};
- elements.get('swap-difficulty-order').value='hard';
  vm.runInNewContext(source,{window:win,document:{getElementById:id=>elements.get(id)||null},console});
  return {data,win,events,headers,get:id=>elements.get(id),plain:id=>decode(elements.get(id).innerHTML),trigger:(id,event,target)=>elements.get(id).events[event]({target})};
 }
 
 test('page loads all requested tables after Standings Race and before transactions',()=>{
  const s=setup();assert.equal(s.get('swap-content').hidden,false);assert.equal(s.get('swap-status').hidden,true);
- for(const id of ['swap-summary-body','swap-detail-body','swap-mobile-matrix-body','swap-difficulty-body']) assert.equal((s.get(id).innerHTML.match(/<tr/g)||[]).length,12);
- assert.equal((s.get('swap-matrix-body').innerHTML.match(/<td/g)||[]).length,144);
- assert.equal((s.get('swap-matrix-body').innerHTML.match(/swap-diagonal/g)||[]).length,12);
+ for(const id of ['swap-summary-body','swap-detail-body','swap-difficulty-body']) assert.equal((s.get(id).innerHTML.match(/<tr/g)||[]).length,12);
+ assert.equal(s.get('swap-matrix-body'),undefined);
+ assert.equal(s.get('swap-difficulty-order'),undefined);
+ assert.equal(s.get('schedule-difficulty-section').hidden,false);
+ assert.equal((html.match(/data-sync="off"/g)||[]).length,3);
+ assert.ok(html.indexOf('id="swap-announcement"')<html.indexOf('id="schedule-difficulty-section"'));
+ assert.ok(html.indexOf('id="schedule-difficulty-section"')<html.indexOf('id="transactions-section"'));
  assert.ok(html.indexOf('id="race-section"')<html.indexOf('id="schedule-swap-section"'));
  assert.ok(html.indexOf('id="schedule-swap-section"')<html.indexOf('id="transactions-section"'));
  assert.equal(s.headers.length,6);
@@ -52,19 +55,15 @@ test('selector and summary buttons populate the same team analysis',()=>{
  assert.match(s.plain('swap-stats'),/Actual2–5Average wins4.25Best6–1Worst2–5Schedule impact−2.25/);
 });
 
-test('numeric summary sorting, reversed difficulty and mobile schedule selection work',()=>{
+test('numeric summary sorting works and difficulty stays hardest to easiest',()=>{
  const s=setup(),h=s.headers.find(h=>h.head.dataset.swapSort==='averageWins');
  h.button.events.click();assert.match(s.plain('swap-summary-body'),/^Motor City Dan Campbell/);assert.equal(h.head.attrs['aria-sort'],'descending');
  h.button.events.click();assert.match(s.plain('swap-summary-body'),/^Home Grown/);assert.equal(h.head.attrs['aria-sort'],'ascending');
  assert.match(s.plain('swap-difficulty-body'),/^1Room 40/);
- s.get('swap-difficulty-order').value='easy';s.trigger('swap-difficulty-order','change');assert.match(s.plain('swap-difficulty-body'),/^12The Vandercruyssen Empire/);
  const analysis=api.build(s.data);
- for(const team of analysis.teams){
-  s.trigger('swap-borrowed','change',{value:team.owner_id});
-  assert.equal(s.get('swap-mobile-schedule').textContent,team.team);
-  const wins=[...s.get('swap-mobile-matrix-body').innerHTML.matchAll(/<td[^>]*>(\d+) \/ (\d+)/g)].map(m=>+m[1]);
-  assert.deepEqual(wins,analysis.teams.map(t=>t.scenarios.find(r=>r.schedule_id===team.owner_id).wins));
- }
+ const ids=[...s.get('swap-difficulty-body').innerHTML.matchAll(/<th scope="row">(.*?)<\/th>/g)].map(m=>decode(m[1]));
+ const expected=[...analysis.difficulty].sort((a,b)=>a.averageWins-b.averageWins||analysis.teams.find(t=>t.owner_id===a.schedule_id).team.localeCompare(analysis.teams.find(t=>t.owner_id===b.schedule_id).team));
+ assert.deepEqual(ids,expected.map(d=>analysis.teams.find(t=>t.owner_id===d.schedule_id).team));
 });
 
 test('daily rename event escapes labels, preserves identities and rejects wrong mappings',()=>{
@@ -78,13 +77,9 @@ test('daily rename event escapes labels, preserves identities and rejects wrong 
  s.events['sparty-sleeper-totals']({detail:snapshot});assert.equal(s.get('swap-detail-title').textContent,'Renamed <Team>');
 });
 
-test('desktop cell focus exposes its full record as visible text',()=>{
- const s=setup();s.trigger('swap-matrix-body','focusin',{closest:()=>({getAttribute:()=> 'Touchy Time on Test schedule: 6–1'})});
- assert.equal(s.get('swap-cell-detail').textContent,'Touchy Time on Test schedule: 6–1');
-});
-
 test('missing scoring data fails within this section, leaving other sections alone',()=>{
  const s=setup(data=>data.games.splice(data.games.findIndex(g=>g.year===2026),1));
  assert.equal(s.get('swap-content').hidden,true);assert.equal(s.get('swap-status').hidden,false);assert.match(s.get('swap-status').textContent,/incomplete/);
  assert.equal(s.get('race-section').hidden,false);
+ assert.equal(s.get('schedule-difficulty-section').hidden,true);
 });
