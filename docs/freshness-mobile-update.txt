@@ -1,0 +1,13 @@
+Sparty On: Freshness and mobile polish
+
+Upload the contents of this ZIP to the repository root, preserving folders. It contains changed files only.
+
+Score coverage and publication time appear below the page introduction. Dates use Eastern time. A score snapshot older than eight days is noted during the active regular season. Daily transactions record successful checks even when totals do not change; after 48 hours without a successful check, the tracker notes the delay. This tracking begins with the next successful daily sync. Existing timestamps are not fabricated.
+
+Mobile improvements: pinned team names in standings, bonus/luck standings, and transactions; wider readable standings; scroll cues; larger tap targets; 16px form fields to avoid iPhone focus zoom. Mascot animation files are unchanged.
+
+App scripts now receive snapshot URL versions, along with league data, to reduce stale cached behavior. The existing five-minute refresh and return-to-tab checks remain.
+
+Validation: seven refresh tests and six transaction tests pass, including unchanged-data heartbeat and failure preservation. JavaScript syntax checks pass. Browser visual verification was unavailable because no browser executable is installed; verify the deployed site on iPhone Safari and desktop. Live Sleeper API calls were not run.
+
+The archive also contains older workflow files in .github/workflows/workflows. This patch does not alter those files or the active schedule.
