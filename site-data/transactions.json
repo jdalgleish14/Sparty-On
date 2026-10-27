@@ -1,7 +1,8 @@
 {
+  "max_pf_through_week": 7,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-10-27T13:47:44+00:00",
+  "fetched_at_utc": "2026-10-27T14:42:26+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -25,6 +26,7 @@
   ],
   "teams": [
     {
+      "max_pf": 849.56,
       "roster_id": 1,
       "owner_id": "owner-nick",
       "team": "Fresh & Explosive",
@@ -34,6 +36,7 @@
       "waivers": 1
     },
     {
+      "max_pf": 623.66,
       "roster_id": 2,
       "owner_id": "owner-ryan",
       "team": "Homegrown",
@@ -43,6 +46,7 @@
       "waivers": 6
     },
     {
+      "max_pf": 907.7,
       "roster_id": 3,
       "owner_id": "owner-tj",
       "team": "Motor City Dan Campbell",
@@ -52,6 +56,7 @@
       "waivers": 1
     },
     {
+      "max_pf": 868.3,
       "roster_id": 4,
       "owner_id": "owner-brian",
       "team": "The Vandercruyssen Empire",
@@ -61,6 +66,7 @@
       "waivers": 4
     },
     {
+      "max_pf": 818.0,
       "roster_id": 5,
       "owner_id": "owner-spencer",
       "team": "3x & B2B",
@@ -70,6 +76,7 @@
       "waivers": 2
     },
     {
+      "max_pf": 755.62,
       "roster_id": 6,
       "owner_id": "owner-kyle",
       "team": "Return of the Mc\u2019s",
@@ -79,6 +86,7 @@
       "waivers": 2
     },
     {
+      "max_pf": 864.2,
       "roster_id": 7,
       "owner_id": "owner-wilson",
       "team": "Willie\u2019s Chubb",
@@ -88,6 +96,7 @@
       "waivers": 5
     },
     {
+      "max_pf": 787.88,
       "roster_id": 8,
       "owner_id": "owner-tyler",
       "team": "Porritt Drink It Chase It",
@@ -97,6 +106,7 @@
       "waivers": 2
     },
     {
+      "max_pf": 815.94,
       "roster_id": 9,
       "owner_id": "owner-dan",
       "team": "Room 40",
@@ -106,6 +116,7 @@
       "waivers": 1
     },
     {
+      "max_pf": 924.64,
       "roster_id": 10,
       "owner_id": "owner-alex",
       "team": "The Prodigal Sons",
@@ -115,6 +126,7 @@
       "waivers": 3
     },
     {
+      "max_pf": 869.58,
       "roster_id": 11,
       "owner_id": "owner-jack",
       "team": "Touchy Time",
@@ -124,6 +136,7 @@
       "waivers": 2
     },
     {
+      "max_pf": 894.7,
       "roster_id": 12,
       "owner_id": "owner-andres",
       "team": "2 Much Salsa ",
