@@ -1,13 +1,9 @@
-Sparty On: Freshness and mobile polish
+Sparty On: Compact sync footers and mobile table corrections
 
-Upload the contents of this ZIP to the repository root, preserving folders. It contains changed files only.
+Upload the extracted ZIP contents to the GitHub repository root, preserving folders. This cumulative patch works with either the original (9) upload or the first freshness/mobile patch.
 
-Score coverage and publication time appear below the page introduction. Dates use Eastern time. A score snapshot older than eight days is noted during the active regular season. Daily transactions record successful checks even when totals do not change; after 48 hours without a successful check, the tracker notes the delay. This tracking begins with the next successful daily sync. Existing timestamps are not fabricated.
+Removed the page-level timing boxes. Tables now have a small last-sync and next-scheduled-sync line beneath their scroll area. Times use Eastern time and honor daylight saving. Scheduled times are planned run times, not guaranteed completion times. Daily transaction checks remain separate from weekly score publication. Max PF remains a daily feed.
 
-Mobile improvements: pinned team names in standings, bonus/luck standings, and transactions; wider readable standings; scroll cues; larger tap targets; 16px form fields to avoid iPhone focus zoom. Mascot animation files are unchanged.
+Pinned columns are limited to regular, bonus and luck standings. Team columns are 108px wide on phones, with wrapping names. Their headers and body cells pin together with opaque backgrounds. Transaction, record and other analytics tables scroll normally. Separate table borders avoid collapsed-border artifacts around pinned columns. No mascot files were changed.
 
-App scripts now receive snapshot URL versions, along with league data, to reduce stale cached behavior. The existing five-minute refresh and return-to-tab checks remain.
-
-Validation: seven refresh tests and six transaction tests pass, including unchanged-data heartbeat and failure preservation. JavaScript syntax checks pass. Browser visual verification was unavailable because no browser executable is installed; verify the deployed site on iPhone Safari and desktop. Live Sleeper API calls were not run.
-
-The archive also contains older workflow files in .github/workflows/workflows. This patch does not alter those files or the active schedule.
+Validation: 10 JavaScript refresh/footer tests and 6 Python transaction tests pass. Tests cover daily vs weekly time, cached daily data, transaction events, and the daylight-saving transition. Browser visual verification remains outstanding because no browser executable is available.
