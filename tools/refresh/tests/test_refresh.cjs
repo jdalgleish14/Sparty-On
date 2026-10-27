@@ -29,7 +29,7 @@ test('ordered scripts, versioned data URLs and unchanged snapshot',async()=>{
  assert.deepEqual(s.urls.map(u=>new URL(u).pathname),['/league/site-data/site-data.js','/league/assets/app.js','/league/site-data/sparty-records.js']);
  assert.equal(new URL(s.urls[0]).searchParams.get('snapshot'),'v1');
  assert.equal(new URL(s.urls[2]).searchParams.get('snapshot'),'v1');
- assert.equal(new URL(s.urls[1]).search,'');
+ assert.equal(new URL(s.urls[1]).searchParams.get('snapshot'),'v1');
  assert.equal(s.requests[0].options.cache,'no-store');
  assert.equal(s.timers[0].ms,300000);
  assert.equal(s.navigations.length,0);
@@ -69,7 +69,7 @@ test('every statistics page has the loader and permits same-origin manifest chec
  const root=path.join(__dirname,'../../..');
  for(const name of ['index','current-season','seasons','owners','records','head-to-head']) {
   const html=fs.readFileSync(path.join(root,name+'.html'),'utf8');
-  assert.match(html,/src="assets\/data-refresh.js\?v=1" defer/);
+  assert.match(html,/src="assets\/data-refresh.js\?v=2" defer/);
   assert.match(html,/connect-src 'self'/);
   assert.match(html,/data-sparty-src="site-data\/site-data.js"/);
   assert.equal((html.match(/<script src=/g)||[]).length,1);
