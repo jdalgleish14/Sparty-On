@@ -29,7 +29,7 @@
     <noscript><p class="load-status">Enable JavaScript to view the local season archive. No connection is needed.</p></noscript>
     <div id="seasons-page" hidden>
       <section class="intro season-intro" aria-labelledby="page-title">
-        <div><p class="eyebrow">THE LEAGUE / YEAR BY YEAR</p><h1 id="page-title">Past Seasons</h1><p class="intro-copy">Standings, every regular-season week and the road to the title.</p></div>
+        <div><p class="eyebrow">THE LEAGUE / YEAR BY YEAR</p><h1 id="page-title">Past Seasons</h1><p class="intro-copy">Relive the glory days and the champions of years past</p></div>
         <label class="season-picker">Explore a year <select id="year-select" aria-label="Select a Season"></select></label>
       </section>
       <section class="season-banner" aria-labelledby="season-heading">
@@ -54,7 +54,7 @@
         <div class="section-heading"><div><p class="eyebrow">THE RACE / WEEK BY WEEK</p><h2 id="race-heading">Standings race</h2></div><span class="chip" id="race-context"></span></div>
         <p class="race-intro">See how each team's regular-season standing changed. Drag the slider beneath the chart or press Play to watch the race.</p>
         <div class="race-grid"><div class="race-graph" tabindex="0" role="region" aria-label="Standings race chart; scroll horizontally on a narrow screen"><svg id="race-chart" viewBox="0 0 740 420" role="img" aria-label="Weekly standing ranks. A full text table is beside the chart."></svg></div><div class="race-controls"><label for="race-week">Week <span id="race-week-label">Week 1</span></label><input type="range" id="race-week" min="1" max="14" value="1" step="any" aria-label="Standings through week"><button type="button" id="race-play" aria-pressed="false">Play</button><label for="race-team" class="race-team-label">Focus on team</label><select id="race-team" aria-label="Focus on a team"><option value="">All teams</option></select></div><div class="race-table-wrap" tabindex="0" role="region" aria-label="Standings through selected week"><table class="race-table"><thead><tr><th scope="col">#</th><th scope="col">Team</th><th scope="col">W–L</th><th scope="col">PF</th></tr></thead><tbody id="race-table-body"></tbody></table></div></div>
-        <p class="race-summary" id="race-week-summary" role="status"></p><p class="race-note">Ranked by wins, then losses, then points for. Select a team to highlight its path. Current seasons stop at the last verified week.</p>
+        <p class="race-summary" id="race-week-summary" role="status"></p><p class="race-note">Select a team to highlight its path.</p>
       </section>
       <section class="season-detail-section" aria-labelledby="year-detail-heading">
         <div class="section-line"><h2 id="year-detail-heading">More from this season</h2><p id="year-detail-context"></p></div>
@@ -69,7 +69,7 @@
             <div class="section-heading"><div><p class="eyebrow">RESULTS VS SCORING</p><h2 id="year-luck-heading">Wins above expected</h2></div></div>
             <p class="analytics-description">Compare head-to-head wins with the wins expected from each week's scores against the league.</p>
             <div class="analytics-scroll" tabindex="0" role="region" aria-label="Season wins above expected standings"><table class="analytics-table"><thead><tr><th scope="col">#</th><th scope="col">Owner / team</th><th scope="col" class="numeric">Record</th><th scope="col" class="numeric">Expected W</th><th scope="col" class="numeric">Luck</th></tr></thead><tbody id="year-luck-body"></tbody></table></div>
-            <p class="analytics-note">Luck = actual wins − expected wins. Expected wins sum each week's all-play win share; tied scores get half credit. Ranked from most to fewest wins above expected.</p>
+            <p class="analytics-note">Expected wins are based on how many teams you outscored each week. Outscoring 8 of the other 11 teams earns 8/11 of an expected win for that week. Add those weekly amounts together to get your season’s expected wins. Luck = actual wins − expected wins. Positive means you’ve won more games than your scoring would suggest; negative means you’ve won fewer.</p>
           </section>
           <section class="panel analytics-panel" aria-labelledby="year-records-heading">
             <div class="section-heading"><div><p class="eyebrow">REGULAR-SEASON MATCHUPS</p><h2 id="year-records-heading">Season game records</h2></div></div>

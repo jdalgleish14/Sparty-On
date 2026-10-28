@@ -12,14 +12,16 @@
   <script type="text/plain" data-sparty-src="assets/shared.js"></script>
   <script type="text/plain" data-sparty-src="assets/theme.js"></script><script type="text/plain" data-sparty-src="assets/suggestion-box.js"></script>
   <script type="text/plain" data-sparty-src="assets/season-analytics.js"></script>
-  <script type="text/plain" data-sparty-src="assets/app.js"></script>
+  <script type="text/plain" data-sparty-src="assets/app.js?v=20261028"></script>
   <script type="text/plain" data-sparty-src="assets/standings-race.js"></script>
   <script type="text/plain" data-sparty-src="assets/schedule-swap.js"></script>
   <script type="text/plain" data-sparty-src="assets/schedule-swap-ui.js"></script>
-  <script type="text/plain" data-sparty-src="assets/transactions.js"></script>
+  <script type="text/plain" data-sparty-src="assets/transactions.js?v=20261028"></script>
   <script type="text/plain" data-sparty-src="assets/freshness.js?v=page-sync-2"></script>
-  <script src="assets/data-refresh.js?v=3" defer></script>
-</head>
+  <script type="text/plain" data-sparty-src="assets/transaction-history.js?v=20261028"></script>
+<script type="text/plain" data-sparty-src="assets/season-sections.js?v=20261028"></script>
+<script src="assets/data-refresh.js?v=3" defer></script>
+<link rel="stylesheet" href="assets/season-sections.css?v=20261028"></head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to standings</a>
   <header class="masthead">
@@ -34,12 +36,10 @@
     <noscript><p class="load-status">Enable JavaScript in your browser to view this local snapshot. No internet connection is needed.</p></noscript>
     <div id="homepage" hidden>
       <section class="intro" aria-labelledby="page-title">
-        <div><p class="eyebrow" id="era-label"></p><h1 id="page-title">Current season</h1><p class="intro-copy">The standings, the scores, the season so far.</p></div>
+        <div><p class="eyebrow" id="era-label"></p><h1 id="page-title">Current season</h1><p class="intro-copy">Dig deeper on the current season.</p></div>
         <div class="freshness"><strong id="freshness"></strong><span><i aria-hidden="true"></i> Current season · In progress</span></div>
-      </section>
-      <div class="season-grid">
-        <section class="panel standings" aria-labelledby="standings-title">
-          <div class="section-heading"><div><p class="eyebrow">THE TABLE</p><h2 id="standings-title">Standings</h2></div><span class="chip">Regular season</span></div>
+      </section><div class="season-section-tabs" role="tablist" aria-label="Current season sections"><button type="button" role="tab" id="tab-standings" aria-controls="view-standings" data-season-tab="standings">Standings</button><button type="button" role="tab" id="tab-results" aria-controls="view-results" data-season-tab="results">Results</button><button type="button" role="tab" id="tab-transactions" aria-controls="view-transactions" data-season-tab="transactions">Transactions</button><button type="button" role="tab" id="tab-analytics" aria-controls="view-analytics" data-season-tab="analytics">Analytics</button></div><section id="view-standings" class="season-view" role="tabpanel" aria-labelledby="tab-standings" tabindex="0"><section class="panel standings" aria-labelledby="standings-title">
+          <div class="section-heading"><div><h2 id="standings-title">Standings</h2></div><span class="chip">Regular season</span></div>
           <div class="table-tools"><p id="standings-context"></p><button id="reset-sort" type="button" hidden>Reset order</button></div>
           <div class="table-scroll" tabindex="0" role="region" aria-label="Current standings; scroll horizontally for additional statistics">
             <table id="standings-table">
@@ -48,23 +48,50 @@
               <tbody id="standings-body"></tbody>
             </table>
           </div>
-          <div class="table-notes"><p>Order: wins ↓, losses ↑, then points for ↓.</p><p>PF: points for · Max PF: Sleeper’s maximum potential points, including taxi players · PA: points against · Avg: score per game · +/−: average margin</p><p id="max-pf-status">Max PF will appear after the next successful daily Sleeper sync.</p><p class="mobile-hint">Swipe the table sideways to see every column.</p></div>
+          <details class="stat-help"><summary>About these stats</summary><div class="table-notes"><p>Order: wins ↓, losses ↑, then points for ↓.</p><p>PF: points for · Max PF: Sleeper’s maximum potential points, including taxi players · PA: points against · Avg: score per game · +/−: average margin</p><p id="max-pf-status">Max PF will appear after the next successful daily Sleeper sync.</p><p class="mobile-hint">Swipe the table sideways to see every column.</p></div></details>
           <p id="sort-status" class="sr-only" role="status"></p>
-        </section>
-        <section class="panel results" aria-labelledby="results-title">
-          <div class="section-heading"><div><p class="eyebrow">THE SCOREBOARD</p><h2 id="results-title"></h2></div><span class="chip">Final</span></div>
-          <div class="scoreboard-picker"><label for="scoreboard-week">View completed week</label><select id="scoreboard-week" aria-label="View completed week's results"></select></div>
-          <div id="matchups"></div><div class="scoreboard-footer" id="week-summary"></div>
-        </section>
-      </div>
-      <section class="panel race-panel" id="race-section" aria-labelledby="race-heading" hidden>
-        <div class="section-heading"><div><p class="eyebrow">THE RACE / WEEK BY WEEK</p><h2 id="race-heading">Standings race</h2></div><span class="chip" id="race-context"></span></div>
+        </section><section class="leaders-section" aria-labelledby="leaders-title"><div class="section-line"><h2 id="leaders-title">Setting the pace</h2><p id="leaders-context"></p></div><div class="leaders-grid" id="leaders"></div></section><section class="panel race-panel" id="race-section" aria-labelledby="race-heading" hidden>
+        <div class="section-heading"><div><h2 id="race-heading">Standings race</h2></div><span class="chip" id="race-context"></span></div>
         <p class="race-intro">See how each team's regular-season standing changed. Drag the slider beneath the chart or press Play to watch the race.</p>
         <div class="race-grid"><div class="race-graph" tabindex="0" role="region" aria-label="Standings race chart; scroll horizontally on a narrow screen"><svg id="race-chart" viewBox="0 0 740 420" role="img" aria-label="Weekly standing ranks. A full text table is beside the chart."></svg></div><div class="race-controls"><label for="race-week">Week <span id="race-week-label">Week 1</span></label><input type="range" id="race-week" min="1" max="14" value="1" step="any" aria-label="Standings through week"><button type="button" id="race-play" aria-pressed="false">Play</button><label for="race-team" class="race-team-label">Focus on team</label><select id="race-team" aria-label="Focus on a team"><option value="">All teams</option></select></div><div class="race-table-wrap" tabindex="0" role="region" aria-label="Standings through selected week"><table class="race-table"><thead><tr><th scope="col">#</th><th scope="col">Team</th><th scope="col">W–L</th><th scope="col">PF</th></tr></thead><tbody id="race-table-body"></tbody></table></div></div>
-        <p class="race-summary" id="race-week-summary" role="status"></p><p class="race-note">Ranked by wins, then losses, then points for. Select a team to highlight its path. Current seasons stop at the last verified week.</p>
-      </section>
-      <section class="panel swap-panel" id="schedule-swap-section" aria-labelledby="swap-title">
-        <div class="section-heading"><div><p class="eyebrow">THE SCHEDULE / WHAT IF?</p><h2 id="swap-title">Schedule Swap Analysis</h2></div><span class="chip" id="swap-context">Regular season</span></div>
+        <p class="race-summary" id="race-week-summary" role="status"></p><p class="race-note">Select a team to highlight its path.</p>
+      </section></section><section id="view-results" class="season-view" role="tabpanel" aria-labelledby="tab-results" tabindex="0"><section class="panel results" aria-labelledby="results-title">
+          <div class="section-heading"><div><h2 id="results-title"></h2></div><span class="chip">Final</span></div>
+          <div class="scoreboard-picker"><label for="scoreboard-week">View completed week</label><select id="scoreboard-week" aria-label="View completed week's results"></select></div>
+          <div id="matchups"></div><div class="scoreboard-footer" id="week-summary"></div>
+        </section></section><section id="view-transactions" class="season-view" role="tabpanel" aria-labelledby="tab-transactions" tabindex="0"><section class="panel analytics-panel" id="transactions-section" aria-labelledby="transactions-title">
+        <div class="section-heading"><div><h2 id="transactions-title">Transaction tracker</h2></div><span class="chip" id="transactions-season">Current season</span></div>
+        <p class="analytics-description">Completed trades, free agent pickups and waiver claims this season.</p>
+        <p id="transactions-status" class="analytics-note" role="status">Transaction totals will appear after the first automatic sync.</p>
+        <div class="analytics-scroll" tabindex="0" role="region" aria-label="Transactions by team; swipe to see every category">
+          <table class="analytics-table" id="transactions-table" hidden><caption class="sr-only">Transactions by team. Select a column to sort.</caption>
+            <thead><tr><th scope="col">Team</th><th scope="col" class="numeric" data-tx-sort="total" aria-sort="descending"><button type="button">Total</button></th><th scope="col" class="numeric" data-tx-sort="trades"><button type="button">Trades</button></th><th scope="col" class="numeric" data-tx-sort="free_agents"><button type="button">Free agents</button></th><th scope="col" class="numeric" data-tx-sort="waivers"><button type="button">Waivers</button></th></tr></thead>
+            <tbody id="transactions-body"></tbody>
+          </table>
+        </div>
+        <details class="stat-help"><summary>About these stats</summary><p class="analytics-note">One move per completed transaction; each trade counts once for every participating team. Drop-only moves and unsuccessful claims are excluded. Total = trades + free agent pickups + waiver claims. Synced daily; tap a column to sort.</p></details>
+      </section></section><section id="view-analytics" class="season-view" role="tabpanel" aria-labelledby="tab-analytics" tabindex="0"><p id="analytics-context" class="sr-only"></p><div class="analytics-selector"><label for="analytics-view">Explore analytics</label><select id="analytics-view"><option value="bonus">Bonus standings</option><option value="luck">Luck standings</option><option value="trends">Weekly trends</option><option value="records">Season records</option><option value="swap">Schedule swap</option><option value="difficulty">Schedule difficulty</option></select></div><div data-analytics-view="bonus"><section class="panel analytics-panel" aria-labelledby="bonus-title">
+          <div class="section-heading"><div><h2 id="bonus-title">Bonus standings</h2></div></div>
+          <p class="analytics-description">Head-to-head record plus one top-half scoring result each week.</p>
+          <div class="analytics-scroll" tabindex="0" role="region" aria-label="Bonus standings; scroll horizontally to see every column"><table class="analytics-table"><caption class="sr-only">Bonus standings through the approved current-season week.</caption><thead><tr><th scope="col">#</th><th scope="col">Owner / team</th><th scope="col" class="numeric" title="Position change from regular standings">Change</th><th scope="col" class="numeric">H2H</th><th scope="col" class="numeric">Top half</th><th scope="col" class="numeric">Combined</th><th scope="col" class="numeric">PF</th></tr></thead><tbody id="bonus-body"></tbody></table></div>
+          <details class="stat-help"><summary>About these stats</summary><p class="analytics-note" id="bonus-note">The top six scores earn an extra win; the bottom six receive an extra loss. Ranked by combined wins, then points for.</p></details>
+        </section></div><div data-analytics-view="luck"><section class="panel analytics-panel" aria-labelledby="luck-title">
+          <div class="section-heading"><div><h2 id="luck-title">Luck standings</h2></div></div>
+          <p class="analytics-description">Actual wins compared with the wins expected from weekly scoring.</p>
+          <div class="analytics-scroll" tabindex="0" role="region" aria-label="Luck standings; scroll horizontally to see every column"><table class="analytics-table"><caption class="sr-only">Luck standings through the approved current-season week.</caption><thead><tr><th scope="col">#</th><th scope="col">Owner / team</th><th scope="col" class="numeric">Record</th><th scope="col" class="numeric">Expected W</th><th scope="col" class="numeric">Luck</th></tr></thead><tbody id="luck-body"></tbody></table></div>
+          <details class="stat-help"><summary>About these stats</summary><p class="analytics-note">Expected wins are based on how many teams you outscored each week. Outscoring 8 of the other 11 teams earns 8/11 of an expected win for that week. Add those weekly amounts together to get your season’s expected wins. Luck = actual wins − expected wins. Positive means you’ve won more games than your scoring would suggest; negative means you’ve won fewer.</p></details>
+        </section></div><div data-analytics-view="trends"><section class="panel analytics-panel" aria-labelledby="trends-title">
+          <div class="section-heading"><div><h2 id="trends-title">Weekly league trends</h2></div></div>
+          <p class="analytics-description">How scoring and competitiveness have changed each week.</p>
+          <div class="analytics-scroll" tabindex="0" role="region" aria-label="Weekly league trends; scroll horizontally to see every column"><table class="analytics-table" id="trends-table"><caption class="sr-only">Weekly league trends through the approved current-season week.</caption><thead><tr><th scope="col">Week</th><th scope="col" class="numeric">Avg winner</th><th scope="col" class="numeric">Avg loser</th><th scope="col" class="numeric">Total points</th><th scope="col" class="numeric">Avg margin</th></tr></thead><tbody id="trends-body"></tbody></table></div>
+          <details class="stat-help"><summary>About these stats</summary><p class="analytics-note">Completed regular-season weeks only. Average margin is the average winning margin across that week’s matchups.</p></details>
+        </section></div><div data-analytics-view="records"><section class="panel analytics-panel" aria-labelledby="season-records-title">
+          <div class="section-heading"><div><h2 id="season-records-title">Season records</h2></div></div>
+          <p class="analytics-description">Highs and lows of the season so far.</p>
+          <div class="analytics-scroll" tabindex="0" role="region" aria-label="Season records; scroll horizontally to see every column"><table class="analytics-table"><caption class="sr-only">Season records through the approved current-season week.</caption><thead><tr><th scope="col">Record</th><th scope="col">Week</th><th scope="col" class="numeric">Value</th><th scope="col">Owner / team or matchup</th></tr></thead><tbody id="season-records-body"></tbody></table></div>
+          <details class="stat-help"><summary>About these stats</summary><p class="analytics-note">Current-season records only. All tied records are listed. These are in-progress benchmarks, not completed-season records.</p></details>
+        </section></div><div data-analytics-view="swap"><section class="panel swap-panel" id="schedule-swap-section" aria-labelledby="swap-title">
+        <div class="section-heading"><div><h2 id="swap-title">Schedule Swap Analysis</h2></div><span class="chip" id="swap-context">Regular season</span></div>
         <p class="analytics-description">Compare actual records with results on every schedule. Select a team for its breakdown.</p>
         <p id="swap-status" class="analytics-note" role="status">Loading verified schedule analysis…</p>
         <div id="swap-content" hidden>
@@ -94,59 +121,14 @@
           </div>
           <p class="sr-only" id="swap-announcement" role="status" aria-live="polite"></p>
         </div>
-      </section>
-      <section class="panel swap-panel swap-difficulty" id="schedule-difficulty-section" aria-labelledby="swap-difficulty-title" hidden>
-        <div class="section-heading"><div><p class="eyebrow">THE OPPONENTS</p><h2 id="swap-difficulty-title">Schedule Difficulty</h2></div><span class="chip" id="swap-difficulty-context"></span></div>
+      </section></div><div data-analytics-view="difficulty"><section class="panel swap-panel swap-difficulty" id="schedule-difficulty-section" aria-labelledby="swap-difficulty-title" hidden>
+        <div class="section-heading"><div><h2 id="swap-difficulty-title">Schedule Difficulty</h2></div><span class="chip" id="swap-difficulty-context"></span></div>
         <p class="analytics-description">Hardest to easiest, based on the wins all teams would average on each schedule. Lower means harder.</p>
         <div class="table-scroll swap-scroll" tabindex="0" role="region" aria-label="Schedule difficulty rankings, hardest to easiest">
           <table class="swap-compact-table" data-sync="off"><caption class="sr-only">Difficulty rank one is hardest. Average wins include all teams and each schedule owner's actual result.</caption><thead><tr><th scope="col">Rank</th><th scope="col">Schedule</th><th scope="col" class="numeric">Avg Wins</th></tr></thead><tbody id="swap-difficulty-body"></tbody></table>
         </div>
         <p class="analytics-note swap-note">Difficulty measures the schedule. Impact measures how that schedule affected one team.</p>
-      </section>
-      <section class="panel analytics-panel" id="transactions-section" aria-labelledby="transactions-title">
-        <div class="section-heading"><div><p class="eyebrow">ROSTER MOVES</p><h2 id="transactions-title">Transaction tracker</h2></div><span class="chip" id="transactions-season">Current season</span></div>
-        <p class="analytics-description">Who’s making moves? Completed trades, free agent pickups and waiver claims this Sleeper season, including offseason moves.</p>
-        <p id="transactions-status" class="analytics-note" role="status">Transaction totals will appear after the first automatic sync.</p>
-        <div class="analytics-scroll" tabindex="0" role="region" aria-label="Transactions by team; swipe to see every category">
-          <table class="analytics-table" id="transactions-table" hidden><caption class="sr-only">Transactions by team. Select a column to sort.</caption>
-            <thead><tr><th scope="col">Team</th><th scope="col" class="numeric" data-tx-sort="total" aria-sort="descending"><button type="button">Total</button></th><th scope="col" class="numeric" data-tx-sort="trades"><button type="button">Trades</button></th><th scope="col" class="numeric" data-tx-sort="free_agents"><button type="button">Free agents</button></th><th scope="col" class="numeric" data-tx-sort="waivers"><button type="button">Waivers</button></th></tr></thead>
-            <tbody id="transactions-body"></tbody>
-          </table>
-        </div>
-        <p class="analytics-note">One move per completed transaction; each trade counts once for every participating team. Drop-only moves and unsuccessful claims are excluded. Total = trades + free agent pickups + waiver claims. Synced daily; tap a column to sort.</p>
-      </section>
-      <section class="leaders-section" aria-labelledby="leaders-title"><div class="section-line"><h2 id="leaders-title">Setting the pace</h2><p id="leaders-context"></p></div><div class="leaders-grid" id="leaders"></div></section>
-      <section class="season-detail-section" aria-labelledby="season-detail-title">
-        <div class="section-line"><h2 id="season-detail-title">A closer look at the season</h2><p id="analytics-context"></p></div>
-        <div class="analytics-grid">
-        <section class="panel analytics-panel" aria-labelledby="bonus-title">
-          <div class="section-heading"><div><p class="eyebrow">SEASON ANALYTICS</p><h2 id="bonus-title">Bonus standings</h2></div></div>
-          <p class="analytics-description">Head-to-head record plus one top-half scoring result each week.</p>
-          <div class="analytics-scroll" tabindex="0" role="region" aria-label="Bonus standings; scroll horizontally to see every column"><table class="analytics-table"><caption class="sr-only">Bonus standings through the approved current-season week.</caption><thead><tr><th scope="col">#</th><th scope="col">Owner / team</th><th scope="col" class="numeric" title="Position change from regular standings">Change</th><th scope="col" class="numeric">H2H</th><th scope="col" class="numeric">Top half</th><th scope="col" class="numeric">Combined</th><th scope="col" class="numeric">PF</th></tr></thead><tbody id="bonus-body"></tbody></table></div>
-          <p class="analytics-note" id="bonus-note">The top six scores earn an extra win; the bottom six receive an extra loss. A tied cutoff follows workbook roster order. Ranked by combined wins, then points for.</p>
-        </section>
-        <section class="panel analytics-panel" aria-labelledby="luck-title">
-          <div class="section-heading"><div><p class="eyebrow">SEASON ANALYTICS</p><h2 id="luck-title">Luck standings</h2></div></div>
-          <p class="analytics-description">Actual wins compared with the wins expected from weekly scoring.</p>
-          <div class="analytics-scroll" tabindex="0" role="region" aria-label="Luck standings; scroll horizontally to see every column"><table class="analytics-table"><caption class="sr-only">Luck standings through the approved current-season week.</caption><thead><tr><th scope="col">#</th><th scope="col">Owner / team</th><th scope="col" class="numeric">Record</th><th scope="col" class="numeric">Expected W</th><th scope="col" class="numeric">Luck</th></tr></thead><tbody id="luck-body"></tbody></table></div>
-          <p class="analytics-note">Expected wins are based on how many teams you outscored each week. Outscoring 8 of the other 11 teams earns 8/11 of an expected win for that week. Add those weekly amounts together to get your season’s expected wins. Luck = actual wins − expected wins. Positive means you’ve won more games than your scoring would suggest; negative means you’ve won fewer.</p>
-        </section>
-        <section class="panel analytics-panel" aria-labelledby="trends-title">
-          <div class="section-heading"><div><p class="eyebrow">SEASON ANALYTICS</p><h2 id="trends-title">Weekly league trends</h2></div></div>
-          <p class="analytics-description">How scoring and competitiveness have changed each week.</p>
-          <div class="analytics-scroll" tabindex="0" role="region" aria-label="Weekly league trends; scroll horizontally to see every column"><table class="analytics-table" id="trends-table"><caption class="sr-only">Weekly league trends through the approved current-season week.</caption><thead><tr><th scope="col">Week</th><th scope="col" class="numeric">Avg winner</th><th scope="col" class="numeric">Avg loser</th><th scope="col" class="numeric">Total points</th><th scope="col" class="numeric">Avg margin</th></tr></thead><tbody id="trends-body"></tbody></table></div>
-          <p class="analytics-note">Completed regular-season weeks only. Average margin is the average winning margin across that week’s matchups.</p>
-        </section>
-        <section class="panel analytics-panel" aria-labelledby="season-records-title">
-          <div class="section-heading"><div><p class="eyebrow">SEASON ANALYTICS</p><h2 id="season-records-title">Season records</h2></div></div>
-          <p class="analytics-description">The scores and matchups that stand out so far.</p>
-          <div class="analytics-scroll" tabindex="0" role="region" aria-label="Season records; scroll horizontally to see every column"><table class="analytics-table"><caption class="sr-only">Season records through the approved current-season week.</caption><thead><tr><th scope="col">Record</th><th scope="col">Week</th><th scope="col" class="numeric">Value</th><th scope="col">Owner / team or matchup</th></tr></thead><tbody id="season-records-body"></tbody></table></div>
-          <p class="analytics-note">Current-season records only. All tied records are listed. These are in-progress benchmarks, not completed-season records.</p>
-        </section>
-        </div>
-        <p class="analytics-mobile-note">On smaller screens, swipe within a table to see all columns.</p>
-      </section>
-      <footer><strong>SPARTY ON</strong><p>League history, one week at a time.</p><span id="footer-freshness"></span><div class="footer-tools"><button class="suggestion-trigger" type="button">Suggestion Box</button><div class="theme-switch" role="group" aria-label="Display theme"><button type="button" data-theme-choice="system" aria-pressed="false">Auto</button><button type="button" data-theme-choice="light" aria-pressed="false">Light</button><button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button></div></div></footer>
+      </section></div></section>      <footer><strong>SPARTY ON</strong><p>League history, one week at a time.</p><span id="footer-freshness"></span><div class="footer-tools"><button class="suggestion-trigger" type="button">Suggestion Box</button><div class="theme-switch" role="group" aria-label="Display theme"><button type="button" data-theme-choice="system" aria-pressed="false">Auto</button><button type="button" data-theme-choice="light" aria-pressed="false">Light</button><button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button></div></div></footer>
     </div>
   </main>
   <dialog id="section-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"><p class="eyebrow">COMING IN A FUTURE PASS</p><h2 id="dialog-title"></h2><p id="dialog-description"></p><p>This preview includes Home, Current Season, Past Seasons and Owners. This section is planned for a future pass.</p><button type="button" id="close-dialog" class="primary-button">Close</button></dialog>
