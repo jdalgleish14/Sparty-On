@@ -32,7 +32,7 @@ function setup(mutate){
  return {data,win,events,headers,get:id=>elements.get(id),plain:id=>decode(elements.get(id).innerHTML),trigger:(id,event,target)=>elements.get(id).events[event]({target})};
 }
 
-test('page loads all requested tables after Standings Race and before transactions',()=>{
+test('page loads schedule tools inside the Analytics section',()=>{
  const s=setup();assert.equal(s.get('swap-content').hidden,false);assert.equal(s.get('swap-status').hidden,true);
  for(const id of ['swap-summary-body','swap-detail-body','swap-difficulty-body']) assert.equal((s.get(id).innerHTML.match(/<tr/g)||[]).length,12);
  assert.equal(s.get('swap-matrix-body'),undefined);
@@ -40,9 +40,11 @@ test('page loads all requested tables after Standings Race and before transactio
  assert.equal(s.get('schedule-difficulty-section').hidden,false);
  assert.equal((html.match(/data-sync="off"/g)||[]).length,3);
  assert.ok(html.indexOf('id="swap-announcement"')<html.indexOf('id="schedule-difficulty-section"'));
- assert.ok(html.indexOf('id="schedule-difficulty-section"')<html.indexOf('id="transactions-section"'));
+ assert.ok(html.indexOf('id="view-analytics"')<html.indexOf('id="schedule-swap-section"'));
+ assert.match(html,/data-analytics-view="difficulty"/);
  assert.ok(html.indexOf('id="race-section"')<html.indexOf('id="schedule-swap-section"'));
- assert.ok(html.indexOf('id="schedule-swap-section"')<html.indexOf('id="transactions-section"'));
+ assert.ok(html.indexOf('id="schedule-difficulty-section"')<html.indexOf('<footer>'));
+ assert.match(html,/data-season-tab="transactions"/);
  assert.equal(s.headers.length,6);
 });
 
