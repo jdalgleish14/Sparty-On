@@ -1,0 +1,18 @@
+SPARTY ON — APPROVED NAVIGATION, TRANSACTION HISTORY AND WORDING
+
+Deploy
+1. Extract this patch and upload its CONTENTS to your GitHub repository root, preserving assets, tools, docs, and .github/workflows folders. This is a changed-files package based on Sparty-On-main (12).zip.
+2. Let GitHub Pages publish the commit.
+3. In Actions, run Sleeper transaction daily update (Run workflow) to fetch the real transaction history immediately, or wait for the next 9 AM Eastern daily run. The panel shows a waiting message until the first successful updated sync. Existing transaction totals remain available.
+
+Included
+Current Season section navigation: Standings, Results, Transactions, Analytics. Analytics selector includes Bonus, Luck, Trends, Records, Schedule Swap, and Schedule Difficulty. Keyboard navigation and URL hash selection are supported. Existing tables and calculations are preserved.
+Team transaction history: choose a team or tap its table name, filter by move type, and view players/picks/FAAB received and sent, pickup drops, timestamps, and waiver bids. Counts retain the agreed completed-transaction rules. The player directory is fetched by the scheduled sync; browsers read only the published snapshot. Unknown player names retain their player ID. More than 15 entries use Show more.
+
+Wording
+All nine Change decisions and one Remove decision in your returned workbook were applied. The dynamic bonus note was also updated so the approved wording survives page initialization. Other workbook wording remains unchanged, subject to the previously approved navigation/presentation changes.
+
+Validation
+Transaction unit tests, refresh/section/history UI checks, schedule-swap checks, and 73 existing Sleeper tests pass. Existing data verifies successfully. Original page initialization with the published snapshot was checked. No live Sleeper fetch was possible here; no fictional transactions or score changes are in this patch. Browser visual verification was unavailable here; navigation layout was approved in the local preview.
+
+Changed-file manifest follows in docs/2026-10-28-files.txt. Do not upload a second nested workflows directory.
