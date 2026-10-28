@@ -12,7 +12,8 @@
     body.replaceChildren(...rows.map(row => {
       const tr = document.createElement('tr');
       const name = document.createElement('th');
-      name.scope = 'row'; name.textContent = row.team; tr.append(name);
+      name.scope = 'row';
+      const button = document.createElement('button');button.type='button';button.className='tx-team-button';button.dataset.txTeam=String(row.roster_id);button.textContent=row.team;button.setAttribute('aria-label','View transactions for '+row.team);name.append(button);tr.append(name);
       keys.forEach(key => {
         const td = document.createElement('td');
         td.className = 'numeric'; td.textContent = row[key]; tr.append(td);
