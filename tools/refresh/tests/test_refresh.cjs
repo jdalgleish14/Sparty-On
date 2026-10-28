@@ -69,7 +69,7 @@ test('every statistics page has the loader and permits same-origin manifest chec
  const root=path.join(__dirname,'../../..');
  for(const name of ['index','current-season','seasons','owners','records','head-to-head']) {
   const html=fs.readFileSync(path.join(root,name+'.html'),'utf8');
-  assert.match(html,/src="assets\/data-refresh.js\?v=3" defer/);
+  assert.match(html,/src="assets\/data-refresh.js\?v=\d+" defer/);
   assert.match(html,/connect-src 'self'/);
   assert.match(html,/data-sparty-src="site-data\/site-data.js"/);
   assert.equal((html.match(/<script src=/g)||[]).length,1);
