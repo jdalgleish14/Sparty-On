@@ -43,6 +43,60 @@ def count_transactions(batches, roster_ids):
     return totals
 
 
+def transaction_histories(batches, roster_ids, players, names):
+    """Resolve completed, counted moves from each participating team's perspective."""
+    histories = {int(r): [] for r in roster_ids}
+    latest = {}
+    for batch in batches:
+        for tx in batch:
+            key = str(tx['transaction_id'])
+            if key not in latest or (tx.get('status_updated') or 0) > (latest[key].get('status_updated') or 0):
+                latest[key] = tx
+    def player(pid):
+        info = players.get(str(pid)) or {}
+        name = info.get('full_name') or ' '.join(filter(None, [info.get('first_name'), info.get('last_name')])) or f'Player {pid}'
+        return dict(kind='player', player_id=str(pid), label=name, position=info.get('position'))
+    for tx in latest.values():
+        counted = count_transactions([[tx]], roster_ids)
+        participants = [rid for rid, totals in counted.items() if totals['total']]
+        if not participants:
+            continue
+        stamp = tx.get('status_updated') or tx.get('created')
+        if stamp is not None and (type(stamp) not in (int, float) or not math.isfinite(stamp) or stamp < 0):
+            raise ValueError('Invalid transaction timestamp')
+        for rid in participants:
+            received, sent = [], []
+            for field, destination in [('adds', received), ('drops', sent)]:
+                for pid, owner in (tx.get(field) or {}).items():
+                    if int(owner) == rid:
+                        destination.append(player(pid))
+            for pick in tx.get('draft_picks') or []:
+                origin = int(pick['roster_id'])
+                receiver = int(pick['owner_id'])
+                sender = int(pick['previous_owner_id']) if 'previous_owner_id' in pick else None
+                if sender is None:
+                    raise ValueError('Draft pick missing previous owner')
+                if any(v not in histories for v in (origin, sender, receiver)):
+                    raise ValueError('Unknown pick roster')
+                asset = dict(kind='pick', label=f"{pick['season']} Round {pick['round']} ({names[origin]})")
+                if receiver == rid: received.append(asset)
+                if sender == rid: sent.append(asset)
+            for budget in tx.get('waiver_budget') or []:
+                sender, receiver = int(budget['sender']), int(budget['receiver'])
+                amount = budget['amount']
+                if sender not in histories or receiver not in histories or type(amount) not in (int, float) or not math.isfinite(amount) or amount < 0:
+                    raise ValueError('Invalid FAAB transfer')
+                asset = dict(kind='faab', label=f'${amount:g} FAAB')
+                if receiver == rid: received.append(asset)
+                if sender == rid: sent.append(asset)
+            histories[rid].append(dict(transaction_id=str(tx['transaction_id']), type=tx['type'], timestamp_ms=stamp,
+                partners=[names[p] for p in participants if p != rid], received=received, sent=sent,
+                waiver_bid=(tx.get('settings') or {}).get('waiver_bid') if tx['type'] == 'waiver' else None))
+    for rows in histories.values():
+        rows.sort(key=lambda t: (t['timestamp_ms'] or 0, t['transaction_id']), reverse=True)
+    return histories
+
+
 def max_points(settings):
     """Sleeper stores potential points as whole points plus hundredths."""
     whole = settings.get('ppts')
@@ -75,7 +129,13 @@ def build(fetch=get_json, now=utc_now):
         name = (user.get('metadata') or {}).get('team_name') or user.get('display_name') or f'Team {rid}'
         settings = roster.get('settings') or {}
         rows.append(dict(max_pf=max_points(settings), roster_id=rid, owner_id=config['rosters'][str(rid)], team=name, **totals[rid]))
-    return dict(max_pf_through_week=(league.get('settings') or {}).get('last_scored_leg'), league_id=league_id, season=config['season'], fetched_at_utc=now(), weeks_scanned=list(range(19)), teams=sorted(rows, key=lambda r: r['roster_id']))
+    players = fetch('/players/nfl')
+    if not isinstance(players, dict):
+        raise ValueError('Invalid player directory')
+    histories = transaction_histories(batches, config['rosters'], players, {row['roster_id']: row['team'] for row in rows})
+    for row in rows:
+        row['history'] = histories[row['roster_id']]
+    return dict(history_version=1, max_pf_through_week=(league.get('settings') or {}).get('last_scored_leg'), league_id=league_id, season=config['season'], fetched_at_utc=now(), weeks_scanned=list(range(19)), teams=sorted(rows, key=lambda r: r['roster_id']))
 
 
 def main():

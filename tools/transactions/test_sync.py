@@ -4,7 +4,7 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 import sync
-from sync import count_transactions, build, max_points
+from sync import count_transactions, build, max_points, transaction_histories
 
 
 def tx(id, kind='free_agent', status='complete', **kwargs):
@@ -28,6 +28,33 @@ class Counts(unittest.TestCase):
                 with self.assertRaises(RuntimeError):
                     sync.main()
             self.assertEqual(json.loads(target.read_text()), result)
+
+    def test_history_trade_assets_and_perspectives(self):
+        trade = tx(99, 'trade', status_updated=100,
+                   adds={'a':2,'b':1}, drops={'a':1,'b':2},
+                   draft_picks=[dict(season='2027',round=1,roster_id=2,previous_owner_id=2,owner_id=1)],
+                   waiver_budget=[dict(sender=1,receiver=2,amount=15)])
+        trade['roster_ids']=[1,2]
+        players={'a':dict(full_name='Player A'), 'b':dict(first_name='Player',last_name='B')}
+        result=transaction_histories([[trade],[trade]], [1,2],players,{1:'One',2:'Two'})
+        self.assertEqual(len(result[1]),1)
+        self.assertEqual(result[1][0]['received'][0]['label'],'Player B')
+        self.assertEqual(result[1][0]['sent'][0]['label'],'Player A')
+        self.assertEqual(result[1][0]['received'][1]['label'],'2027 Round 1 (Two)')
+        self.assertEqual(result[2][0]['sent'][1]['kind'],'pick')
+        self.assertEqual(result[2][0]['received'][1]['label'],'$15 FAAB')
+        self.assertEqual(result[1][0]['partners'],['Two'])
+
+    def test_history_excludes_drop_only_and_canceled(self):
+        pickup=tx(1, adds={'unknown':1}, drops={'a':1}, status_updated=10)
+        drop=tx(2, drops={'b':1})
+        canceled=tx(1,status='canceled',status_updated=20)
+        result=transaction_histories([[pickup,drop,canceled]], [1],{}, {1:'One'})
+        self.assertEqual(result[1],[])
+        result=transaction_histories([[pickup,drop]], [1],{}, {1:'One'})
+        self.assertEqual(len(result[1]),1)
+        self.assertEqual(result[1][0]['received'][0]['label'],'Player unknown')
+        self.assertEqual(result[1][0]['sent'][0]['label'],'Player a')
 
     def test_max_points(self):
         self.assertEqual(max_points({'ppts': 1234, 'ppts_decimal': 5}), 1234.05)
