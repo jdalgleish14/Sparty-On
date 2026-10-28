@@ -1,8 +1,9 @@
 {
+  "history_version": 1,
   "max_pf_through_week": 7,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-10-28T13:53:59+00:00",
+  "fetched_at_utc": "2026-10-28T20:08:26+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -33,17 +34,971 @@
       "total": 8,
       "trades": 5,
       "free_agents": 2,
-      "waivers": 1
+      "waivers": 1,
+      "history": [
+        {
+          "transaction_id": "1418436291778846720",
+          "type": "waiver",
+          "timestamp_ms": 1792566742217,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11565",
+              "label": "J.J. McCarthy",
+              "position": "QB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1416598793066909696",
+          "type": "free_agent",
+          "timestamp_ms": 1792105980702,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13150",
+              "label": "Darius Cooper",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "6806",
+              "label": "J.K. Dobbins",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1409960810209443840",
+          "type": "trade",
+          "timestamp_ms": 1790534280496,
+          "partners": [
+            "Homegrown"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "7525",
+              "label": "DeVonta Smith",
+              "position": "WR"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 3 (Homegrown)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13337",
+              "label": "Emmett Johnson",
+              "position": "RB"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 1 (Willie\u2019s Chubb)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1406649836337405952",
+          "type": "free_agent",
+          "timestamp_ms": 1789733964575,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "4017",
+              "label": "Deshaun Watson",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12530",
+              "label": "Travis Hunter",
+              "position": "DB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1390364310437396480",
+          "type": "trade",
+          "timestamp_ms": 1785852902388,
+          "partners": [
+            "The Vandercruyssen Empire"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 4 (The Vandercruyssen Empire)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 3 (The Vandercruyssen Empire)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 4 (Homegrown)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (Return of the Mc\u2019s)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1390125565465341952",
+          "type": "trade",
+          "timestamp_ms": 1785794348253,
+          "partners": [
+            "Homegrown"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 11 (Homegrown)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 4 (Homegrown)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 6 (Homegrown)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 8 (Homegrown)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (Homegrown)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 11 (Fresh & Explosive)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 3 (Fresh & Explosive)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 7 (Fresh & Explosive)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 9 (Fresh & Explosive)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1389725199326257152",
+          "type": "trade",
+          "timestamp_ms": 1785700004289,
+          "partners": [
+            "Return of the Mc\u2019s"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 2 (Return of the Mc\u2019s)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (Return of the Mc\u2019s)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 2 (Willie\u2019s Chubb)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1389455821791821824",
+          "type": "trade",
+          "timestamp_ms": 1785637577023,
+          "partners": [
+            "Willie\u2019s Chubb"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 2 (Willie\u2019s Chubb)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 5 (Willie\u2019s Chubb)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 1 (Willie\u2019s Chubb)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 2 (Fresh & Explosive)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 5 (Fresh & Explosive)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (Fresh & Explosive)"
+            }
+          ],
+          "waiver_bid": null
+        }
+      ]
     },
     {
       "max_pf": 623.66,
       "roster_id": 2,
       "owner_id": "owner-ryan",
       "team": "Homegrown",
-      "total": 26,
+      "total": 27,
       "trades": 8,
-      "free_agents": 12,
-      "waivers": 6
+      "free_agents": 13,
+      "waivers": 6,
+      "history": [
+        {
+          "transaction_id": "1421170027813486592",
+          "type": "free_agent",
+          "timestamp_ms": 1793195847995,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "8210",
+              "label": "Chig Okonkwo",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11610",
+              "label": "Malik Washington",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1420288352963362816",
+          "type": "waiver",
+          "timestamp_ms": 1793019708298,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9754",
+              "label": "Quentin Johnston",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13288",
+              "label": "Nicholas Singleton",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1419015054212292608",
+          "type": "waiver",
+          "timestamp_ms": 1792849951269,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12533",
+              "label": "Jacory Croskey-Merritt",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "9754",
+              "label": "Quentin Johnston",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1419365077684891648",
+          "type": "free_agent",
+          "timestamp_ms": 1792765514350,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13424",
+              "label": "Seth McGowan",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11643",
+              "label": "Jaylen Wright",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1418623453891678208",
+          "type": "free_agent",
+          "timestamp_ms": 1792588697458,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11610",
+              "label": "Malik Washington",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12484",
+              "label": "Jayden Higgins",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1418093166195675136",
+          "type": "waiver",
+          "timestamp_ms": 1792566742217,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12530",
+              "label": "Travis Hunter",
+              "position": "DB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13405",
+              "label": "Kaytron Allen",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1418082259340140544",
+          "type": "trade",
+          "timestamp_ms": 1792459774400,
+          "partners": [
+            "3x & B2B"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12484",
+              "label": "Jayden Higgins",
+              "position": "WR"
+            },
+            {
+              "kind": "player",
+              "player_id": "13294",
+              "label": "Makai Lemon",
+              "position": "WR"
+            },
+            {
+              "kind": "player",
+              "player_id": "13405",
+              "label": "Kaytron Allen",
+              "position": "RB"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 1 (3x & B2B)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11583",
+              "label": "Jonathon Brooks",
+              "position": "RB"
+            },
+            {
+              "kind": "player",
+              "player_id": "11635",
+              "label": "Ladd McConkey",
+              "position": "WR"
+            },
+            {
+              "kind": "player",
+              "player_id": "7553",
+              "label": "Kyle Pitts Sr.",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1416835524831809536",
+          "type": "free_agent",
+          "timestamp_ms": 1792162421952,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9754",
+              "label": "Quentin Johnston",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12509",
+              "label": "Tre' Harris",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1416254580508917760",
+          "type": "free_agent",
+          "timestamp_ms": 1792023914032,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12487",
+              "label": "Terrance Ferguson",
+              "position": "TE"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1416249039808131072",
+          "type": "trade",
+          "timestamp_ms": 1792023503484,
+          "partners": [
+            "The Prodigal Sons"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11635",
+              "label": "Ladd McConkey",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13317",
+              "label": "Ted Hurst III",
+              "position": "WR"
+            },
+            {
+              "kind": "player",
+              "player_id": "4866",
+              "label": "Saquon Barkley",
+              "position": "RB"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 4 (Homegrown)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1415995707235500032",
+          "type": "free_agent",
+          "timestamp_ms": 1791962193835,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12469",
+              "label": "Dylan Sampson",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "9508",
+              "label": "Tyjae Spears",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1415044170468352000",
+          "type": "free_agent",
+          "timestamp_ms": 1791735329790,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9508",
+              "label": "Tyjae Spears",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12487",
+              "label": "Terrance Ferguson",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1413716577571864576",
+          "type": "trade",
+          "timestamp_ms": 1791423084925,
+          "partners": [
+            "2 Much Salsa "
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "4866",
+              "label": "Saquon Barkley",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2028 Round 2 (Homegrown)"
+            },
+            {
+              "kind": "pick",
+              "label": "2029 Round 4 (Homegrown)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1413560255765319680",
+          "type": "free_agent",
+          "timestamp_ms": 1791381536956,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11637",
+              "label": "Keon Coleman",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "9508",
+              "label": "Tyjae Spears",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1412825056010141696",
+          "type": "waiver",
+          "timestamp_ms": 1791357095221,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12509",
+              "label": "Tre' Harris",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "7571",
+              "label": "Rashod Bateman",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1411469284160315392",
+          "type": "trade",
+          "timestamp_ms": 1791094841579,
+          "partners": [
+            "Porritt Drink It Chase It"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "7571",
+              "label": "Rashod Bateman",
+              "position": "WR"
+            },
+            {
+              "kind": "player",
+              "player_id": "9508",
+              "label": "Tyjae Spears",
+              "position": "RB"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 1 (Porritt Drink It Chase It)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12489",
+              "label": "RJ Harvey",
+              "position": "RB"
+            },
+            {
+              "kind": "player",
+              "player_id": "12501",
+              "label": "Matthew Golden",
+              "position": "WR"
+            },
+            {
+              "kind": "pick",
+              "label": "2029 Round 1 (Homegrown)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1412111570690981888",
+          "type": "free_agent",
+          "timestamp_ms": 1791036143519,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11643",
+              "label": "Jaylen Wright",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11637",
+              "label": "Keon Coleman",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1411012780257013760",
+          "type": "waiver",
+          "timestamp_ms": 1790921500744,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11583",
+              "label": "Jonathon Brooks",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13347",
+              "label": "Demond Claiborne",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1409960810209443840",
+          "type": "trade",
+          "timestamp_ms": 1790534280496,
+          "partners": [
+            "Fresh & Explosive"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13337",
+              "label": "Emmett Johnson",
+              "position": "RB"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 1 (Willie\u2019s Chubb)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "7525",
+              "label": "DeVonta Smith",
+              "position": "WR"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 3 (Homegrown)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1409228453928087552",
+          "type": "free_agent",
+          "timestamp_ms": 1790348754916,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11637",
+              "label": "Keon Coleman",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13424",
+              "label": "Seth McGowan",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1407217088308764672",
+          "type": "free_agent",
+          "timestamp_ms": 1789869207983,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13424",
+              "label": "Seth McGowan",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13420",
+              "label": "Bryce Lance",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1406329337619210240",
+          "type": "free_agent",
+          "timestamp_ms": 1789657551725,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13347",
+              "label": "Demond Claiborne",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13424",
+              "label": "Seth McGowan",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1405535805589516288",
+          "type": "waiver",
+          "timestamp_ms": 1789542732916,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13424",
+              "label": "Seth McGowan",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11655",
+              "label": "Tyrone Tracy Jr.",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1404602393450037248",
+          "type": "free_agent",
+          "timestamp_ms": 1789245816151,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13420",
+              "label": "Bryce Lance",
+              "position": "WR"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1391902147607539712",
+          "type": "trade",
+          "timestamp_ms": 1786220633381,
+          "partners": [
+            "The Prodigal Sons"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 9 (The Prodigal Sons)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 1 (The Prodigal Sons)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 5 (Homegrown)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1390125565465341952",
+          "type": "trade",
+          "timestamp_ms": 1785794348253,
+          "partners": [
+            "Fresh & Explosive"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 11 (Fresh & Explosive)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 3 (Fresh & Explosive)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 7 (Fresh & Explosive)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 9 (Fresh & Explosive)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 11 (Homegrown)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 4 (Homegrown)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 6 (Homegrown)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 8 (Homegrown)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (Homegrown)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1389479392022892544",
+          "type": "trade",
+          "timestamp_ms": 1785672727990,
+          "partners": [
+            "2 Much Salsa "
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 2 (2 Much Salsa )"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 2 (Homegrown)"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 1 (Homegrown)"
+            }
+          ],
+          "waiver_bid": null
+        }
+      ]
     },
     {
       "max_pf": 907.7,
@@ -53,7 +1008,214 @@
       "total": 10,
       "trades": 1,
       "free_agents": 8,
-      "waivers": 1
+      "waivers": 1,
+      "history": [
+        {
+          "transaction_id": "1419687490469593088",
+          "type": "free_agent",
+          "timestamp_ms": 1792842383547,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "8122",
+              "label": "Zonovan Knight",
+              "position": "RB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1417561046654140416",
+          "type": "free_agent",
+          "timestamp_ms": 1792335399835,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "8136",
+              "label": "Rachaad White",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11439",
+              "label": "Jaleel McLaughlin",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1416983170686996480",
+          "type": "free_agent",
+          "timestamp_ms": 1792197623468,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11439",
+              "label": "Jaleel McLaughlin",
+              "position": "RB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1416433253505658880",
+          "type": "waiver",
+          "timestamp_ms": 1792192328848,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "2306",
+              "label": "Jameis Winston",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "10235",
+              "label": "Roschon Johnson",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1415024683958419456",
+          "type": "free_agent",
+          "timestamp_ms": 1791730683844,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "10235",
+              "label": "Roschon Johnson",
+              "position": "RB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1407375957798510592",
+          "type": "free_agent",
+          "timestamp_ms": 1789907085422,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9482",
+              "label": "Michael Mayer",
+              "position": "TE"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1404080853268566016",
+          "type": "free_agent",
+          "timestamp_ms": 1789121471281,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "7002",
+              "label": "Juwan Johnson",
+              "position": "TE"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1403784279476998144",
+          "type": "free_agent",
+          "timestamp_ms": 1789050762580,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9482",
+              "label": "Michael Mayer",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13424",
+              "label": "Seth McGowan",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1394493399620386816",
+          "type": "free_agent",
+          "timestamp_ms": 1786835644205,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13424",
+              "label": "Seth McGowan",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12535",
+              "label": "Isaac TeSlaa",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1391954795048210432",
+          "type": "trade",
+          "timestamp_ms": 1786231239877,
+          "partners": [
+            "Return of the Mc\u2019s"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 12 (Return of the Mc\u2019s)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 17 (Return of the Mc\u2019s)"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 3 (Return of the Mc\u2019s)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 11 (Motor City Dan Campbell)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 17 (Motor City Dan Campbell)"
+            }
+          ],
+          "waiver_bid": null
+        }
+      ]
     },
     {
       "max_pf": 868.2,
@@ -63,7 +1225,215 @@
       "total": 9,
       "trades": 1,
       "free_agents": 4,
-      "waivers": 4
+      "waivers": 4,
+      "history": [
+        {
+          "transaction_id": "1418430106233221120",
+          "type": "waiver",
+          "timestamp_ms": 1792566742217,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12718",
+              "label": "Konata Mumpfield",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "9486",
+              "label": "Dontayvion Wicks",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1416844857451757568",
+          "type": "free_agent",
+          "timestamp_ms": 1792164647022,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11647",
+              "label": "Kimani Vidal",
+              "position": "RB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1413620570108559360",
+          "type": "free_agent",
+          "timestamp_ms": 1791395917015,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11630",
+              "label": "Roman Wilson",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "10213",
+              "label": "Tre Tucker",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1413349641751187456",
+          "type": "waiver",
+          "timestamp_ms": 1791357095221,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11834",
+              "label": "Devaughn Vele",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "8676",
+              "label": "Rashid Shaheed",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1408105952816738304",
+          "type": "waiver",
+          "timestamp_ms": 1790147487291,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "10213",
+              "label": "Tre Tucker",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "8210",
+              "label": "Chig Okonkwo",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1408105696842518528",
+          "type": "waiver",
+          "timestamp_ms": 1790147487291,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9486",
+              "label": "Dontayvion Wicks",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "8126",
+              "label": "Wan'Dale Robinson",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1402757375944880128",
+          "type": "free_agent",
+          "timestamp_ms": 1788805929699,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "1166",
+              "label": "Kirk Cousins",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "7591",
+              "label": "Justin Fields",
+              "position": "QB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1394489905932926976",
+          "type": "free_agent",
+          "timestamp_ms": 1786834811245,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13329",
+              "label": "Malik Benson",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "4035",
+              "label": "Alvin Kamara",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1390364310437396480",
+          "type": "trade",
+          "timestamp_ms": 1785852902388,
+          "partners": [
+            "Fresh & Explosive"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 4 (Homegrown)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (Return of the Mc\u2019s)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 4 (The Vandercruyssen Empire)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 3 (The Vandercruyssen Empire)"
+            }
+          ],
+          "waiver_bid": null
+        }
+      ]
     },
     {
       "max_pf": 818.0,
@@ -73,7 +1443,140 @@
       "total": 5,
       "trades": 1,
       "free_agents": 2,
-      "waivers": 2
+      "waivers": 2,
+      "history": [
+        {
+          "transaction_id": "1419052854836051968",
+          "type": "waiver",
+          "timestamp_ms": 1792756915395,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9756",
+              "label": "Jordan Addison",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "5927",
+              "label": "Terry McLaurin",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1418564023305207808",
+          "type": "free_agent",
+          "timestamp_ms": 1792574528103,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "10213",
+              "label": "Tre Tucker",
+              "position": "WR"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1418082259340140544",
+          "type": "trade",
+          "timestamp_ms": 1792459774400,
+          "partners": [
+            "Homegrown"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11583",
+              "label": "Jonathon Brooks",
+              "position": "RB"
+            },
+            {
+              "kind": "player",
+              "player_id": "11635",
+              "label": "Ladd McConkey",
+              "position": "WR"
+            },
+            {
+              "kind": "player",
+              "player_id": "7553",
+              "label": "Kyle Pitts Sr.",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12484",
+              "label": "Jayden Higgins",
+              "position": "WR"
+            },
+            {
+              "kind": "player",
+              "player_id": "13294",
+              "label": "Makai Lemon",
+              "position": "WR"
+            },
+            {
+              "kind": "player",
+              "player_id": "13405",
+              "label": "Kaytron Allen",
+              "position": "RB"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 1 (3x & B2B)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1410733569059360768",
+          "type": "waiver",
+          "timestamp_ms": 1790752298545,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "3634",
+              "label": "Kalif Raymond",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "10218",
+              "label": "Xavier Hutchinson",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1395969417434640384",
+          "type": "free_agent",
+          "timestamp_ms": 1787187554275,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "10218",
+              "label": "Xavier Hutchinson",
+              "position": "WR"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        }
+      ]
     },
     {
       "max_pf": 755.62,
@@ -83,7 +1586,353 @@
       "total": 15,
       "trades": 3,
       "free_agents": 9,
-      "waivers": 3
+      "waivers": 3,
+      "history": [
+        {
+          "transaction_id": "1421141115704258560",
+          "type": "free_agent",
+          "timestamp_ms": 1793188954810,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11435",
+              "label": "Emanuel Wilson",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "5012",
+              "label": "Mark Andrews",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1421006837087494144",
+          "type": "waiver",
+          "timestamp_ms": 1793171519081,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "3214",
+              "label": "Hunter Henry",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "3271",
+              "label": "Tyler Higbee",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1420600442794049536",
+          "type": "free_agent",
+          "timestamp_ms": 1793060048344,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11783",
+              "label": "Ryan Flournoy",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12536",
+              "label": "Jaylin Noel",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1419922961804140544",
+          "type": "free_agent",
+          "timestamp_ms": 1792898524288,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "3271",
+              "label": "Tyler Higbee",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "9757",
+              "label": "Kendre Miller",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1419565638644416512",
+          "type": "free_agent",
+          "timestamp_ms": 1792813331809,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12536",
+              "label": "Jaylin Noel",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "1479",
+              "label": "Keenan Allen",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1418723987130695680",
+          "type": "free_agent",
+          "timestamp_ms": 1792612666451,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "1479",
+              "label": "Keenan Allen",
+              "position": "WR"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1418685755185786880",
+          "type": "trade",
+          "timestamp_ms": 1792612409773,
+          "partners": [
+            "2 Much Salsa "
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (2 Much Salsa )"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 2 (2 Much Salsa )"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "5870",
+              "label": "Daniel Jones",
+              "position": "QB"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 3 (Return of the Mc\u2019s)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1418477563218591744",
+          "type": "waiver",
+          "timestamp_ms": 1792566742217,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9230",
+              "label": "Tanner McKee",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "9511",
+              "label": "Keaton Mitchell",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1416295785850507264",
+          "type": "free_agent",
+          "timestamp_ms": 1792033738151,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9757",
+              "label": "Kendre Miller",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "3321",
+              "label": "Tyreek Hill",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1412848261173112832",
+          "type": "free_agent",
+          "timestamp_ms": 1791211784216,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "3321",
+              "label": "Tyreek Hill",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12492",
+              "label": "Pat Bryant",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1410859953622724608",
+          "type": "waiver",
+          "timestamp_ms": 1790752298545,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9511",
+              "label": "Keaton Mitchell",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11581",
+              "label": "MarShawn Lloyd",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1406025461179449344",
+          "type": "free_agent",
+          "timestamp_ms": 1789585101936,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "4199",
+              "label": "Aaron Jones Sr.",
+              "position": "RB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1394503027527778304",
+          "type": "free_agent",
+          "timestamp_ms": 1786837939677,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12492",
+              "label": "Pat Bryant",
+              "position": "WR"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1391954795048210432",
+          "type": "trade",
+          "timestamp_ms": 1786231239877,
+          "partners": [
+            "Motor City Dan Campbell"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 11 (Motor City Dan Campbell)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 17 (Motor City Dan Campbell)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 12 (Return of the Mc\u2019s)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 17 (Return of the Mc\u2019s)"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 3 (Return of the Mc\u2019s)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1389725199326257152",
+          "type": "trade",
+          "timestamp_ms": 1785700004289,
+          "partners": [
+            "Fresh & Explosive"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 2 (Willie\u2019s Chubb)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 2 (Return of the Mc\u2019s)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (Return of the Mc\u2019s)"
+            }
+          ],
+          "waiver_bid": null
+        }
+      ]
     },
     {
       "max_pf": 864.2,
@@ -93,7 +1942,299 @@
       "total": 12,
       "trades": 2,
       "free_agents": 5,
-      "waivers": 5
+      "waivers": 5,
+      "history": [
+        {
+          "transaction_id": "1418239032428650496",
+          "type": "waiver",
+          "timestamp_ms": 1792566742217,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "6806",
+              "label": "J.K. Dobbins",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "7083",
+              "label": "Tyler Huntley",
+              "position": "QB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1416966829913513984",
+          "type": "free_agent",
+          "timestamp_ms": 1792193727523,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "7083",
+              "label": "Tyler Huntley",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "5872",
+              "label": "Deebo Samuel Sr.",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1415262184086294528",
+          "type": "waiver",
+          "timestamp_ms": 1791961929119,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "8161",
+              "label": "Malik Willis",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11559",
+              "label": "Michael Penix Jr.",
+              "position": "QB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1410847916104417280",
+          "type": "trade",
+          "timestamp_ms": 1790856060620,
+          "partners": [
+            "2 Much Salsa "
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13346",
+              "label": "Denzel Boston",
+              "position": "WR"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (The Prodigal Sons)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 3 (2 Much Salsa )"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13330",
+              "label": "Kenyon Sadiq",
+              "position": "TE"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 4 (Willie\u2019s Chubb)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1410854811275960320",
+          "type": "waiver",
+          "timestamp_ms": 1790752298545,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12495",
+              "label": "Ollie Gordon II",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11583",
+              "label": "Jonathon Brooks",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1408393792091963392",
+          "type": "free_agent",
+          "timestamp_ms": 1790149756027,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11625",
+              "label": "Adonai Mitchell",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "4037",
+              "label": "Chris Godwin Jr.",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1407917054962548736",
+          "type": "waiver",
+          "timestamp_ms": 1790147487291,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11559",
+              "label": "Michael Penix Jr.",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "6130",
+              "label": "Devin Singletary",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1407900888416223232",
+          "type": "free_agent",
+          "timestamp_ms": 1790032238633,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "6130",
+              "label": "Devin Singletary",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "10219",
+              "label": "Chris Rodriguez Jr.",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1400353079903166464",
+          "type": "free_agent",
+          "timestamp_ms": 1788232700852,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13425",
+              "label": "Jalon Daniels",
+              "position": "QB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1396618190464749568",
+          "type": "waiver",
+          "timestamp_ms": 1787415426574,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "4037",
+              "label": "Chris Godwin Jr.",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12509",
+              "label": "Tre' Harris",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1394479704186056704",
+          "type": "free_agent",
+          "timestamp_ms": 1786832378959,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13533",
+              "label": "Barion Brown",
+              "position": "WR"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1389455821791821824",
+          "type": "trade",
+          "timestamp_ms": 1785637577023,
+          "partners": [
+            "Fresh & Explosive"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 2 (Fresh & Explosive)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 5 (Fresh & Explosive)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (Fresh & Explosive)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 2 (Willie\u2019s Chubb)"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 5 (Willie\u2019s Chubb)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 1 (Willie\u2019s Chubb)"
+            }
+          ],
+          "waiver_bid": null
+        }
+      ]
     },
     {
       "max_pf": 787.88,
@@ -103,7 +2244,185 @@
       "total": 7,
       "trades": 1,
       "free_agents": 4,
-      "waivers": 2
+      "waivers": 2,
+      "history": [
+        {
+          "transaction_id": "1416506851863826432",
+          "type": "waiver",
+          "timestamp_ms": 1792131723593,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11559",
+              "label": "Michael Penix Jr.",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11603",
+              "label": "AJ Barner",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1413512996000395264",
+          "type": "free_agent",
+          "timestamp_ms": 1791370269349,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11581",
+              "label": "MarShawn Lloyd",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "9754",
+              "label": "Quentin Johnston",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1411469284160315392",
+          "type": "trade",
+          "timestamp_ms": 1791094841579,
+          "partners": [
+            "Homegrown"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12489",
+              "label": "RJ Harvey",
+              "position": "RB"
+            },
+            {
+              "kind": "player",
+              "player_id": "12501",
+              "label": "Matthew Golden",
+              "position": "WR"
+            },
+            {
+              "kind": "pick",
+              "label": "2029 Round 1 (Homegrown)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "7571",
+              "label": "Rashod Bateman",
+              "position": "WR"
+            },
+            {
+              "kind": "player",
+              "player_id": "9508",
+              "label": "Tyjae Spears",
+              "position": "RB"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 1 (Porritt Drink It Chase It)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1411457321363611648",
+          "type": "free_agent",
+          "timestamp_ms": 1790880158323,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9508",
+              "label": "Tyjae Spears",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11618",
+              "label": "Jalen McMillan",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1407405713784946688",
+          "type": "free_agent",
+          "timestamp_ms": 1789914179801,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "7571",
+              "label": "Rashod Bateman",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "6768",
+              "label": "Tua Tagovailoa",
+              "position": "QB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1403733973242277888",
+          "type": "waiver",
+          "timestamp_ms": 1789207283769,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11618",
+              "label": "Jalen McMillan",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "96",
+              "label": "Aaron Rodgers",
+              "position": "QB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1403523264579411968",
+          "type": "free_agent",
+          "timestamp_ms": 1788988531778,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "96",
+              "label": "Aaron Rodgers",
+              "position": "QB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        }
+      ]
     },
     {
       "max_pf": 815.94,
@@ -113,7 +2432,75 @@
       "total": 3,
       "trades": 1,
       "free_agents": 1,
-      "waivers": 1
+      "waivers": 1,
+      "history": [
+        {
+          "transaction_id": "1413651081996550144",
+          "type": "free_agent",
+          "timestamp_ms": 1791403191617,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "96",
+              "label": "Aaron Rodgers",
+              "position": "QB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1412965021964681216",
+          "type": "trade",
+          "timestamp_ms": 1791313021242,
+          "partners": [
+            "Touchy Time"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "4035",
+              "label": "Alvin Kamara",
+              "position": "RB"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 3 (Touchy Time)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (Room 40)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1408985133314244608",
+          "type": "waiver",
+          "timestamp_ms": 1790319115069,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "4037",
+              "label": "Chris Godwin Jr.",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "10222",
+              "label": "Jayden Reed",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        }
+      ]
     },
     {
       "max_pf": 924.64,
@@ -123,7 +2510,205 @@
       "total": 8,
       "trades": 5,
       "free_agents": 0,
-      "waivers": 3
+      "waivers": 3,
+      "history": [
+        {
+          "transaction_id": "1416249039808131072",
+          "type": "trade",
+          "timestamp_ms": 1792023503484,
+          "partners": [
+            "Homegrown"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13317",
+              "label": "Ted Hurst III",
+              "position": "WR"
+            },
+            {
+              "kind": "player",
+              "player_id": "4866",
+              "label": "Saquon Barkley",
+              "position": "RB"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 4 (Homegrown)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11635",
+              "label": "Ladd McConkey",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1415764337842212864",
+          "type": "waiver",
+          "timestamp_ms": 1791961929119,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "8129",
+              "label": "Dameon Pierce",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11577",
+              "label": "Will Shipley",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1413317602641444864",
+          "type": "waiver",
+          "timestamp_ms": 1791357095221,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11577",
+              "label": "Will Shipley",
+              "position": "RB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1412568200129916928",
+          "type": "trade",
+          "timestamp_ms": 1791313016704,
+          "partners": [
+            "Touchy Time"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2027 Round 1 (Touchy Time)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "8150",
+              "label": "Kyren Williams",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1408125257469931520",
+          "type": "waiver",
+          "timestamp_ms": 1790147487291,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "2306",
+              "label": "Jameis Winston",
+              "position": "QB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1392593006242045952",
+          "type": "trade",
+          "timestamp_ms": 1786404765722,
+          "partners": [
+            "2 Much Salsa "
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 14 (2 Much Salsa )"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 5 (2 Much Salsa )"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 14 (The Prodigal Sons)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (The Prodigal Sons)"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 2 (The Prodigal Sons)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1391902147607539712",
+          "type": "trade",
+          "timestamp_ms": 1786220633381,
+          "partners": [
+            "Homegrown"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 5 (Homegrown)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 9 (The Prodigal Sons)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 1 (The Prodigal Sons)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1389736241578123264",
+          "type": "trade",
+          "timestamp_ms": 1785701596020,
+          "partners": [
+            "2 Much Salsa "
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 4 (2 Much Salsa )"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 2 (Homegrown)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 2 (The Prodigal Sons)"
+            }
+          ],
+          "waiver_bid": null
+        }
+      ]
     },
     {
       "max_pf": 869.58,
@@ -133,7 +2718,185 @@
       "total": 8,
       "trades": 3,
       "free_agents": 3,
-      "waivers": 2
+      "waivers": 2,
+      "history": [
+        {
+          "transaction_id": "1418618355857760256",
+          "type": "free_agent",
+          "timestamp_ms": 1792587481993,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "5022",
+              "label": "Dallas Goedert",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "9756",
+              "label": "Jordan Addison",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1412965021964681216",
+          "type": "trade",
+          "timestamp_ms": 1791313021242,
+          "partners": [
+            "Room 40"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (Room 40)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "4035",
+              "label": "Alvin Kamara",
+              "position": "RB"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 3 (Touchy Time)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1412568200129916928",
+          "type": "trade",
+          "timestamp_ms": 1791313016704,
+          "partners": [
+            "The Prodigal Sons"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "8150",
+              "label": "Kyren Williams",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2027 Round 1 (Touchy Time)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1410609497772249088",
+          "type": "waiver",
+          "timestamp_ms": 1790752298545,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "4035",
+              "label": "Alvin Kamara",
+              "position": "RB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1407763895757615104",
+          "type": "waiver",
+          "timestamp_ms": 1790147487291,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "5854",
+              "label": "Drew Lock",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "3161",
+              "label": "Carson Wentz",
+              "position": "QB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1406067568317353984",
+          "type": "free_agent",
+          "timestamp_ms": 1789595141061,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "3161",
+              "label": "Carson Wentz",
+              "position": "QB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1403729538516541440",
+          "type": "free_agent",
+          "timestamp_ms": 1789037711317,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "1373",
+              "label": "Geno Smith",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11618",
+              "label": "Jalen McMillan",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1392276364622581760",
+          "type": "trade",
+          "timestamp_ms": 1786313332347,
+          "partners": [
+            "2 Much Salsa "
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 13 (2 Much Salsa )"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 16 (2 Much Salsa )"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 12 (Touchy Time)"
+            }
+          ],
+          "waiver_bid": null
+        }
+      ]
     },
     {
       "max_pf": 894.7,
@@ -143,8 +2906,831 @@
       "total": 36,
       "trades": 7,
       "free_agents": 20,
-      "waivers": 9
+      "waivers": 9,
+      "history": [
+        {
+          "transaction_id": "1420892844096286720",
+          "type": "waiver",
+          "timestamp_ms": 1793171519081,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9501",
+              "label": "DeMario Douglas",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "8154",
+              "label": "Brian Robinson Jr.",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1419357207580995584",
+          "type": "free_agent",
+          "timestamp_ms": 1792763637970,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9229",
+              "label": "Anthony Richardson Sr.",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "3271",
+              "label": "Tyler Higbee",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1419036606416871424",
+          "type": "free_agent",
+          "timestamp_ms": 1792687200696,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "3271",
+              "label": "Tyler Higbee",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "9501",
+              "label": "DeMario Douglas",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1419007795776299008",
+          "type": "free_agent",
+          "timestamp_ms": 1792680331704,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11655",
+              "label": "Tyrone Tracy Jr.",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12533",
+              "label": "Jacory Croskey-Merritt",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1418685755185786880",
+          "type": "trade",
+          "timestamp_ms": 1792612409773,
+          "partners": [
+            "Return of the Mc\u2019s"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "5870",
+              "label": "Daniel Jones",
+              "position": "QB"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 3 (Return of the Mc\u2019s)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (2 Much Salsa )"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 2 (2 Much Salsa )"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1418613920423280640",
+          "type": "free_agent",
+          "timestamp_ms": 1792586424502,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12536",
+              "label": "Jaylin Noel",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11435",
+              "label": "Emanuel Wilson",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1418613860365066240",
+          "type": "free_agent",
+          "timestamp_ms": 1792586410184,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9501",
+              "label": "DeMario Douglas",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13394",
+              "label": "Josh Cameron",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1415861735746699264",
+          "type": "waiver",
+          "timestamp_ms": 1791961929119,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "7600",
+              "label": "Pat Freiermuth",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13264",
+              "label": "Dohnte Meyers",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1414434532009967616",
+          "type": "free_agent",
+          "timestamp_ms": 1791589980655,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "8154",
+              "label": "Brian Robinson Jr.",
+              "position": "RB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1413716577571864576",
+          "type": "trade",
+          "timestamp_ms": 1791423084925,
+          "partners": [
+            "Homegrown"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2028 Round 2 (Homegrown)"
+            },
+            {
+              "kind": "pick",
+              "label": "2029 Round 4 (Homegrown)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "4866",
+              "label": "Saquon Barkley",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1412911147128045568",
+          "type": "waiver",
+          "timestamp_ms": 1791357095221,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13264",
+              "label": "Dohnte Meyers",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "5001",
+              "label": "Dalton Schultz",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1412911045357387776",
+          "type": "waiver",
+          "timestamp_ms": 1791357095221,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11435",
+              "label": "Emanuel Wilson",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "2307",
+              "label": "Marcus Mariota",
+              "position": "QB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1411874527486423040",
+          "type": "free_agent",
+          "timestamp_ms": 1790979628014,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13394",
+              "label": "Josh Cameron",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11834",
+              "label": "Devaughn Vele",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1411375995558092800",
+          "type": "free_agent",
+          "timestamp_ms": 1790860768741,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13425",
+              "label": "Jalon Daniels",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "3321",
+              "label": "Tyreek Hill",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1410847916104417280",
+          "type": "trade",
+          "timestamp_ms": 1790856060620,
+          "partners": [
+            "Willie\u2019s Chubb"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13330",
+              "label": "Kenyon Sadiq",
+              "position": "TE"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 4 (Willie\u2019s Chubb)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13346",
+              "label": "Denzel Boston",
+              "position": "WR"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (The Prodigal Sons)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 3 (2 Much Salsa )"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1410872254132166656",
+          "type": "waiver",
+          "timestamp_ms": 1790752298545,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "8126",
+              "label": "Wan'Dale Robinson",
+              "position": "WR"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1410054160497336320",
+          "type": "free_agent",
+          "timestamp_ms": 1790545618704,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "3321",
+              "label": "Tyreek Hill",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "9225",
+              "label": "Tank Bigsby",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1408593221839257600",
+          "type": "free_agent",
+          "timestamp_ms": 1790197303784,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9225",
+              "label": "Tank Bigsby",
+              "position": "RB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1408454184382042112",
+          "type": "free_agent",
+          "timestamp_ms": 1790164154671,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "7600",
+              "label": "Pat Freiermuth",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "5022",
+              "label": "Dallas Goedert",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1408250162614136832",
+          "type": "waiver",
+          "timestamp_ms": 1790147487291,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "2307",
+              "label": "Marcus Mariota",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "8180",
+              "label": "Jalen Nailor",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1408212370383187968",
+          "type": "waiver",
+          "timestamp_ms": 1790147487291,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "5001",
+              "label": "Dalton Schultz",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "4993",
+              "label": "Mike Gesicki",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1405590576639832064",
+          "type": "waiver",
+          "timestamp_ms": 1789542732916,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "4993",
+              "label": "Mike Gesicki",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11610",
+              "label": "Malik Washington",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1405312897239756800",
+          "type": "waiver",
+          "timestamp_ms": 1789542732916,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11834",
+              "label": "Devaughn Vele",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13264",
+              "label": "Dohnte Meyers",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1399615782907846656",
+          "type": "free_agent",
+          "timestamp_ms": 1788056915550,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13411",
+              "label": "Zavion Thomas",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "10213",
+              "label": "Tre Tucker",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1399563548358660096",
+          "type": "free_agent",
+          "timestamp_ms": 1788044461863,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13264",
+              "label": "Dohnte Meyers",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13347",
+              "label": "Demond Claiborne",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1399065194763702272",
+          "type": "free_agent",
+          "timestamp_ms": 1787925645107,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "10213",
+              "label": "Tre Tucker",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "7002",
+              "label": "Juwan Johnson",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1397055820864180226",
+          "type": "free_agent",
+          "timestamp_ms": 1787446573037,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13602",
+              "label": "Jack Strand",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "4199",
+              "label": "Aaron Jones Sr.",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1394576856413405184",
+          "type": "free_agent",
+          "timestamp_ms": 1786855541855,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "4199",
+              "label": "Aaron Jones Sr.",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "9225",
+              "label": "Tank Bigsby",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1394498391848779776",
+          "type": "free_agent",
+          "timestamp_ms": 1786836834445,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "5022",
+              "label": "Dallas Goedert",
+              "position": "TE"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1394487043324653568",
+          "type": "free_agent",
+          "timestamp_ms": 1786834128746,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9225",
+              "label": "Tank Bigsby",
+              "position": "RB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1394486903180386304",
+          "type": "free_agent",
+          "timestamp_ms": 1786834095333,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "8180",
+              "label": "Jalen Nailor",
+              "position": "WR"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1394486742475632640",
+          "type": "free_agent",
+          "timestamp_ms": 1786834057018,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13347",
+              "label": "Demond Claiborne",
+              "position": "RB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1392593006242045952",
+          "type": "trade",
+          "timestamp_ms": 1786404765722,
+          "partners": [
+            "The Prodigal Sons"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 14 (The Prodigal Sons)"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (The Prodigal Sons)"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 2 (The Prodigal Sons)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 14 (2 Much Salsa )"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 5 (2 Much Salsa )"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1392276364622581760",
+          "type": "trade",
+          "timestamp_ms": 1786313332347,
+          "partners": [
+            "Touchy Time"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 12 (Touchy Time)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 13 (2 Much Salsa )"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 16 (2 Much Salsa )"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1389736241578123264",
+          "type": "trade",
+          "timestamp_ms": 1785701596020,
+          "partners": [
+            "The Prodigal Sons"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 2 (The Prodigal Sons)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 4 (2 Much Salsa )"
+            },
+            {
+              "kind": "pick",
+              "label": "2026 Round 2 (Homegrown)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1389479392022892544",
+          "type": "trade",
+          "timestamp_ms": 1785672727990,
+          "partners": [
+            "Homegrown"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 2 (Homegrown)"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 1 (Homegrown)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2026 Round 2 (2 Much Salsa )"
+            }
+          ],
+          "waiver_bid": null
+        }
+      ]
     }
   ],
-  "checked_at_utc": "2026-10-28T13:53:59+00:00"
+  "checked_at_utc": "2026-10-28T20:08:26+00:00"
 }
