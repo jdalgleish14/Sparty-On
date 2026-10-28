@@ -7,6 +7,12 @@ on:
       - 'tools/sleeper/**'
       - 'tools/schedule-swap/**'
       - 'assets/schedule-swap*.js'
+      - 'assets/season-sections.*'
+      - 'assets/transaction-history.js'
+      - 'assets/transactions.js'
+      - 'assets/app.js'
+      - 'tools/transactions/**'
+      - 'tools/refresh/**'
       - 'assets/styles.css'
       - 'current-season.html'
       - 'site-data/**'
@@ -28,6 +34,10 @@ jobs:
           node-version: '22'
       - name: Check schedule swap calculations
         run: node --test tools/schedule-swap/tests/*.cjs
+      - name: Check refresh and section navigation
+        run: node --test tools/refresh/tests/*.cjs
+      - name: Check transaction sync and history
+        run: python -m unittest discover -s tools/transactions -p 'test_*.py'
       - name: Run generator tests
         run: python -m unittest discover -s tools/sleeper/tests -p 'test_*.py'
       - name: Verify published data
