@@ -2,7 +2,7 @@
   "max_pf_through_week": 7,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-10-27T14:42:26+00:00",
+  "fetched_at_utc": "2026-10-28T13:53:59+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -56,7 +56,7 @@
       "waivers": 1
     },
     {
-      "max_pf": 868.3,
+      "max_pf": 868.2,
       "roster_id": 4,
       "owner_id": "owner-brian",
       "team": "The Vandercruyssen Empire",
@@ -80,10 +80,10 @@
       "roster_id": 6,
       "owner_id": "owner-kyle",
       "team": "Return of the Mc\u2019s",
-      "total": 13,
+      "total": 15,
       "trades": 3,
-      "free_agents": 8,
-      "waivers": 2
+      "free_agents": 9,
+      "waivers": 3
     },
     {
       "max_pf": 864.2,
@@ -140,10 +140,11 @@
       "roster_id": 12,
       "owner_id": "owner-andres",
       "team": "2 Much Salsa ",
-      "total": 35,
+      "total": 36,
       "trades": 7,
       "free_agents": 20,
-      "waivers": 8
+      "waivers": 9
     }
-  ]
+  ],
+  "checked_at_utc": "2026-10-28T13:53:59+00:00"
 }
