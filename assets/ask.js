@@ -123,10 +123,7 @@
       });
       const result = await response.json();
       if (!response.ok) {
-        const isUnansweredQuestion = response.status === 400 && /^(?:I cannot verify|I can’t verify|I could not interpret|I couldn’t interpret|No published records|No matching|No qualifying|No championship|No consecutive weeks|No numeric values|No values were published|Those owners have no recorded|Name two owners|Please simplify|That filter could not be checked|I couldn’t identify the owners)/i.test(result.error || '');
-        const message = isUnansweredQuestion
-          ? "Don't ask stupid questions, try something different"
-          : result.error || 'Could not check that question right now. Please try again shortly.';
+        const message = result.error || 'Could not check that question right now. Please try again shortly.';
         throw new Error(message);
       }
       render(result);
@@ -134,9 +131,9 @@
       setMascot('success', 1700);
     } catch (error) {
       setMascot('error', 1900);
-      setStatus(error.name === 'AbortError' ? 'That question took too long. Please try again.' :
-        error instanceof TypeError ? 'Could not reach the question service. Please try again shortly.' :
-        error.message || 'Could not answer that question. Please try rephrasing it.', true);
+      setStatus(error.name === 'AbortError' ? 'A Wolverine got in the way. Try again. The question service took too long to respond.' :
+        error instanceof TypeError ? 'A Wolverine got in the way. Try again. Could not reach the question service.' :
+        error.message || 'A Wolverine got in the way. Try again. The question service temporarily failed.', true);
     } finally {
       clearTimeout(timeout);
       button.disabled = false;
