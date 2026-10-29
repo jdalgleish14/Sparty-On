@@ -1,0 +1,12 @@
+RELEASE REVIEW — reliability-9
+
+Worker version 9: user confirmed live operation. No further Worker deployment needed.
+GitHub package: Worker source/configuration, frozen fixtures, tests, documentation;
+website error handling and ask.js version parameter only. No sprite assets changed.
+39 local tests pass. Live CPU remains unmeasured. No paid services added.
+
+Website verification after upload:
+1. Ask Jack expected wins in 2025: 5.18, conversational wording.
+2. Ask who has no championships: historical nonwinners, not Spencer.
+3. Ask playoff clinching: approved joke plus unsupported-calculation explanation.
+4. Confirm thinking/success/error poses still animate.

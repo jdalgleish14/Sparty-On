@@ -1,0 +1,47 @@
+✔ existing website shows conversational answer and runs thinking/success Sparty poses (2.927904ms)
+✔ unsupported response retains existing error pose and displays useful explanation (1.028185ms)
+✔ approved backend joke and explanation survive website error handling (0.800649ms)
+✔ website timeout uses approved Wolverine wording and restores submit (0.920516ms)
+✔ real supplied snapshot passes every integrity check and derives 2026 Week 7 (1.278323ms)
+✔ concurrent snapshot reads coalesce into 13 fetches; warm read makes no new fetches (41.129419ms)
+✔ worst and best stretches agree with independent enumeration over real games (22.939276ms)
+✔ head-to-head retains year, manager and postseason restrictions (3.31196ms)
+✔ year restrictions cannot silently disappear into career totals (0.709775ms)
+✔ historical current-standings request fails instead of returning this year (0.238982ms)
+✔ ties are explicit for rank, aggregation, windows and championships (0.934848ms)
+✔ new-season cutoff and zero-title response are dynamic (8.953822ms)
+✔ unsafe and malformed plans are rejected before evaluating data (0.375843ms)
+✔ unsupported joins, starts and playoff scenarios fail before AI (6.302546ms)
+✔ scope conflicts and lowest direction mismatch are rejected (0.802662ms)
+✔ deterministic presets work while AI is unavailable; open-ended questions fail clearly (6.33904ms)
+✔ AI plan receives enforced owner/year and repeated question is cached (2.637255ms)
+✔ bad AI response and invented fields fail closed (1.132639ms)
+✔ CORS disallows other sites; same site preflight works (0.709725ms)
+✔ streamed request byte bound, invalid JSON and type checks (0.983388ms)
+✔ local rate limit resets next minute (0.216689ms)
+✔ deadline bounds a hung operation (6.610509ms)
+✔ tampered data and report fail hash checks; fetch restored afterwards (12.556811ms)
+✔ single named opponent ranks other managers, not the opponent themselves (2.242374ms)
+✔ head-to-head HTTP answer is a W-L-T record and source rows remain scoped (2.1656ms)
+✔ expired snapshot is reverified, versions change, and source failure does not serve stale data (32.315951ms)
+✔ concurrent AI calls are bounded and capacity failures have Retry-After (3.037565ms)
+✔ model plan accepts JSON objects, plain JSON and markdown/prose wrappers (0.564301ms)
+✔ expected wins works with a fenced live-model-style response (2.618844ms)
+✔ exact malformed preview response is rejected, not repaired into guessed statistics (0.185273ms)
+✔ AI receives a typed JSON schema and a valid example rather than slash/shorthand notation (0.723466ms)
+✔ named-owner expected wins lookup tolerates omitted display defaults and preserves scope (1.420924ms)
+✔ normalizing omitted display fields cannot accept invalid calculation fields (0.571633ms)
+✔ numeric text filters normalize by declared field type, without guessing or bypassing validation (0.501829ms)
+✔ realistic model plan with quoted year returns Jack 5.18 (2.74871ms)
+✔ conversational wording retains evidence and numeric results without extra AI (4.738922ms)
+✔ aggregate expected-wins lookup uses scoring language rather than recorded results (0.397105ms)
+✔ approved Sparty errors preserve explanations and distinguish service failures (3.089511ms)
+✔ zero-title questions include every historical nonwinner rather than the leader (6.858745ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 39
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 329.355055
