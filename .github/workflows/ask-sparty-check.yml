@@ -1,0 +1,23 @@
+name: Ask Sparty reliability checks
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: ['cloudflare/ask-sparty/**', 'assets/ask.js', '.github/workflows/ask-sparty-check.yml']
+  push:
+    branches: [main]
+    paths: ['cloudflare/ask-sparty/**', 'assets/ask.js', '.github/workflows/ask-sparty-check.yml']
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check cloudflare/ask-sparty/worker.mjs
+      - run: node --check assets/ask.js
+      - run: node --test cloudflare/ask-sparty/tests/*.test.mjs
+# No deployment, write permissions, or Cloudflare credentials.
