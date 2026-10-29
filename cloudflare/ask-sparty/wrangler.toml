@@ -1,0 +1,12 @@
+# Review-only configuration. No workflow in this package deploys the Worker.
+name = "sparty"
+main = "worker.mjs"
+compatibility_date = "2026-10-08"
+workers_dev = true
+
+[ai]
+binding = "AI"
+
+[vars]
+AI_ENABLED = "true"
+AI_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
