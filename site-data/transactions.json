@@ -3,7 +3,7 @@
   "max_pf_through_week": 7,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-10-28T20:08:26+00:00",
+  "fetched_at_utc": "2026-10-29T13:56:13+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -278,11 +278,34 @@
       "roster_id": 2,
       "owner_id": "owner-ryan",
       "team": "Homegrown",
-      "total": 27,
-      "trades": 8,
+      "total": 28,
+      "trades": 9,
       "free_agents": 13,
       "waivers": 6,
       "history": [
+        {
+          "transaction_id": "1421272819857195008",
+          "type": "trade",
+          "timestamp_ms": 1793220432187,
+          "partners": [
+            "The Vandercruyssen Empire"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2028 Round 2 (The Vandercruyssen Empire)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13285",
+              "label": "Malachi Fields",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1421170027813486592",
           "type": "free_agent",
@@ -1222,11 +1245,34 @@
       "roster_id": 4,
       "owner_id": "owner-brian",
       "team": "The Vandercruyssen Empire",
-      "total": 9,
-      "trades": 1,
+      "total": 10,
+      "trades": 2,
       "free_agents": 4,
       "waivers": 4,
       "history": [
+        {
+          "transaction_id": "1421272819857195008",
+          "type": "trade",
+          "timestamp_ms": 1793220432187,
+          "partners": [
+            "Homegrown"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13285",
+              "label": "Malachi Fields",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2028 Round 2 (The Vandercruyssen Empire)"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1418430106233221120",
           "type": "waiver",
@@ -2507,11 +2553,27 @@
       "roster_id": 10,
       "owner_id": "owner-alex",
       "team": "The Prodigal Sons",
-      "total": 8,
+      "total": 9,
       "trades": 5,
-      "free_agents": 0,
+      "free_agents": 1,
       "waivers": 3,
       "history": [
+        {
+          "transaction_id": "1421281569074589696",
+          "type": "free_agent",
+          "timestamp_ms": 1793222441503,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "4039",
+              "label": "Cooper Kupp",
+              "position": "WR"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1416249039808131072",
           "type": "trade",
@@ -3732,5 +3794,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-10-28T20:08:26+00:00"
+  "checked_at_utc": "2026-10-29T13:56:13+00:00"
 }
