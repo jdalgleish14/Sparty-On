@@ -3,7 +3,7 @@
   "max_pf_through_week": 7,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-10-29T13:56:13+00:00",
+  "fetched_at_utc": "2026-10-30T13:55:33+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -2965,11 +2965,27 @@
       "roster_id": 12,
       "owner_id": "owner-andres",
       "team": "2 Much Salsa ",
-      "total": 36,
+      "total": 37,
       "trades": 7,
-      "free_agents": 20,
+      "free_agents": 21,
       "waivers": 9,
       "history": [
+        {
+          "transaction_id": "1421673791133700096",
+          "type": "free_agent",
+          "timestamp_ms": 1793315954529,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "6130",
+              "label": "Devin Singletary",
+              "position": "RB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1420892844096286720",
           "type": "waiver",
@@ -3794,5 +3810,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-10-29T13:56:13+00:00"
+  "checked_at_utc": "2026-10-30T13:55:33+00:00"
 }
