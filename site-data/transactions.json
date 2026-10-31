@@ -3,7 +3,7 @@
   "max_pf_through_week": 7,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-10-30T13:55:33+00:00",
+  "fetched_at_utc": "2026-10-31T13:41:44+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -31,11 +31,50 @@
       "roster_id": 1,
       "owner_id": "owner-nick",
       "team": "Fresh & Explosive",
-      "total": 8,
-      "trades": 5,
-      "free_agents": 2,
+      "total": 10,
+      "trades": 6,
+      "free_agents": 3,
       "waivers": 1,
       "history": [
+        {
+          "transaction_id": "1421945241610493952",
+          "type": "free_agent",
+          "timestamp_ms": 1793380673366,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "4454",
+              "label": "Kendrick Bourne",
+              "position": "WR"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1421932885593653248",
+          "type": "trade",
+          "timestamp_ms": 1793380525292,
+          "partners": [
+            "The Vandercruyssen Empire"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2027 Round 1 (The Vandercruyssen Empire)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "6801",
+              "label": "Tee Higgins",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1418436291778846720",
           "type": "waiver",
@@ -278,11 +317,34 @@
       "roster_id": 2,
       "owner_id": "owner-ryan",
       "team": "Homegrown",
-      "total": 28,
+      "total": 29,
       "trades": 9,
-      "free_agents": 13,
+      "free_agents": 14,
       "waivers": 6,
       "history": [
+        {
+          "transaction_id": "1422024174150397952",
+          "type": "free_agent",
+          "timestamp_ms": 1793399492351,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13288",
+              "label": "Nicholas Singleton",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "8210",
+              "label": "Chig Okonkwo",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1421272819857195008",
           "type": "trade",
@@ -1245,11 +1307,34 @@
       "roster_id": 4,
       "owner_id": "owner-brian",
       "team": "The Vandercruyssen Empire",
-      "total": 10,
-      "trades": 2,
+      "total": 11,
+      "trades": 3,
       "free_agents": 4,
       "waivers": 4,
       "history": [
+        {
+          "transaction_id": "1421932885593653248",
+          "type": "trade",
+          "timestamp_ms": 1793380525292,
+          "partners": [
+            "Fresh & Explosive"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "6801",
+              "label": "Tee Higgins",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2027 Round 1 (The Vandercruyssen Empire)"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1421272819857195008",
           "type": "trade",
@@ -3810,5 +3895,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-10-30T13:55:33+00:00"
+  "checked_at_utc": "2026-10-31T13:41:44+00:00"
 }
