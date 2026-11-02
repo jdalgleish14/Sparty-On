@@ -3,7 +3,7 @@
   "max_pf_through_week": 7,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-10-31T13:41:44+00:00",
+  "fetched_at_utc": "2026-11-02T14:55:16+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -317,11 +317,34 @@
       "roster_id": 2,
       "owner_id": "owner-ryan",
       "team": "Homegrown",
-      "total": 29,
+      "total": 30,
       "trades": 9,
-      "free_agents": 14,
+      "free_agents": 15,
       "waivers": 6,
       "history": [
+        {
+          "transaction_id": "1422979448990363648",
+          "type": "free_agent",
+          "timestamp_ms": 1793627247621,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "5872",
+              "label": "Deebo Samuel Sr.",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11637",
+              "label": "Keon Coleman",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1422024174150397952",
           "type": "free_agent",
@@ -3895,5 +3918,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-11-01T14:33:09+00:00"
+  "checked_at_utc": "2026-11-02T14:55:16+00:00"
 }
