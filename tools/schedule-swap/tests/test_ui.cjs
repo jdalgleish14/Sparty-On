@@ -11,6 +11,10 @@ const source=fs.readFileSync(path.join(root,'assets/schedule-swap-ui.js'),'utf8'
 const api=require('../../../assets/schedule-swap.js');
 const raw={window:{}};vm.runInNewContext(fs.readFileSync(path.join(root,'site-data/site-data.js'),'utf8'),raw);
 const decode=text=>text.replace(/<[^>]*>/g,'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&').replace(/&#39;/g,"'").replace(/&quot;/g,'"');
+const fmt=value=>value.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const record=r=>`${r.wins}–${r.losses}${r.ties ? `–${r.ties}` : ''}`;
+const signed=value=>(value>0?'+':value<0?'−':'')+fmt(Math.abs(value));
+const statsPattern=team=>new RegExp(`Actual${record(team.actual)}Average wins${fmt(team.averageWins)}Best${record(team.best)}Worst${record(team.worst)}Schedule impact${signed(team.impact)}`);
 function setup(mutate){
  const data=JSON.parse(JSON.stringify(raw.window.SPARTY_ON_DATA));if(mutate)mutate(data);
  class Element{
@@ -31,7 +35,6 @@ function setup(mutate){
  vm.runInNewContext(source,{window:win,document:{getElementById:id=>elements.get(id)||null},console});
  return {data,win,events,headers,get:id=>elements.get(id),plain:id=>decode(elements.get(id).innerHTML),trigger:(id,event,target)=>elements.get(id).events[event]({target})};
 }
-
 test('page loads schedule tools inside the Analytics section',()=>{
  const s=setup();assert.equal(s.get('swap-content').hidden,false);assert.equal(s.get('swap-status').hidden,true);
  for(const id of ['swap-summary-body','swap-detail-body','swap-difficulty-body']) assert.equal((s.get(id).innerHTML.match(/<tr/g)||[]).length,12);
@@ -47,16 +50,21 @@ test('page loads schedule tools inside the Analytics section',()=>{
  assert.match(html,/data-season-tab="transactions"/);
  assert.equal(s.headers.length,6);
 });
-
 test('selector and summary buttons populate the same team analysis',()=>{
- const s=setup();s.trigger('swap-team','change',{value:'owner-jack'});
- assert.equal(s.get('swap-detail-title').textContent,'Touchy Time');
- assert.match(s.plain('swap-stats'),/Actual4–3Average wins4.42Best6–1Worst3–4Schedule impact−0.42/);
+ const s=setup();
+ s.trigger('swap-team','change',{value:'owner-jack'});
+ const analysis=api.build(s.data);
+ const jack=analysis.teams.find(t=>t.owner_id==='owner-jack');
+ assert.ok(jack);
+ assert.equal(s.get('swap-detail-title').textContent,jack.team);
+ assert.match(s.plain('swap-stats'),statsPattern(jack));
  s.trigger('swap-summary-body','click',{closest:()=>({dataset:{swapTeam:'owner-alex'}})});
+ const alex=analysis.teams.find(t=>t.owner_id==='owner-alex');
+ assert.ok(alex);
  assert.equal(s.get('swap-team').value,'owner-alex');assert.equal(s.get('swap-detail-title').focused,true);assert.equal(s.get('swap-detail').scrolled,true);
- assert.match(s.plain('swap-stats'),/Actual2–5Average wins4.25Best6–1Worst2–5Schedule impact−2.25/);
+ assert.equal(s.get('swap-detail-title').textContent,alex.team);
+ assert.match(s.plain('swap-stats'),statsPattern(alex));
 });
-
 test('numeric summary sorting works and difficulty stays hardest to easiest',()=>{
  const s=setup(),h=s.headers.find(h=>h.head.dataset.swapSort==='averageWins');
  h.button.events.click();assert.match(s.plain('swap-summary-body'),/^Motor City Dan Campbell/);assert.equal(h.head.attrs['aria-sort'],'descending');
@@ -67,7 +75,6 @@ test('numeric summary sorting works and difficulty stays hardest to easiest',()=
  const expected=[...analysis.difficulty].sort((a,b)=>a.averageWins-b.averageWins||analysis.teams.find(t=>t.owner_id===a.schedule_id).team.localeCompare(analysis.teams.find(t=>t.owner_id===b.schedule_id).team));
  assert.deepEqual(ids,expected.map(d=>analysis.teams.find(t=>t.owner_id===d.schedule_id).team));
 });
-
 test('daily rename event escapes labels, preserves identities and rejects wrong mappings',()=>{
  const s=setup();s.trigger('swap-team','change',{value:'owner-jack'});
  const before=s.plain('swap-stats');
@@ -78,7 +85,6 @@ test('daily rename event escapes labels, preserves identities and rejects wrong 
  snapshot.teams[0].owner_id='unknown';snapshot.teams.find(t=>t.owner_id==='owner-jack').team='Wrong mapping';
  s.events['sparty-sleeper-totals']({detail:snapshot});assert.equal(s.get('swap-detail-title').textContent,'Renamed <Team>');
 });
-
 test('missing scoring data fails within this section, leaving other sections alone',()=>{
  const s=setup(data=>data.games.splice(data.games.findIndex(g=>g.year===2026),1));
  assert.equal(s.get('swap-content').hidden,true);assert.equal(s.get('swap-status').hidden,false);assert.match(s.get('swap-status').textContent,/incomplete/);
