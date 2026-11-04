@@ -3,7 +3,7 @@
   "max_pf_through_week": 8,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-11-03T14:53:50+00:00",
+  "fetched_at_utc": "2026-11-04T14:54:09+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -1113,11 +1113,34 @@
       "roster_id": 3,
       "owner_id": "owner-tj",
       "team": "Motor City Dan Campbell",
-      "total": 10,
+      "total": 11,
       "trades": 1,
-      "free_agents": 8,
+      "free_agents": 9,
       "waivers": 1,
       "history": [
+        {
+          "transaction_id": "1423716147152343040",
+          "type": "free_agent",
+          "timestamp_ms": 1793802890150,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11610",
+              "label": "Malik Washington",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "5045",
+              "label": "Courtland Sutton",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1419687490469593088",
           "type": "free_agent",
@@ -1737,11 +1760,57 @@
       "roster_id": 6,
       "owner_id": "owner-kyle",
       "team": "Return of the Mc\u2019s",
-      "total": 15,
+      "total": 17,
       "trades": 3,
-      "free_agents": 9,
+      "free_agents": 11,
       "waivers": 3,
       "history": [
+        {
+          "transaction_id": "1423680758244974592",
+          "type": "free_agent",
+          "timestamp_ms": 1793794452776,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9757",
+              "label": "Kendre Miller",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "3214",
+              "label": "Hunter Henry",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1423674973913882624",
+          "type": "free_agent",
+          "timestamp_ms": 1793793073685,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "10219",
+              "label": "Chris Rodriguez Jr.",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11435",
+              "label": "Emanuel Wilson",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1421141115704258560",
           "type": "free_agent",
@@ -2093,11 +2162,34 @@
       "roster_id": 7,
       "owner_id": "owner-wilson",
       "team": "Willie\u2019s Chubb",
-      "total": 12,
+      "total": 13,
       "trades": 2,
       "free_agents": 5,
-      "waivers": 5,
+      "waivers": 6,
       "history": [
+        {
+          "transaction_id": "1422991720135561216",
+          "type": "waiver",
+          "timestamp_ms": 1793779961722,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11625",
+              "label": "Adonai Mitchell",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "6806",
+              "label": "J.K. Dobbins",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1418239032428650496",
           "type": "waiver",
@@ -2395,11 +2487,34 @@
       "roster_id": 8,
       "owner_id": "owner-tyler",
       "team": "Porritt Drink It Chase It",
-      "total": 7,
+      "total": 8,
       "trades": 1,
       "free_agents": 4,
-      "waivers": 2,
+      "waivers": 3,
       "history": [
+        {
+          "transaction_id": "1423453580282662912",
+          "type": "waiver",
+          "timestamp_ms": 1793779961722,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "6011",
+              "label": "Gardner Minshew II",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "6797",
+              "label": "Justin Herbert",
+              "position": "QB"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1416506851863826432",
           "type": "waiver",
@@ -3918,5 +4033,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-11-03T14:53:50+00:00"
+  "checked_at_utc": "2026-11-04T14:54:09+00:00"
 }
