@@ -3,7 +3,7 @@
   "max_pf_through_week": 8,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-11-05T14:53:06+00:00",
+  "fetched_at_utc": "2026-11-06T14:52:04+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -1113,11 +1113,27 @@
       "roster_id": 3,
       "owner_id": "owner-tj",
       "team": "Motor City Dan Campbell",
-      "total": 11,
+      "total": 12,
       "trades": 1,
-      "free_agents": 9,
+      "free_agents": 10,
       "waivers": 1,
       "history": [
+        {
+          "transaction_id": "1424413078170112000",
+          "type": "free_agent",
+          "timestamp_ms": 1793969051452,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "3286",
+              "label": "Demarcus Robinson",
+              "position": "WR"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1423716147152343040",
           "type": "free_agent",
@@ -1760,11 +1776,34 @@
       "roster_id": 6,
       "owner_id": "owner-kyle",
       "team": "Return of the Mc\u2019s",
-      "total": 20,
+      "total": 21,
       "trades": 3,
-      "free_agents": 14,
+      "free_agents": 15,
       "waivers": 3,
       "history": [
+        {
+          "transaction_id": "1424136832253169664",
+          "type": "free_agent",
+          "timestamp_ms": 1793903189293,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "3161",
+              "label": "Carson Wentz",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "5854",
+              "label": "Drew Lock",
+              "position": "QB"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1423783503094390784",
           "type": "free_agent",
@@ -2767,11 +2806,34 @@
       "roster_id": 9,
       "owner_id": "owner-dan",
       "team": "Room 40",
-      "total": 3,
+      "total": 4,
       "trades": 1,
-      "free_agents": 1,
+      "free_agents": 2,
       "waivers": 1,
       "history": [
+        {
+          "transaction_id": "1424158715849797632",
+          "type": "free_agent",
+          "timestamp_ms": 1793908406750,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "5854",
+              "label": "Drew Lock",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "3257",
+              "label": "Jacoby Brissett",
+              "position": "QB"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1413651081996550144",
           "type": "free_agent",
@@ -3069,11 +3131,34 @@
       "roster_id": 11,
       "owner_id": "owner-jack",
       "team": "Touchy Time",
-      "total": 8,
+      "total": 9,
       "trades": 3,
       "free_agents": 3,
-      "waivers": 2,
+      "waivers": 3,
       "history": [
+        {
+          "transaction_id": "1423898994953777152",
+          "type": "waiver",
+          "timestamp_ms": 1793949744361,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "6797",
+              "label": "Justin Herbert",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "5022",
+              "label": "Dallas Goedert",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1418618355857760256",
           "type": "free_agent",
@@ -4125,5 +4210,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-11-05T14:53:06+00:00"
+  "checked_at_utc": "2026-11-06T14:52:04+00:00"
 }
