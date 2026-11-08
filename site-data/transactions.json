@@ -3,7 +3,7 @@
   "max_pf_through_week": 8,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-11-06T14:52:04+00:00",
+  "fetched_at_utc": "2026-11-08T18:44:05+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -31,11 +31,69 @@
       "roster_id": 1,
       "owner_id": "owner-nick",
       "team": "Fresh & Explosive",
-      "total": 10,
-      "trades": 6,
-      "free_agents": 3,
+      "total": 12,
+      "trades": 7,
+      "free_agents": 4,
       "waivers": 1,
       "history": [
+        {
+          "transaction_id": "1425198187668320256",
+          "type": "trade",
+          "timestamp_ms": 1794156878001,
+          "partners": [
+            "Touchy Time"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "4881",
+              "label": "Lamar Jackson",
+              "position": "QB"
+            },
+            {
+              "kind": "player",
+              "player_id": "9226",
+              "label": "De'Von Achane",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "7547",
+              "label": "Amon-Ra St. Brown",
+              "position": "WR"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (Homegrown)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1425166064458752000",
+          "type": "free_agent",
+          "timestamp_ms": 1794148577374,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "6806",
+              "label": "J.K. Dobbins",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "4454",
+              "label": "Kendrick Bourne",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1421945241610493952",
           "type": "free_agent",
@@ -317,11 +375,34 @@
       "roster_id": 2,
       "owner_id": "owner-ryan",
       "team": "Homegrown",
-      "total": 30,
+      "total": 31,
       "trades": 9,
-      "free_agents": 15,
+      "free_agents": 16,
       "waivers": 6,
       "history": [
+        {
+          "transaction_id": "1424809911413456896",
+          "type": "free_agent",
+          "timestamp_ms": 1794063663870,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11637",
+              "label": "Keon Coleman",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "9754",
+              "label": "Quentin Johnston",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1422979448990363648",
           "type": "free_agent",
@@ -3131,11 +3212,46 @@
       "roster_id": 11,
       "owner_id": "owner-jack",
       "team": "Touchy Time",
-      "total": 9,
-      "trades": 3,
+      "total": 10,
+      "trades": 4,
       "free_agents": 3,
       "waivers": 3,
       "history": [
+        {
+          "transaction_id": "1425198187668320256",
+          "type": "trade",
+          "timestamp_ms": 1794156878001,
+          "partners": [
+            "Fresh & Explosive"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "7547",
+              "label": "Amon-Ra St. Brown",
+              "position": "WR"
+            },
+            {
+              "kind": "pick",
+              "label": "2027 Round 2 (Homegrown)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "4881",
+              "label": "Lamar Jackson",
+              "position": "QB"
+            },
+            {
+              "kind": "player",
+              "player_id": "9226",
+              "label": "De'Von Achane",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1423898994953777152",
           "type": "waiver",
@@ -4210,5 +4326,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-11-07T14:37:30+00:00"
+  "checked_at_utc": "2026-11-08T18:44:05+00:00"
 }
