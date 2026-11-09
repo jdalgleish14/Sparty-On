@@ -1,0 +1,15 @@
+test_fixed_threshold_requires_own_score_and_preserves_equal_pf (test_late_paths.LatePathsTests.test_fixed_threshold_requires_own_score_and_preserves_equal_pf) ... ok
+test_impossible_and_invalid_thresholds (test_late_paths.LatePathsTests.test_impossible_and_invalid_thresholds) ... ok
+test_search_window (test_late_paths.LatePathsTests.test_search_window) ... ok
+test_threshold_is_relative_until_own_score_known (test_late_paths.LatePathsTests.test_threshold_is_relative_until_own_score_known) ... ok
+test_fixed_record_bounds_match_exhaustive_outcomes (test_predict.FinishProofTests.test_fixed_record_bounds_match_exhaustive_outcomes) ... ok
+test_bounds_match_exhaustive_all_outcomes_including_ties (test_predict.ProofTests.test_bounds_match_exhaustive_all_outcomes_including_ties) ... ok
+test_duplicate_or_unpaired_schedule_rejected (test_predict.ProofTests.test_duplicate_or_unpaired_schedule_rejected) ... ok
+test_final_equal_pf_tie_not_arbitrarily_resolved (test_predict.ProofTests.test_final_equal_pf_tie_not_arbitrarily_resolved) ... ok
+test_locks_and_elimination (test_predict.ProofTests.test_locks_and_elimination) ... ok
+test_reproducibility_probability_conservation_and_proof_not_simulation (test_predict.ProofTests.test_reproducibility_probability_conservation_and_proof_not_simulation) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.392s
+
+OK

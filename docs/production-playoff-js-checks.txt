@@ -1,0 +1,22 @@
+✔ scenario bank is reproducible and every simulated game has one winner (72.650463ms)
+✔ winning-out picks condition all own game scores and produce the right final wins (34.630404ms)
+✔ invalid picks and cancelled calculations fail clearly (1.958478ms)
+✔ conditional score model agrees with filtered baseline on a representative game (435.392339ms)
+✔ proof bounds never infer certainty from model percentages (1.873186ms)
+✔ entry shows current league forecast and a blank team without running simulations (98.305676ms)
+✔ team view keeps every analysis, uses plain wording, and updates picks automatically (7435.307035ms)
+✔ league owner shortcut selects that team and the week picker limits game controls (7099.6277ms)
+✔ rooting advice can apply a winner in one click and all games remain accessible (7067.544066ms)
+✔ rapid pick changes are cancelled so the last picks determine the outlook (8291.182475ms)
+✔ missing output keeps predictor unavailable (12.6396ms)
+✔ new published cutoff hides old predictions (6.774685ms)
+✔ same-week standings correction hides old predictions (8.229426ms)
+✔ score correction with unchanged standings also hides old predictions (10.867879ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 30299.546384
