@@ -1,4 +1,5 @@
 name: Sleeper weekly update
+
 # Scheduled runs publish verified weeks automatically. Manual runs default to report-only.
 on:
   workflow_dispatch:
@@ -21,6 +22,7 @@ on:
       timezone: "America/New_York"
     - cron: "13 8 * * 3"
       timezone: "America/New_York"
+
 permissions:
   contents: write
   pages: write
@@ -32,22 +34,23 @@ concurrency:
 env:
   DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
   BASELINE_REF: ${{ github.event_name == 'workflow_dispatch' && inputs.baseline_ref || '' }}
+
 jobs:
   sync:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
       - name: Check out main
-        uses: actions/checkout@v7
+        uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
       - name: Set up Python
-        uses: actions/setup-python@v7
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Set up Node for schedule analysis checks
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v4
         with:
           node-version: "22"
       - name: Check schedule swap calculations
@@ -92,11 +95,20 @@ jobs:
       - name: Verify rebuilt data
         if: steps.sync.outputs.exit_code == '0'
         run: python tools/sleeper/sync.py verify
+      - name: Refresh optional playoff forecasts
+        id: playoffs
+        timeout-minutes: 4
+        if: steps.sync.outputs.exit_code == '0' || steps.sync.outputs.exit_code == '10'
+        continue-on-error: true
+        run: |
+          pip install -r tools/playoffs/requirements.txt
+          python tools/playoffs/predict.py --fetch
       - name: Commit and push verified site data
         id: publish
-        if: steps.sync.outputs.exit_code == '0' && env.DRY_RUN != 'true'
+        if: (steps.sync.outputs.exit_code == '0' || (steps.sync.outputs.exit_code == '10' && steps.playoffs.outcome == 'success')) && env.DRY_RUN != 'true'
         shell: bash
         env:
+          SYNC_EXIT: ${{ steps.sync.outputs.exit_code }}
           WEEK: ${{ steps.sync.outputs.week }}
           SEASON: ${{ steps.sync.outputs.season }}
         run: |
@@ -104,12 +116,16 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # A concurrent change to main makes this non-force push fail.
           git add site-data
-          git diff --cached --quiet && { echo "::error::No data changes to publish."; exit 1; }
-          git commit -m "Sleeper sync: $SEASON week $WEEK"
+          git diff --cached --quiet && { echo "No data changes to publish."; exit 0; }
+          if [ "$SYNC_EXIT" = "0" ]; then
+            git commit -m "Sleeper sync: $SEASON week $WEEK"
+          else
+            git commit -m "Refresh playoff forecast"
+          fi
           git push origin HEAD:refs/heads/main
           echo "published_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - name: Request the live Pages build
-        if: steps.publish.outcome == 'success'
+        if: steps.publish.outputs.published_sha != ''
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
