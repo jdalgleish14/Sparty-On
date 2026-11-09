@@ -65,7 +65,14 @@
     await Promise.all(scripts.map(original => new Promise((resolve, reject) => {
       const script = document.createElement('script');
       const url = new URL(original.dataset.spartySrc, location.href);
-      if (onlineSite) url.searchParams.set('snapshot', version);
+      if (onlineSite) {
+        url.searchParams.set('snapshot', version);
+        // Forecast-only retries do not change the core manifest version.
+        // Give this optional bundle its own cache key on each page load.
+        if (url.pathname.endsWith('/site-data/playoff-predictor.js')) {
+          url.searchParams.set('forecast', String(Date.now()));
+        }
+      }
       script.async = false;
       script.src = url.href;
       script.onload = resolve;
