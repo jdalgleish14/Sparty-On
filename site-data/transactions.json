@@ -3,7 +3,7 @@
   "max_pf_through_week": 8,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-11-08T18:44:05+00:00",
+  "fetched_at_utc": "2026-11-09T23:20:05+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -1857,11 +1857,34 @@
       "roster_id": 6,
       "owner_id": "owner-kyle",
       "team": "Return of the Mc\u2019s",
-      "total": 21,
+      "total": 22,
       "trades": 3,
-      "free_agents": 15,
+      "free_agents": 16,
       "waivers": 3,
       "history": [
+        {
+          "transaction_id": "1425268577933471744",
+          "type": "free_agent",
+          "timestamp_ms": 1794173018491,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9482",
+              "label": "Michael Mayer",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "3161",
+              "label": "Carson Wentz",
+              "position": "QB"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1424136832253169664",
           "type": "free_agent",
@@ -4326,5 +4349,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-11-08T18:44:05+00:00"
+  "checked_at_utc": "2026-11-09T23:20:05+00:00"
 }
