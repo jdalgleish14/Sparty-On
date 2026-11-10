@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "generated_at_utc": "2026-11-10T11:47:39+00:00",
+  "generated_at_utc": "2026-11-10T16:57:29+00:00",
   "source_sha256": "3da91a0c74f9c6c99f808d857634398b25599c73a26b022ad1cd58a1b7ce5e73",
   "publication_cutoff": {
     "current_season_through_week": 9
@@ -23,8 +23,8 @@
       "bytes": 33420
     },
     "league.json": {
-      "sha256": "fda6744578a13f01831ad76409f57a6e302de08e45421122fa524c54209b185d",
-      "bytes": 153
+      "sha256": "a6ce92ac7873f0297a660dab586c2464d6c8f40ad4be30c6252be3b27028d0d2",
+      "bytes": 199
     },
     "owner_careers.json": {
       "sha256": "85b460e018b7d39c20dc07412c615dde4e81872ff8a95c15a94c23600a6223e0",
@@ -43,8 +43,8 @@
       "bytes": 63309
     },
     "seasons.json": {
-      "sha256": "c47c99d2feed3c5d42eabc18925299bbd9a3b929314e2d22106f4647fbb2a1be",
-      "bytes": 8329
+      "sha256": "6bf6b2c190ac648bdf8ba1db62d4eb2f77463962fbb9ad27eb8a267ae6cf709d",
+      "bytes": 8377
     },
     "validation_report.json": {
       "sha256": "18100ab67d4f5cc779527f4ade6547a6cc22ab4b1bd079bb1e0efa14a9e083af",

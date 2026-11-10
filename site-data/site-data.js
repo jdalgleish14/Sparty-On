@@ -44278,8 +44278,9 @@ window.SPARTY_ON_DATA = {
 "league":{
   "league_id": "league-primary",
   "league_name": "Sparty On",
-  "generated_at_utc": "2026-11-10T11:47:39+00:00",
-  "current_season_through_week": 9
+  "generated_at_utc": "2026-11-10T16:57:29+00:00",
+  "current_season_through_week": 9,
+  "sleeper_league_id": "1386532723459362816"
 },
 "owner_careers":[
   {
@@ -49397,7 +49398,8 @@ window.SPARTY_ON_DATA = {
       "owner-tj",
       "owner-spencer",
       "owner-wilson"
-    ]
+    ],
+    "sleeper_league_id": "1386532723459362816"
   },
   {
     "season_id": "season-2027",
