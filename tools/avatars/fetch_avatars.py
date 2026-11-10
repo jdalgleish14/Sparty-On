@@ -12,7 +12,6 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-LEAGUE_ID = "1386532723459362816"
 API = "https://api.sleeper.app/v1"
 CDN = "https://sleepercdn.com"
 USER_AGENT = "sparty-on-avatar-sync/1.1 (+https://github.com/jdalgleish14/Sparty-On)"
@@ -95,7 +94,7 @@ def read_previous():
         return None
     with open(OUT_INDEX, encoding="utf-8") as stream:
         value = json.load(stream)
-    if value.get("league_id") != LEAGUE_ID or not isinstance(value.get("owners"), list):
+    if not isinstance(value.get("league_id"), str) or not isinstance(value.get("owners"), list):
         raise RuntimeError("Existing avatar index is invalid")
     return value
 
@@ -103,20 +102,24 @@ def read_previous():
 def main():
     with open(OWNER_MAP, encoding="utf-8") as stream:
         config = json.load(stream)
-    if config.get("league_id") != LEAGUE_ID:
-        raise RuntimeError("Avatar owner map has the wrong league ID")
+    league_id = config.get("league_id")
+    if not isinstance(league_id, str) or not league_id.isdigit():
+        raise RuntimeError("Avatar owner map requires a numeric league ID")
     roster_to_owner = {int(key): value for key, value in config["rosters"].items()}
     if not roster_to_owner or len(roster_to_owner) != len(set(roster_to_owner.values())):
         raise RuntimeError("Avatar owner map must contain distinct owner IDs")
 
-    rosters = get_json(f"{API}/league/{LEAGUE_ID}/rosters")
-    users = get_json(f"{API}/league/{LEAGUE_ID}/users")
+    rosters = get_json(f"{API}/league/{league_id}/rosters")
+    users = get_json(f"{API}/league/{league_id}/users")
     if not isinstance(rosters, list) or not isinstance(users, list):
         raise RuntimeError("Sleeper returned invalid league rosters or users")
     users_by_id = {user["user_id"]: user for user in users}
     roster_ids = {roster["roster_id"] for roster in rosters}
     if len(roster_ids) != len(rosters) or roster_ids != set(roster_to_owner):
         raise RuntimeError("Sleeper roster IDs disagree with the pinned owner map")
+    pinned = config.get("sleeper_user_ids", {})
+    if pinned and any(pinned.get(str(r["roster_id"])) != r.get("owner_id") for r in rosters):
+        raise RuntimeError("Sleeper ownership differs from pinned accounts; review owner mapping")
     previous = read_previous()
     previous_rows = {row["owner_id"]: row for row in previous["owners"]} if previous else {}
     os.makedirs(OUT_DIR, exist_ok=True)
@@ -161,14 +164,14 @@ def main():
             owners.append(row)
 
         # Only publish after every owner and image has been validated.
-        if previous and previous["owners"] == owners and not staged:
+        if previous and previous["league_id"] == league_id and previous["owners"] == owners and not staged:
             print(f"{len(owners)} owners; no avatar changes")
             return 0
         for source, target in staged:
             os.replace(source, target)
         index = {
             "generated_at_utc": datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat(),
-            "league_id": LEAGUE_ID,
+            "league_id": league_id,
             "owners": owners,
         }
         index_file = os.path.join(staging, "owners.json")

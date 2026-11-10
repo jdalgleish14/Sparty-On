@@ -17,7 +17,7 @@ class AvatarSyncTests(unittest.TestCase):
         self.out_dir = os.path.join(root, "avatars")
         self.index = os.path.join(self.out_dir, "owners.json")
         with open(self.owner_map, "w", encoding="utf-8") as stream:
-            json.dump({"league_id": avatars.LEAGUE_ID, "rosters": {"1": "owner-jack", "2": "owner-alex"}}, stream)
+            json.dump({"league_id": '1386532723459362816', "rosters": {"1": "owner-jack", "2": "owner-alex"}}, stream)
         for name, value in [("OWNER_MAP", self.owner_map), ("OUT_DIR", self.out_dir), ("OUT_INDEX", self.index)]:
             patcher = patch.object(avatars, name, value)
             patcher.start()
@@ -30,6 +30,17 @@ class AvatarSyncTests(unittest.TestCase):
         self.api = patch.object(avatars, "get_json", side_effect=lambda url: rosters if url.endswith("/rosters") else self.users)
         self.api.start()
         self.addCleanup(self.api.stop)
+
+    def test_next_season_uses_configured_league_id_and_pinned_accounts(self):
+        with open(self.owner_map) as stream: config = json.load(stream)
+        config.update(league_id='9999',sleeper_user_ids={'1':'a','2':'b'})
+        with open(self.owner_map,'w') as stream: json.dump(config,stream)
+        with patch.object(avatars, 'download_image', return_value=(b"\x89PNG\r\n\x1a\n", ".png")):
+            self.assertEqual(avatars.main(),0)
+        with open(self.index) as stream: self.assertEqual(json.load(stream)['league_id'],'9999')
+        config['sleeper_user_ids']['1']='different'
+        with open(self.owner_map,'w') as stream: json.dump(config,stream)
+        with self.assertRaisesRegex(RuntimeError,'ownership'): avatars.main()
 
     def test_no_change_does_not_rewrite_index_or_download(self):
         png = b"\x89PNG\r\n\x1a\n" + b"example"
