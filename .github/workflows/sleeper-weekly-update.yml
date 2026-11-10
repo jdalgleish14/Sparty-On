@@ -8,6 +8,10 @@ on:
         description: "Optional git ref with a fresh Excel export to compare before publishing"
         required: false
         default: ""
+      owner_changes:
+        description: "Optional new-season owner changes JSON; see docs/season-automation.md"
+        required: false
+        default: ""
       dry_run:
         description: "Build and report only; do not publish"
         type: boolean
@@ -28,11 +32,12 @@ permissions:
   pages: write
 
 concurrency:
-  group: sleeper-weekly-update
+  group: sparty-site-publish
   cancel-in-progress: false
 
 env:
   DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
+  ROLLOVER_OWNER_CHANGES: ${{ github.event_name == 'workflow_dispatch' && inputs.owner_changes || '' }}
   BASELINE_REF: ${{ github.event_name == 'workflow_dispatch' && inputs.baseline_ref || '' }}
 
 jobs:
@@ -57,6 +62,8 @@ jobs:
         run: node --test tools/schedule-swap/tests/*.cjs
       - name: Run generator unit tests
         run: python -m unittest discover -s tools/sleeper/tests -p "test_*.py"
+      - name: Check season transitions across every page
+        run: node --test tools/sleeper/tests/test_season_pages.cjs
       - name: Confirm committed data is healthy
         run: python tools/sleeper/sync.py verify
       - name: Fetch from Sleeper and build
@@ -64,10 +71,10 @@ jobs:
         shell: bash
         run: |
           set +e
-          python tools/sleeper/sync.py run --parity --report "$RUNNER_TEMP/report.md" --github-output "$GITHUB_OUTPUT"
+          python tools/sleeper/season_sync.py --report "$RUNNER_TEMP/report.md" --github-output "$GITHUB_OUTPUT"
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
-          # 0 = verified new week; 10 = nothing new. Other codes block publication.
+          # 0 = verified season update; 10 = nothing new. Other codes block publication.
           if [ "$code" -ne 0 ] && [ "$code" -ne 10 ]; then
             echo "blocked=true" >> "$GITHUB_OUTPUT"
           fi

@@ -13,7 +13,7 @@ permissions:
   pages: write
 
 concurrency:
-  group: sleeper-transaction-update
+  group: sparty-site-publish
   cancel-in-progress: false
 
 jobs:

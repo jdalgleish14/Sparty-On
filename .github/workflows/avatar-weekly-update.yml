@@ -14,7 +14,7 @@ permissions:
   pages: write
 
 concurrency:
-  group: sleeper-avatar-update
+  group: sparty-site-publish
   cancel-in-progress: false
 
 jobs:
