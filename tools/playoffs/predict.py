@@ -123,6 +123,11 @@ def forecast(d,trials=50000,seed=20261029,prior_weeks=4):
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--data',type=Path,default=Path('site-data'));parser.add_argument('--schedule',type=Path);parser.add_argument('--fetch',action='store_true');parser.add_argument('--trials',type=int,default=50000);parser.add_argument('--output',type=Path,default=Path('site-data/playoff-predictor.js'));args=parser.parse_args()
     schedule=args.schedule or args.data/'playoffs/raw'
+    # Forecasts apply only to an active regular season with enough scoring history.
+    bundle=(args.data/'site-data.js').read_text().split('=',1)[1].strip().rstrip(';')
+    site=json.loads(bundle); current=next(s for s in site['seasons'] if s['status']=='Current')
+    if current.get('postseason_through_round') or site['league']['current_season_through_week'] < 2:
+        print('Forecast not needed: postseason or fewer than two completed weeks.'); return
     if args.fetch:
         import sys
         sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'sleeper'))

@@ -54,20 +54,22 @@ test('new published cutoff hides old predictions',()=>{const {get}=run(w=>w.SPAR
 test('same-week standings correction hides old predictions',()=>{const {get}=run(w=>w.SPARTY_ON_DATA.current_standings[0].points_for++);assert.equal(get('playoff-content').hidden,true);});
 test('score correction with unchanged standings also hides old predictions',()=>{const {get}=run(w=>{w.SPARTY_ON_DATA.games.find(g=>g.year===2026&&g.stage==='Regular Season').points_for++;});assert.equal(get('playoff-content').hidden,true);assert.match(get('playoff-status').textContent,/score correction/);});
 
-test('projected bracket assigns distinct seeds by forecast and preserves fixed paths',()=>{
+test('bracket assigns current standings seeds and preserves fixed paths',()=>{
  const {get,context,calls}=run();const bracket=get('projected-bracket');assert.equal(bracket.hidden,false);assert.equal(calls(),0);
  const rounds=bracket.children.map(section=>section.children[2].children);
  assert.deepEqual(rounds.map(games=>games.length),[4,2,1]);
- const seeded=[...context.window.SPARTY_PLAYOFFS.teams].sort((a,b)=>a.average_seed-b.average_seed||b.projected_wins-a.projected_wins||a.owner_id.localeCompare(b.owner_id)).slice(0,8);
+ const d=context.window.SPARTY_ON_DATA;const seeded=[...d.current_standings].sort((a,b)=>a.rank-b.rank).slice(0,8);const names=new Map(d.owners.map(o=>[o.owner_id,o.owner_name]));
  const expected=[[1,8],[4,5],[2,7],[3,6]];
  rounds[0].forEach((game,i)=>game.children.slice(1).forEach((team,j)=>{
-  const seed=expected[i][j];assert.equal(team.children[0].textContent,String(seed));assert.equal(team.children[1].textContent,seeded[seed-1].owner);
+  const seed=expected[i][j];assert.equal(team.children[0].textContent,String(seed));assert.equal(team.children[1].textContent,names.get(seeded[seed-1].owner_id));
  }));
  assert.match(allText(rounds[1][0]),/Winner of Game 1.*Winner of Game 2/);
  assert.match(allText(rounds[1][1]),/Winner of Game 3.*Winner of Game 4/);
  assert.match(allText(rounds[2][0]),/Winner of Semifinal 1.*Winner of Semifinal 2/);
 });
-test('stale forecast cannot display a projected bracket',()=>{
- const {get}=run(w=>w.SPARTY_ON_DATA.league.current_season_through_week++);
- assert.equal(get('projected-bracket').hidden,true);assert.equal(get('projected-bracket').children.length,0);assert.match(get('bracket-status').textContent,/refreshed/);
+test('standings bracket remains available with stale or absent forecasts',()=>{
+ for(const mutate of [w=>w.SPARTY_ON_DATA.league.current_season_through_week++,w=>w.SPARTY_PLAYOFFS=null]){
+  const {get,calls}=run(mutate);
+  assert.equal(get('projected-bracket').hidden,false);assert.equal(get('projected-bracket').children.length,3);assert.match(get('bracket-status').textContent,/If the season ended today/);assert.equal(calls(),0);
+ }
 });
