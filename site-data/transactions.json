@@ -1,9 +1,9 @@
 {
   "history_version": 1,
-  "max_pf_through_week": 8,
+  "max_pf_through_week": 9,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-11-09T23:20:05+00:00",
+  "fetched_at_utc": "2026-11-10T20:44:49+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -27,7 +27,7 @@
   ],
   "teams": [
     {
-      "max_pf": 963.12,
+      "max_pf": 1013.1,
       "roster_id": 1,
       "owner_id": "owner-nick",
       "team": "Fresh & Explosive",
@@ -371,7 +371,7 @@
       ]
     },
     {
-      "max_pf": 719.8,
+      "max_pf": 802.62,
       "roster_id": 2,
       "owner_id": "owner-ryan",
       "team": "Homegrown",
@@ -1190,15 +1190,42 @@
       ]
     },
     {
-      "max_pf": 1038.84,
+      "max_pf": 1177.14,
       "roster_id": 3,
       "owner_id": "owner-tj",
       "team": "Motor City Dan Campbell",
-      "total": 12,
-      "trades": 1,
+      "total": 13,
+      "trades": 2,
       "free_agents": 10,
       "waivers": 1,
       "history": [
+        {
+          "transaction_id": "1425856312364789760",
+          "type": "trade",
+          "timestamp_ms": 1794322682523,
+          "partners": [
+            "Return of the Mc\u2019s"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11620",
+              "label": "Rome Odunze",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "pick",
+              "label": "2027 Round 1 (Motor City Dan Campbell)"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 3 (Return of the Mc\u2019s)"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1424413078170112000",
           "type": "free_agent",
@@ -1446,7 +1473,7 @@
       ]
     },
     {
-      "max_pf": 1017.9,
+      "max_pf": 1140.46,
       "roster_id": 4,
       "owner_id": "owner-brian",
       "team": "The Vandercruyssen Empire",
@@ -1710,7 +1737,7 @@
       ]
     },
     {
-      "max_pf": 940.96,
+      "max_pf": 1047.96,
       "roster_id": 5,
       "owner_id": "owner-spencer",
       "team": "3x & B2B",
@@ -1853,15 +1880,42 @@
       ]
     },
     {
-      "max_pf": 832.86,
+      "max_pf": 927.2,
       "roster_id": 6,
       "owner_id": "owner-kyle",
       "team": "Return of the Mc\u2019s",
-      "total": 22,
-      "trades": 3,
+      "total": 23,
+      "trades": 4,
       "free_agents": 16,
       "waivers": 3,
       "history": [
+        {
+          "transaction_id": "1425856312364789760",
+          "type": "trade",
+          "timestamp_ms": 1794322682523,
+          "partners": [
+            "Motor City Dan Campbell"
+          ],
+          "received": [
+            {
+              "kind": "pick",
+              "label": "2027 Round 1 (Motor City Dan Campbell)"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 3 (Return of the Mc\u2019s)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11620",
+              "label": "Rome Odunze",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1425268577933471744",
           "type": "free_agent",
@@ -2370,7 +2424,7 @@
       ]
     },
     {
-      "max_pf": 981.02,
+      "max_pf": 1072.7,
       "roster_id": 7,
       "owner_id": "owner-wilson",
       "team": "Willie\u2019s Chubb",
@@ -2695,7 +2749,7 @@
       ]
     },
     {
-      "max_pf": 933.06,
+      "max_pf": 1079.3,
       "roster_id": 8,
       "owner_id": "owner-tyler",
       "team": "Porritt Drink It Chase It",
@@ -2906,7 +2960,7 @@
       ]
     },
     {
-      "max_pf": 952.58,
+      "max_pf": 1066.36,
       "roster_id": 9,
       "owner_id": "owner-dan",
       "team": "Room 40",
@@ -3007,7 +3061,7 @@
       ]
     },
     {
-      "max_pf": 1040.62,
+      "max_pf": 1145.06,
       "roster_id": 10,
       "owner_id": "owner-alex",
       "team": "The Prodigal Sons",
@@ -3231,7 +3285,7 @@
       ]
     },
     {
-      "max_pf": 982.6,
+      "max_pf": 1104.32,
       "roster_id": 11,
       "owner_id": "owner-jack",
       "team": "Touchy Time",
@@ -3477,7 +3531,7 @@
       ]
     },
     {
-      "max_pf": 1006.04,
+      "max_pf": 1088.24,
       "roster_id": 12,
       "owner_id": "owner-andres",
       "team": "2 Much Salsa ",
@@ -4349,5 +4403,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-11-09T23:20:05+00:00"
+  "checked_at_utc": "2026-11-10T20:44:49+00:00"
 }
