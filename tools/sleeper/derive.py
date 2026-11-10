@@ -271,8 +271,6 @@ def ai_season_rows(games, season, owners_by_name_order, ai_games_rows, era, stat
     out = {}
     for owner, rows in by_owner.items():
         n = len(rows)
-        if n < 2:
-            raise ValueError("score_std_dev is undefined with fewer than 2 games")
         pf = [g["points_for"] for g in rows]
         pa = [g["points_against"] for g in rows]
         a = [ai_by[(g["week"], owner)] for g in rows]
@@ -290,7 +288,7 @@ def ai_season_rows(games, season, owners_by_name_order, ai_games_rows, era, stat
             ("top_half_percentage", top_half / n),
             ("scores_100_plus", sum(1 for s in pf if s >= 100)), ("scores_120_plus", sum(1 for s in pf if s >= 120)),
             ("scores_140_plus", sum(1 for s in pf if s >= 140)), ("scores_below_90", sum(1 for s in pf if s < 90)),
-            ("scores_below_80", sum(1 for s in pf if s < 80)), ("score_std_dev", sample_std(pf)),
+            ("scores_below_80", sum(1 for s in pf if s < 80)), ("score_std_dev", sample_std(pf) if n > 1 else None),
             ("average_top_3", extreme_mean(pf, 3, True)), ("average_top_5", extreme_mean(pf, 5, True)),
             ("average_bottom_3", extreme_mean(pf, 3, False)), ("average_bottom_5", extreme_mean(pf, 5, False)),
             ("close_wins", sum(1 for g in rows if g["result"] == "W" and close(g))),

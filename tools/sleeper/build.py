@@ -165,6 +165,8 @@ def derive_dataset(base, games, through_week, generated_at, source_entries=None)
     ds["ai_seasons"] = ai_seasons
     league_row = dv.ai_league_year_row(games, cur, era, status)
     ds["ai_league_years"] = [league_row if r["year"] == year else r for r in base["ai_league_years"]]
+    if not any(r["year"] == year for r in ds["ai_league_years"]):
+        ds["ai_league_years"].append(league_row)
 
     if source_entries is None:
         source_entries = {(g["year"], g["week"], g["owner_id"], g["opponent_owner_id"], g["points_for"], g["points_against"])

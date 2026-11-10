@@ -81,7 +81,15 @@ def verify_dir(directory):
             problems.append(f"{g['game_id']} ({g['owner_id']}): margin does not equal the score difference")
             break
     year = cur["year"]
-    weeks_beyond = [g for g in games if g["year"] == year and (g["stage"] != "Regular Season" or g["week"] > cutoff)]
+    weeks_beyond = [g for g in games if g["year"] == year and g["stage"] == "Regular Season" and g["week"] > cutoff]
+    # Automated postseason retains a regular-season cutoff and tracks playoff rounds separately.
+    current_post = [g for g in games if g["year"] == year and g["stage"] == "Postseason"]
+    if current_post or cur.get("postseason_through_round"):
+        from season_sync import validate_published_postseason
+        try:
+            validate_published_postseason(site)
+        except (bd.GateError, ValueError, KeyError, TypeError) as error:
+            problems.append(f"invalid current postseason: {error}")
     if weeks_beyond:
         problems.append("games.json contains current-season rows beyond the publication cutoff")
     if not 1 <= cutoff <= cur["regular_season_weeks"]:
