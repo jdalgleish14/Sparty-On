@@ -82,3 +82,6 @@
  .bracket-round .bracket-match:after,.bracket-round .bracket-match:before{display:none}
  .bracket-round+.bracket-round{border-top:1px solid var(--line);padding-top:20px}
 }
+
+.bracket-score{margin-left:auto;font-variant-numeric:tabular-nums}
+.bracket-winner{font-weight:750;color:var(--accent)}

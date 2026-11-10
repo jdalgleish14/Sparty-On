@@ -11,7 +11,7 @@
     const d=window.SPARTY_ON_DATA,report=d?.validation_report;
     if(!d||report?.status!=='PASS'||!Array.isArray(report.checks)||report.checks.some(c=>c.status!=='PASS')||d.games.length!==report.counts.game_rows||d.owners.length!==report.counts.owners)throw Error('Invalid snapshot');
     const current=d.seasons.filter(s=>s.status==='Current'),cutoff=d.league.current_season_through_week;
-    if(current.length!==1||!Number.isInteger(cutoff)||cutoff<1||cutoff>current[0].regular_season_weeks||cutoff!==report.publication_cutoff.current_season_through_week||d.games.some(g=>g.year===current[0].year&&(g.stage!=='Regular Season'||g.week>cutoff)))throw Error('Unapproved games');
+    if(current.length!==1||!Number.isInteger(cutoff)||cutoff<1||cutoff>current[0].regular_season_weeks||cutoff!==report.publication_cutoff.current_season_through_week||d.games.some(g=>g.year===current[0].year&&(g.stage === 'Regular Season' ? g.week > cutoff : g.stage !== 'Postseason' || !current[0].postseason_through_round || ({Quarterfinal:1,Semifinal:2,Championship:3}[g.round] || 99) > current[0].postseason_through_round)))throw Error('Unapproved games');
     const owners=[...d.owners].sort((a,b)=>a.owner_name.localeCompare(b.owner_name)),names=new Map(owners.map(o=>[o.owner_id,o.owner_name]));
     const pairKey=(a,b)=>[a,b].sort().join('|'),byPair=new Map();
     for(const g of d.games){
@@ -67,7 +67,7 @@
       const last=rows[0],moment=(title,g,detail)=>`<div class="rivalry-moment"><span>${title}</span><strong>${esc(detail)} · ${g.year} ${esc(stageName(g))}</strong><small>${esc(g.team)} ${num(g.points_for)} – ${num(g.points_against)} ${esc(g.opponent_team)}</small></div>`;
       $('rivalry-moments-body').innerHTML=moment('Most recent',last,last.result==='T'?'Tie':`${names.get(last.result==='W'?first:second)} won`)+moment('Closest',closest,`Margin ${num(Math.abs(closest.margin))}`)+moment('Biggest margin',biggest,`Margin ${num(Math.abs(biggest.margin))}`);
       const byYear=new Map();for(const g of rows){if(!byYear.has(g.year))byYear.set(g.year,[]);byYear.get(g.year).push(g);}
-      $('years-body').innerHTML=[...byYear.entries()].sort((a,b)=>b[0]-a[0]).map(([year,yearGames])=>{const s=score(yearGames),g=yearGames[0];return `<tr><td class="owner-year">${year}${year===current[0].year?'<small>In progress</small>':''}</td><td class="owner-cell"><strong>${esc(teamName(first,year,g.team))}</strong><span class="team-name">vs ${esc(teamName(second,year,g.opponent_team))}</span></td><td class="numeric">${s.games}</td><td class="numeric standing-record">${record(s)}</td><td class="numeric">${num(s.pf)}</td><td class="numeric">${num(s.pa)}</td></tr>`;}).join('');
+      $('years-body').innerHTML=[...byYear.entries()].sort((a,b)=>b[0]-a[0]).map(([year,yearGames])=>{const s=score(yearGames),g=yearGames[0];return `<tr><td class="owner-year">${year}${year===current[0].year?(current[0].phase==='Complete'?'<small>Final</small>':current[0].phase==='Postseason'?'<small>Playoffs</small>':'<small>In progress</small>'):''}</td><td class="owner-cell"><strong>${esc(teamName(first,year,g.team))}</strong><span class="team-name">vs ${esc(teamName(second,year,g.opponent_team))}</span></td><td class="numeric">${s.games}</td><td class="numeric standing-record">${record(s)}</td><td class="numeric">${num(s.pf)}</td><td class="numeric">${num(s.pa)}</td></tr>`;}).join('');
       set('matchup-count',`${rows.length} games`);
       $('rivalry-games-body').innerHTML=rows.map(gameCard).join('');
     }

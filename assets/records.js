@@ -10,7 +10,7 @@
     const d=window.SPARTY_ON_DATA,report=d?.validation_report;
     if(!d||report?.status!=='PASS'||!Array.isArray(report.checks)||report.checks.some(c=>c.status!=='PASS')||d.games.length!==report.counts.game_rows)throw Error('Invalid snapshot');
     const current=d.seasons.filter(s=>s.status==='Current'),week=d.league.current_season_through_week;
-    if(current.length!==1||!Number.isInteger(week)||week<1||week>current[0].regular_season_weeks||week!==report.publication_cutoff.current_season_through_week||d.games.some(g=>g.year===current[0].year&&(g.stage!=='Regular Season'||g.week>week)))throw Error('Unapproved cutoff');
+    if(current.length!==1||!Number.isInteger(week)||week<1||week>current[0].regular_season_weeks||week!==report.publication_cutoff.current_season_through_week||d.games.some(g=>g.year===current[0].year&&(g.stage === 'Regular Season' ? g.week > week : g.stage !== 'Postseason' || !current[0].postseason_through_round || ({Quarterfinal:1,Semifinal:2,Championship:3}[g.round] || 99) > current[0].postseason_through_round)))throw Error('Unapproved cutoff');
     const pairs=new Map();
     for(const g of d.games){if(!pairs.has(g.game_id))pairs.set(g.game_id,[]);pairs.get(g.game_id).push(g);}
     if(pairs.size!==report.counts.all_games||[...pairs.values()].some(p=>p.length!==2||p[0].owner_id!==p[1].opponent_owner_id||p[0].points_for!==p[1].points_against))throw Error('Game pairs');

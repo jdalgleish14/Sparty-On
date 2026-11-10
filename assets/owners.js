@@ -26,13 +26,13 @@
       const pf=rows.reduce((sum,g)=>sum+g.points_for,0),pa=rows.reduce((sum,g)=>sum+g.points_against,0);
       if (!rows.length || !yearRows.length || !names.has(c.owner_id) || names.get(c.owner_id)!==c.owner_name || rows.length!==c.games_played || wins!==c.wins || losses!==c.losses || ties!==c.ties || yearRows.length!==c.seasons || Math.abs(pf-c.points_for)>0.011 || Math.abs(pa-c.points_against)>0.011 || yearRows.some(s=>!d.seasons.some(y=>y.year===s.year && y.status===s.season_status)) || yearRows.reduce((sum,s)=>sum+s.games_played,0)!==rows.filter(g=>g.stage==='Regular Season').length) throw Error('Owner totals disagree');
     }
-    if (d.games.some(g => g.year===current[0].year && (g.stage!=='Regular Season' || g.week>cutoff))) throw Error('Unapproved games');
+    if (d.games.some(g => g.year===current[0].year && (g.stage === 'Regular Season' ? g.week > cutoff : g.stage !== 'Postseason' || !current[0].postseason_through_round || ({Quarterfinal:1,Semifinal:2,Championship:3}[g.round] || 99) > current[0].postseason_through_round))) throw Error('Unapproved games');
     const currentLabel=`${current[0].year} · Through Week ${cutoff}`;
     set('owner-count',`${careers.length} owners · ${d.championships.length} completed seasons`);
     set('owners-footer',`${currentLabel} · Read-only snapshot`);
     $('owner-select').innerHTML='<option value="">Select an owner</option>'+[...careers].sort((a,b)=>a.owner_name.localeCompare(b.owner_name)).map(c=>`<option value="${esc(c.owner_id)}">${esc(c.owner_name)}</option>`).join('');
     function outcome(ownerId,year,status){
-      if(status==='Current')return 'In progress';
+      if(status==='Current' && current[0].phase!=='Complete')return current[0].phase==='Postseason'?'Playoffs':'In progress';
       const finals=championships.get(ownerId);
       if(finals.won.some(ch=>ch.year===year))return 'Champion';
       if(finals.runner.some(ch=>ch.year===year))return 'Runner-up';
@@ -62,7 +62,7 @@
       const yearRows=summaries.get(id),played=games.get(id),finals=championships.get(id),latest=yearRows[0];
       $('owner-select').value=id;
       set('owner-name',c.owner_name);
-      set('owner-latest-team',`${latest.team} · ${latest.year}${latest.season_status==='Current'?' season in progress':''}`);
+      set('owner-latest-team',`${latest.team} · ${latest.year}${latest.season_status==='Current'?(current[0].phase==='Complete'?' season complete':current[0].phase==='Postseason'?' playoffs':' season in progress'):''}`);
       set('owner-scope',`${yearRows[yearRows.length-1].year}–${latest.year} · ${c.seasons} seasons · Career stats include regular season and postseason${latest.season_status==='Current'?` · ${currentLabel}`:''}`);
       const post=played.filter(g=>g.stage==='Postseason'),regular=played.filter(g=>g.stage==='Regular Season');
       const metrics=[['Career record',record(c),`${integer(c.games_played)} games · all stages`],['Win percentage',`${(c.win_percentage*100).toFixed(1)}%`,'All published games'],['Championships',String(finals.won.length),'Completed seasons'],['Finals appearances',String(finals.won.length+finals.runner.length),'Completed seasons'],['Average score',num(c.average_points_for),'Points per game · all stages'],['Career points',num(c.points_for),'Regular season + postseason']];
@@ -70,7 +70,7 @@
       const stageRows=[['Regular season',stageStats(regular)],['Postseason',stageStats(post)],['All games',stageStats(played)]];
       $('owner-stage-body').innerHTML=stageRows.map(([name,stats])=>`<tr><td>${name}</td><td class="numeric">${stats.games_played}</td><td class="numeric">${record(stats)}</td><td class="numeric">${stats.games_played?(stats.win_percentage*100).toFixed(1)+'%':'—'}</td><td class="numeric">${stats.games_played?num(stats.average_points_for):'—'}</td><td class="numeric ${stats.average_margin>=0?'positive':'negative'}">${stats.games_played?signed(stats.average_margin):'—'}</td></tr>`).join('');
       $('owner-honors-body').innerHTML=`<div class="honors-list"><div class="honors-row"><span>Postseason record</span><strong>${post.length?record(stageStats(post)):'No games yet'}</strong></div><div class="honors-row"><span>Championships</span><strong>${finals.won.length}</strong></div><div class="honors-row"><span>Runner-up finishes</span><strong>${finals.runner.length}</strong></div><div class="honors-row"><span>Playoff appearances</span><strong>${new Set(post.map(g=>g.year)).size}</strong></div></div><p class="honors-years">${finals.won.length ? `Titles: ${finals.won.map(ch=>ch.year).join(', ')}` : 'No championship seasons recorded'}${finals.runner.length ? ` · Runner-up: ${finals.runner.map(ch=>ch.year).join(', ')}` : ''}</p>`;
-      $('owner-seasons-body').innerHTML=yearRows.map(s=>`<tr class="${s.season_status==='Current'?'owner-current':''}"><td class="owner-year">${s.year}${s.season_status==='Current'?'<small>In progress</small>':''}</td><td>${esc(s.team)}</td><td class="numeric standing-record">${record(s)}</td><td class="numeric">${num(s.points_for)}</td><td class="numeric">${num(s.points_against)}</td><td class="numeric">${num(s.average_points_for)}</td><td class="numeric ${s.average_margin>=0?'positive':'negative'}">${signed(s.average_margin)}</td><td>${outcome(id,s.year,s.season_status)}</td></tr>`).join('');
+      $('owner-seasons-body').innerHTML=yearRows.map(s=>`<tr class="${s.season_status==='Current'?'owner-current':''}"><td class="owner-year">${s.year}${s.season_status==='Current'?(current[0].phase==='Complete'?'<small>Final</small>':current[0].phase==='Postseason'?'<small>Playoffs</small>':'<small>In progress</small>'):''}</td><td>${esc(s.team)}</td><td class="numeric standing-record">${record(s)}</td><td class="numeric">${num(s.points_for)}</td><td class="numeric">${num(s.points_against)}</td><td class="numeric">${num(s.average_points_for)}</td><td class="numeric ${s.average_margin>=0?'positive':'negative'}">${signed(s.average_margin)}</td><td>${outcome(id,s.year,s.season_status)}</td></tr>`).join('');
       const best=yearRows.filter(s=>s.season_status==='Complete').sort((a,b)=>b.points_for/b.games_played-a.points_for/a.games_played);
       const high=Math.max(...played.map(g=>g.points_for)),highGames=played.filter(g=>g.points_for===high);
       const hCard=(title,value,detail)=>`<article class="leader-card"><h3>${title}</h3><div class="leader-number">${num(value)}</div><p class="leader-detail">${esc(detail)}</p></article>`;

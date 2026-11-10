@@ -14,7 +14,7 @@
     const cutoff = d.league.current_season_through_week;
     if (!Number.isInteger(cutoff) || cutoff < 1 || cutoff > current[0].regular_season_weeks) throw Error('Invalid week');
     const seasons = d.seasons.filter(s => s.status === 'Complete' || s.status === 'Current').sort((a,b) => b.year-a.year);
-    if (seasons.length < 2 || new Set(seasons.map(s => s.year)).size !== seasons.length || d.games.some(g => g.year === current[0].year && (g.stage !== 'Regular Season' || g.week > cutoff))) throw Error('Unapproved season');
+    if (seasons.length < 2 || new Set(seasons.map(s => s.year)).size !== seasons.length || d.games.some(g => g.year === current[0].year && (g.stage === 'Regular Season' ? g.week > cutoff : g.stage !== 'Postseason' || !current[0].postseason_through_round || ({Quarterfinal:1,Semifinal:2,Championship:3}[g.round] || 99) > current[0].postseason_through_round))) throw Error('Unapproved season');
     const owners = new Map(d.owners.map(o => [o.owner_id,o.owner_name]));
     const pairs = new Map();
     for (const g of d.games) { if (!pairs.has(g.game_id)) pairs.set(g.game_id,[]); pairs.get(g.game_id).push(g); }
@@ -28,11 +28,11 @@
       const {season,summary,games:yearGames,championship} = entry;
       const regular=yearGames.filter(g => g.stage === 'Regular Season');
       const weeks=season.status === 'Current' ? cutoff : season.regular_season_weeks;
-      if (summary.length !== season.team_count || new Set(summary.map(s => s.owner_id)).size !== summary.length || summary.some(s => !owners.has(s.owner_id) || s.season_status !== season.status || s.games_played !== weeks) || !Array.isArray(season.roster_owner_ids) || season.roster_owner_ids.length !== season.team_count || new Set(season.roster_owner_ids).size !== season.team_count || season.roster_owner_ids.some(id => !summary.some(row => row.owner_id === id)) || regular.length !== weeks * season.team_count/2 || regular.some(g => !Number.isInteger(g.week) || g.week < 1 || g.week > weeks) || (season.status === 'Complete') !== !!championship || (season.status === 'Current' && yearGames.length !== regular.length)) throw Error('Season inconsistency');
+      if (summary.length !== season.team_count || new Set(summary.map(s => s.owner_id)).size !== summary.length || summary.some(s => !owners.has(s.owner_id) || s.season_status !== season.status || s.games_played !== weeks) || !Array.isArray(season.roster_owner_ids) || season.roster_owner_ids.length !== season.team_count || new Set(season.roster_owner_ids).size !== season.team_count || season.roster_owner_ids.some(id => !summary.some(row => row.owner_id === id)) || regular.length !== weeks * season.team_count/2 || regular.some(g => !Number.isInteger(g.week) || g.week < 1 || g.week > weeks) || (season.status === 'Complete' && !championship) || (season.status === 'Current' && yearGames.length !== regular.length && !season.postseason_through_round)) throw Error('Season inconsistency');
       for (let week=1;week<=weeks;week++) if (regular.filter(g => g.week === week).length !== season.team_count/2) throw Error('Incomplete week');
       if (championship && !yearGames.some(g => g.round === 'Championship' && g.owner_id === championship.champion_owner_id && g.opponent_owner_id === championship.runner_up_owner_id && g.points_for === championship.champion_score && g.points_against === championship.runner_up_score)) throw Error('Championship mismatch');
     }
-    $('year-select').innerHTML = '<option value="" selected>Select a Season</option>' + seasons.map(s => `<option value="${s.year}">${s.year}${s.status === 'Current' ? ' · In progress' : ''}</option>`).join('');
+    $('year-select').innerHTML = '<option value="" selected>Select a Season</option>' + seasons.map(s => `<option value="${s.year}">${s.year}${s.status === 'Current' ? (s.phase === 'Complete' ? ' · Final' : s.phase === 'Postseason' ? ' · Playoffs' : ' · In progress') : ''}</option>`).join('');
     const sections=[...$('seasons-page').children].filter(el => !el.classList.contains('season-intro') && el.tagName !== 'FOOTER');
     sections.forEach(el => { el.hidden=true; });
     const gameCard = g => {
@@ -58,10 +58,10 @@
       sections.forEach(el => { if (el.id !== 'race-section') el.hidden=false; });
       set('season-era',`${season.era.toUpperCase()} / ${season.team_count} TEAMS`);
       set('season-heading',`${year} season`);
-      set('season-subtitle',isCurrent ? `Through Week ${cutoff} · Regular season in progress` : `${season.regular_season_weeks} regular-season weeks · Championship decided`);
-      set('season-state',isCurrent ? 'CURRENT · IN PROGRESS' : 'COMPLETED SEASON');
+      set('season-subtitle',isCurrent ? season.phase === 'Complete' ? 'Season complete · Championship decided' : season.phase === 'Postseason' ? `Playoffs · Through Week ${14+season.postseason_through_round}` : `Through Week ${cutoff} · Regular season in progress` : `${season.regular_season_weeks} regular-season weeks · Championship decided`);
+      set('season-state',season.phase==='Complete' || !isCurrent ? 'COMPLETED SEASON' : season.phase==='Postseason' ? 'CURRENT · PLAYOFFS' : 'CURRENT · IN PROGRESS');
       set('standings-chip',isCurrent ? `Through Week ${cutoff}` : 'Final regular season');
-      set('postseason-chip',isCurrent ? 'Not yet played' : 'Final');
+      set('postseason-chip',championship ? 'Final' : season.postseason_through_round ? 'In progress' : 'Not yet played');
       set('season-footer',`${year} · ${isCurrent ? `Through Week ${cutoff} · In progress` : 'Completed season'} · Read-only snapshot`);
       const ranked=[...summary].sort((a,b) => b.wins-a.wins || a.losses-b.losses || b.points_for-a.points_for || a.owner_id.localeCompare(b.owner_id));
       const champion=championship&&summary.find(row=>row.owner_id===championship.champion_owner_id);

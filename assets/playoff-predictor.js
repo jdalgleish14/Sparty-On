@@ -2,6 +2,8 @@
   'use strict';
   const $ = id => document.getElementById(id);
   const p = window.SPARTY_PLAYOFFS, d = window.SPARTY_ON_DATA, api = window.SpartyScenarios;
+  const season=d?.seasons?.find(s=>s.status==='Current');
+  if(season?.postseason_through_round){ if($('playoff-predictor')) { $('playoff-status').textContent=season.phase==='Complete' ? 'Season complete. Final results are on the Standings tab.' : 'Playoffs are underway. The official bracket is on the Standings tab.'; $('playoff-content').hidden=true; } return; }
   const el = (tag, text) => { const node = document.createElement(tag); if (text !== undefined) node.textContent = text; return node; };
   // Use the same exported ranks as the current standings table, independent of forecasts.
   // Fixed paths: 1/8 meets 4/5; 2/7 meets 3/6. No reseeding.
@@ -36,6 +38,7 @@
 
   if (!$('playoff-predictor')) return;
   const fail = text => { $('playoff-status').textContent = text; $('playoff-content').hidden = true; };
+  if(d?.league?.current_season_through_week < 2) return fail('Predictions begin after two completed weeks.');
   if (!p || !api || !p.model.means) return fail('Predictions are waiting for the remaining schedule.');
   const signature = d?.current_standings?.slice().sort((a,b) => a.owner_id.localeCompare(b.owner_id)).map(s => [s.owner_id,s.wins,s.losses,s.ties,s.points_for]);
   if (!d || d.validation_report?.status !== 'PASS' || p.season !== d.current_standings?.[0]?.year || p.through_week !== d.league.current_season_through_week || JSON.stringify(signature) !== JSON.stringify(p.standings_signature)) return fail('Predictions are being refreshed. Current standings are still available.');

@@ -22,11 +22,13 @@
     for (let w = 1; w <= week; w++) if (currentGames.filter(g => g.week === w).length !== season.team_count) throw new Error('Incomplete week');
     const seasonPairs = [...pairs.values()].filter(p => p[0].year === year && p[0].stage === 'Regular Season' && p[0].week <= week);
     const hasTies = standings.some(s => s.ties > 0);
-    const freshness = `${year} · Through Week ${week}`;
+    const phase=season.phase || 'Regular Season';
+    const freshness = phase === 'Complete' ? `${year} · Season complete` : phase === 'Postseason' ? `${year} · Playoffs · Week ${14+(season.postseason_through_round||0)}` : `${year} · Through Week ${week}`;
+    const phaseLabel=document.querySelector('.freshness span'); if(phaseLabel) phaseLabel.textContent=phase === 'Regular Season' ? 'Current season · In progress' : phase === 'Complete' ? 'Current season · Complete' : 'Current season · Playoffs';
     text('freshness',freshness); text('footer-freshness',`${freshness} · Read-only snapshot`);
     text('era-label',`${season.era.toUpperCase()} / ${year}`);
     text('standings-context',`${standings.length} teams · ${week} games per team`);
-    text('leaders-context',`${year} regular season · Through Week ${week} · In progress`);
+    text('leaders-context',`${year} regular season · Through Week ${week}${week === season.regular_season_weeks ? " · Final" : ""}`);
     $('tie-heading').hidden = !hasTies;
     const record = s => `${s.wins}–${s.losses}${hasTies ? `–${s.ties}` : ''}`;
     let sortKey = 'rank', direction = 1;
@@ -53,20 +55,22 @@
     $('reset-sort').addEventListener('click', () => { sortKey = 'rank'; direction = 1; renderStandings(); text('sort-status','Standings order restored.'); document.querySelector('th[data-sort="rank"] button').focus(); });
     const side = (owner,team,score,winner) => `<div class="matchup-side ${winner ? 'winner' : ''}"><div><strong>${esc(owner)}${winner ? '<span class="win-label">W</span>' : ''}</strong><span class="team-name">${esc(team)}</span></div><span class="score">${num(score)}</span></div>`;
     const weekSelect = $('scoreboard-week');
-    weekSelect.innerHTML = Array.from({length:week}, (_,i) => `<option value="${i+1}">Week ${i+1}</option>`).join('');
-    weekSelect.value = String(week);
+    const playoffRounds={15:'Quarterfinal',16:'Semifinal',17:'Championship'};
+    const latestResultWeek=season.postseason_through_round ? 14+season.postseason_through_round : week;
+    weekSelect.innerHTML = Array.from({length:week}, (_,i) => `<option value="${i+1}">Week ${i+1}</option>`).join('') + Array.from({length:season.postseason_through_round||0},(_,i)=>`<option value="${15+i}">${playoffRounds[15+i]} · Week ${15+i}</option>`).join('');
+    weekSelect.value = String(latestResultWeek);
     function renderScoreboard(selectedWeek) {
-      const weekGames = seasonPairs.filter(p => p[0].week === selectedWeek).map(p => p.find(g => g.result === 'W') || p[0]);
+      const weekGames = (selectedWeek>14 ? [...pairs.values()].filter(p=>p[0].year===year && p[0].stage==='Postseason' && p[0].round===playoffRounds[selectedWeek]) : seasonPairs.filter(p => p[0].week === selectedWeek)).map(p => p.find(g => g.result === 'W') || p[0]);
       const closest = Math.min(...weekGames.map(g => Math.abs(g.margin)));
-      text('results-title',`Week ${selectedWeek} results`);
+      text('results-title',selectedWeek>14?`${playoffRounds[selectedWeek]} results · Week ${selectedWeek}`:`Week ${selectedWeek} results`);
       $('matchups').innerHTML = weekGames.map(g => `<article class="matchup" data-game="${esc(g.game_id)}" aria-label="${esc(g.owner_name)} versus ${esc(g.opponent_owner_name)}"><div class="matchup-meta"><span>${g.result === 'T' ? 'Final · Tie' : Math.abs(g.margin) === closest ? 'Closest game' : 'Final'}</span><span class="margin-label">Margin ${num(Math.abs(g.margin))}</span></div>${side(g.owner_name,g.team,g.points_for,g.result === 'W')}${side(g.opponent_owner_name,g.opponent_team,g.points_against,false)}</article>`).join('');
       const weeklyTotal = weekGames.reduce((s,g) => s+g.points_for+g.points_against,0);
       $('week-summary').innerHTML = `<strong>${num(weeklyTotal)}</strong> total points · <strong>${num(weeklyTotal / (weekGames.length * 2))}</strong> per team`;
     }
-    renderScoreboard(week);
+    renderScoreboard(latestResultWeek);
     weekSelect.addEventListener('change', () => {
       const selectedWeek = Number(weekSelect.value);
-      if (Number.isInteger(selectedWeek) && selectedWeek >= 1 && selectedWeek <= week) renderScoreboard(selectedWeek);
+      if (Number.isInteger(selectedWeek) && selectedWeek >= 1 && selectedWeek <= latestResultWeek) renderScoreboard(selectedWeek);
     });
     function leadersBy(items,key) { const best = Math.max(...items.map(s => s[key])); return {best, rows:items.filter(s => s[key] === best)}; }
     const pf = leadersBy(standings,'points_for'), margin = leadersBy(standings,'average_margin'), high = leadersBy(currentGames,'points_for');
@@ -74,7 +78,7 @@
     $('leaders').innerHTML = leaderCard('Most points',num(pf.best),'season PF',pf.rows.map(s => owners.get(s.owner_id)).join(' / '),pf.rows.map(s => s.team).join(' / ')) + leaderCard('Best average margin',signed(margin.best),'per game',margin.rows.map(s => owners.get(s.owner_id)).join(' / '),margin.rows.map(s => s.team).join(' / ')) + leaderCard('Highest single score',num(high.best),'points',high.rows.map(g => g.owner_name).join(' / '),high.rows.map(g => `${g.team} · Week ${g.week}`).join(' / '));
     const analytics = window.buildSeasonAnalytics(d,season,week);
     text('bonus-note',`The top ${Math.floor(season.team_count/2)} scores earn an extra win; the bottom ${season.team_count-Math.floor(season.team_count/2)} receive an extra loss. Ranked by combined wins, then points for.`);
-    text('analytics-context',`${year} · Through Week ${week} · In progress`);
+    text('analytics-context',`${year} regular season · Through Week ${week}`);
     const ownerCell = s => `<td class="owner-cell"><strong>${esc(owners.get(s.owner_id))}</strong><span class="team-name">${esc(s.team)}</span></td>`;
     const movement = (row,i) => { const delta=row.rank-(i+1); return `<td class="numeric rank-change ${delta>0?'positive':delta<0?'negative':''}" aria-label="${delta>0?`Up ${delta}`:delta<0?`Down ${-delta}`:'No change'} from regular standings">${delta>0?`+${delta}`:delta<0?`−${-delta}`:'—'}</td>`; };
     $('bonus-body').innerHTML = analytics.bonus.map((s,i) => `<tr data-owner="${esc(s.owner_id)}"><td class="rank-number">${i+1}</td>${ownerCell(s)}${movement(s,i)}<td class="numeric">${record(s)}</td><td class="numeric">${s.bonus_wins}–${s.bonus_losses}</td><td class="numeric standing-record">${s.adjusted_wins}–${s.adjusted_losses}${s.ties ? `–${s.ties}` : ''}</td><td class="numeric">${num(s.points_for)}</td></tr>`).join('');

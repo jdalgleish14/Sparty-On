@@ -17,19 +17,22 @@
       const rows = currentGames.filter(g => g.week === w);
       if (rows.length !== season.team_count || new Set(rows.map(g => g.owner_id)).size !== season.team_count) throw new Error('Incomplete week');
     }
+    const postGames=d.games.filter(g=>g.year===season.year && g.stage==='Postseason');
+    const latestRound=season.postseason_through_round;
+    const shownGames=latestRound ? postGames.filter(g=>g.round===({1:'Quarterfinal',2:'Semifinal',3:'Championship'})[latestRound]) : currentGames.filter(g=>g.week===week);
     const pairs = new Map();
-    currentGames.filter(g => g.week === week).forEach(g => { if (!pairs.has(g.game_id)) pairs.set(g.game_id,[]); pairs.get(g.game_id).push(g); });
+    shownGames.forEach(g => { if (!pairs.has(g.game_id)) pairs.set(g.game_id,[]); pairs.get(g.game_id).push(g); });
     const games = [...pairs.values()].map(p => {
       if (p.length !== 2 || p[0].owner_id !== p[1].opponent_owner_id || p[1].owner_id !== p[0].opponent_owner_id || p[0].points_for !== p[1].points_against || p[1].points_for !== p[0].points_against || !Number.isFinite(p[0].points_for) || !Number.isFinite(p[0].points_against)) throw new Error('Game pair');
       return p.find(g => g.points_for > g.points_against) || p[0];
     });
-    if (games.length !== season.team_count/2 || !games.length) throw new Error('Matchups');
+    if (games.length !== (latestRound ? 2**(3-latestRound) : season.team_count/2) || !games.length) throw new Error('Matchups');
     const marginOf = g => Math.round(Math.abs(g.points_for-g.points_against)*100)/100;
     const closest = Math.min(...games.map(marginOf)), biggest = Math.max(...games.map(marginOf));
     const first = Math.min(...d.games.map(g => g.year));
     $('archive-years').textContent = `FANTASY FOOTBALL / EST. ${first}`;
-    $('home-freshness').textContent = `${season.year} · Through Week ${week} · Season in progress`;
-    $('ticker-title').textContent = `${season.year} · Week ${week}`;
+    $('home-freshness').textContent = season.phase === 'Complete' ? `${season.year} · Season complete` : latestRound ? `${season.year} · Playoffs · Week ${14+latestRound}` : `${season.year} · Through Week ${week} · Season in progress`;
+    $('ticker-title').textContent = latestRound ? `${season.year} · ${ {1:'Quarterfinals',2:'Semifinals',3:'Championship'}[latestRound]}` : `${season.year} · Week ${week}`;
     $('ticker-status').textContent = 'All games final';
     $('ticker-content').hidden = false;
     const stage = $('ticker-stage'), pause = $('ticker-pause'), leaders = $('ticker-leaders');
@@ -111,12 +114,12 @@
       if (!response.ok) throw new Error('Avatars unavailable');
       return response.json();
     }).then(manifest => {
-      if (manifest.league_id !== '1386532723459362816' || !Array.isArray(manifest.owners)) return;
+      if (manifest.league_id !== (d.league.sleeper_league_id || window.SPARTY_SLEEPER_SAMPLE?.league_id) || !Array.isArray(manifest.owners)) return;
       avatarVersion = typeof manifest.generated_at_utc === 'string' ? encodeURIComponent(manifest.generated_at_utc) : '';
       avatars = new Map(manifest.owners.map(row => [row.owner_id,row.image]));
       render();
     }).catch(() => { /* Published scores and initials remain available. */ });
-    if(window.SPARTY_SLEEPER)window.SPARTY_SLEEPER.completedWeek(season.year,week,currentGames.filter(g=>g.week===week)).then(rows=>{scorers=rows;renderLeaders(games[index]);});
+    if(!latestRound && window.SPARTY_SLEEPER)window.SPARTY_SLEEPER.completedWeek(season.year,week,currentGames.filter(g=>g.week===week)).then(rows=>{scorers=rows;renderLeaders(games[index]);});
   } catch (_) {
     $('ticker-content').hidden = true;
     $('ticker-status').textContent = 'Results unavailable. Run the exporter and verifier successfully to restore this snapshot.';

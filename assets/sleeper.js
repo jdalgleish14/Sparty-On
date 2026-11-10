@@ -2,7 +2,7 @@
 (() => {
   'use strict';
   const sample=window.SPARTY_SLEEPER_SAMPLE;
-  if(!sample||sample.league_id!=='1386532723459362816')return;
+  if(!sample||sample.season!==window.SPARTY_ON_DATA?.seasons?.find(s=>s.status==='Current')?.year|| (window.SPARTY_ON_DATA?.league?.sleeper_league_id && sample.league_id!==window.SPARTY_ON_DATA.league.sleeper_league_id))return;
   const ownerFor=roster=>Object.keys(sample.owner_roster).find(id=>sample.owner_roster[id]===roster);
   const player=id=>sample.players[String(id)]||{name:`Player ${id}`};
   function topScorers(row,limit=3){
@@ -12,7 +12,7 @@
     if(year!==sample.season)return null;
     try{
       let rows;
-      if(week===4)rows=sample.week4;
+      if(week===4 && Array.isArray(sample.week4))rows=sample.week4;
       else{
         const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000);
         try{
