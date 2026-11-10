@@ -46,15 +46,15 @@ test('Home cycles all 17 verbatim sayings and avoids the cycle-boundary repeat',
  for(let i=0;i<17;i++){x.button.dispatch('click');texts.push(x.bubble.children[0].textContent);}
  assert.equal(new Set(texts).size,17);
  assert.deepEqual(texts.slice().sort(), [
-  'Spartans Will', 'Fuck those Wolverines', 'Victory for MSU', 'MSU we love thy Shadows',
+  'Spartans Will', 'Fuck those Wolverines!', 'Victory for MSU!', 'MSU we love thy Shadows',
   'On the banks of the Red Cedar...', 'FTP', 'I miss Cassius Winston',
-  'Remember Schubby? What a cunt', 'What do you think happens after you die?',
-  "Rick's later?", 'I could use a beer', 'WOAH He has trouble with the snap',
-  'Touchdown MSU', 'He got it! He got it!', 'Pride comes before the fall',
+  'Remember Schubby? What a cunt.', 'What do you think happens after you die?',
+  'Rick’s later?', 'I could use a beer', 'WOAH He has trouble with the snap',
+  'Touchdown MSU!', 'He got it! He got it!', 'Pride comes before the fall',
   'Did you just touch my dick?',
   'A Michigan fan walks into a bar, what does the bartender say? Get the fuck out!'
  ].sort());
- assert.ok(texts.includes("Rick's later?"));
+ assert.ok(texts.includes('Rick’s later?'));
  assert.ok(texts.includes('A Michigan fan walks into a bar, what does the bartender say? Get the fuck out!'));
  const last=texts.at(-1);x.button.dispatch('click');assert.notEqual(x.bubble.children[0].textContent,last);
 });
@@ -65,10 +65,10 @@ test('Rapid taps replace immediately and restart four-second timer',()=>{
 });
 test('Records intro is fixed, then all 200 facts cycle without repeating',()=>{
  const x=setup({records:true});assert.equal(x.bubble.children[0].textContent,'Tap me for a random stat');
- x.advance(5999);assert.equal(x.bubble.hidden,false);x.advance(1);assert.equal(x.bubble.hidden,true);
+ x.advance(3999);assert.equal(x.bubble.hidden,false);x.advance(1);assert.equal(x.bubble.hidden,true);
  const texts=[];for(let i=0;i<200;i++){x.button.dispatch('click');texts.push(x.bubble.children[0].textContent);}
  assert.equal(new Set(texts).size,200);
- assert.equal(x.bubble.children[1].textContent,'Through 2026 Week 5');
+ assert.equal(x.bubble.children[1].textContent,`Through ${x.context.SPARTY_RECORDS.cutoff.year} Week ${x.context.SPARTY_RECORDS.cutoff.week}`);
  x.button.dispatch('click');assert.notEqual(texts.at(-1),x.bubble.children[0].textContent);
 });
 test('Home and Records queues are independent',()=>{
@@ -79,7 +79,7 @@ test('Home and Records queues are independent',()=>{
 });
 test('Invalid and retained older collections are handled safely',()=>{
  const broken=setup({records:true,broken:true});broken.button.dispatch('click');assert.match(broken.bubble.children[0].textContent,/breather/);
- const stale=setup({records:true,stale:true});stale.button.dispatch('click');assert.equal(stale.bubble.children[1].textContent,'Historical snapshot · 2026 Week 5');
+ const stale=setup({records:true,stale:true});stale.button.dispatch('click');assert.equal(stale.bubble.children[1].textContent,`Historical snapshot · ${stale.context.SPARTY_RECORDS.cutoff.year} Week ${stale.context.SPARTY_RECORDS.cutoff.week}`);
 });
 test('Bubble placement stays within 320/390/768px viewports and below navigation',()=>{
  for(const width of [320,390,768]){
