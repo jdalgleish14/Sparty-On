@@ -84,6 +84,7 @@ class Counts(unittest.TestCase):
             with self.assertRaises(ValueError):
                 count_transactions(batches,[1])
 
+    @patch.object(sync, 'ROOT', Path(__file__).resolve().parents[1] / 'sleeper/tests/frozen')
     def test_full_fetch_and_week_zero(self):
         calls=[]
         def fetch(path):

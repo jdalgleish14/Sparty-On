@@ -119,6 +119,9 @@ def build(fetch=get_json, now=utc_now):
     users = {u['user_id']: u for u in fetch(f'/league/{league_id}/users')}
     if {str(r['roster_id']) for r in rosters} != set(config['rosters']):
         raise ValueError('Roster map mismatch')
+    pinned = config.get('sleeper_user_ids', {})
+    if pinned and any(pinned.get(str(r['roster_id'])) != r.get('owner_id') for r in rosters):
+        raise ValueError('Sleeper ownership differs from pinned accounts; review owner mapping')
     # Include week 0 and every NFL leg, independent of the published scoring cutoff.
     batches = [fetch(f'/league/{league_id}/transactions/{week}') for week in range(0, 19)]
     totals = count_transactions(batches, config['rosters'])
