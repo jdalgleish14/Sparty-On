@@ -1,3 +1,8 @@
+> Season automation update: the scheduled workflow now uses `tools/sleeper/season_sync.py`.
+> It supports championship playoffs and linked-season rollover. See [season-automation.md](season-automation.md)
+> for the current operation and recovery guide. The older `sync.py run` command remains
+> a regular-season diagnostic utility; its original limitations below do not describe the new scheduled updater.
+
 # Sleeper weekly update automation
 
 After the one-time setup PR is merged, scheduled GitHub Actions runs publish a new completed
