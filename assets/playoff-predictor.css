@@ -56,8 +56,12 @@
 @media(max-width:680px){#playoff-predictor{padding:15px}.playoff-team-picker{flex-wrap:wrap;gap:10px}.playoff-team-picker select{flex:1;min-width:170px}.playoff-cards{gap:18px;padding:15px}.playoff-cards>div{min-width:105px}.playoff-cards strong{font-size:1.4rem}.playoff-block>.section-heading{flex-wrap:wrap}#scenario-games label{align-items:flex-start;flex-direction:column;gap:6px}#scenario-games select{width:100%}.rooting-recommendation>button{margin-left:0}}
 
 /* Connected playoff paths; each pair feeds the next round. */
-.projected-bracket{margin-top:24px}
-#projected-bracket:not([hidden]){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;margin-top:26px}
+.projected-bracket{margin-top:24px;min-width:0}
+.projected-bracket #bracket-status{margin:10px 22px 0}
+.bracket-scroll{overflow-x:auto;overscroll-behavior-x:contain;padding:24px 22px 28px;scroll-padding-inline:22px}
+.bracket-scroll:focus-visible{outline:2px solid var(--accent);outline-offset:-4px}
+.bracket-scroll-hint{display:none}
+#projected-bracket:not([hidden]){display:grid;grid-template-columns:repeat(3,minmax(240px,1fr));gap:40px;margin:0;padding:4px;min-width:808px}
 .bracket-round{min-width:0}
 .bracket-round h3{font-size:14px;margin:0;letter-spacing:.04em}
 .bracket-round>p{font-size:11px;color:var(--muted);margin:6px 0 20px;text-transform:uppercase;letter-spacing:.1em}
@@ -76,11 +80,9 @@
 .bracket-round:nth-child(2) .bracket-match:after{height:calc(130px + 10px)}
 .bracket-round:not(:first-child) .bracket-match:before{content:"";position:absolute;right:100%;top:50%;width:20px;border-top:2px solid var(--line)}
 @media(max-width:760px){
- #projected-bracket:not([hidden]){grid-template-columns:1fr;gap:28px}
- .bracket-games{height:auto;grid-template-rows:none;gap:12px}
- .bracket-round:nth-child(n) .bracket-match{grid-row:auto}
- .bracket-round .bracket-match:after,.bracket-round .bracket-match:before{display:none}
- .bracket-round+.bracket-round{border-top:1px solid var(--line);padding-top:20px}
+ .projected-bracket #bracket-status{margin-inline:16px}
+ .bracket-scroll{padding:18px 16px 24px;scroll-padding-inline:16px}
+ .bracket-scroll-hint{display:block;margin:12px 16px 0;font-size:11px;color:var(--muted)}
 }
 
 .bracket-score{margin-left:auto;font-variant-numeric:tabular-nums}
