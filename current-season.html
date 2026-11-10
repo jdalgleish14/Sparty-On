@@ -25,7 +25,7 @@
 <script type="text/plain" data-sparty-src="assets/postseason.js?v=1"></script>
 <script type="text/plain" data-sparty-src="assets/playoff-predictor.js?v=7"></script>
 <script src="assets/data-refresh.js?v=20261109-playoff-cache" defer></script>
-<link rel="stylesheet" href="assets/season-sections.css?v=20261028"><link rel="stylesheet" href="assets/playoff-predictor.css?v=7"></head>
+<link rel="stylesheet" href="assets/season-sections.css?v=20261028"><link rel="stylesheet" href="assets/playoff-predictor.css?v=8"></head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to standings</a>
   <header class="masthead">
@@ -57,7 +57,8 @@
         </section><section class="panel projected-bracket" aria-labelledby="bracket-title">
           <div class="section-heading"><h2 id="bracket-title">Playoff bracket</h2><span class="chip">Weeks 15–17</span></div>
           <p id="bracket-status" class="analytics-note" role="status">Waiting for current standings…</p>
-          <div id="projected-bracket" hidden></div>
+          <p class="bracket-scroll-hint">Swipe to follow the bracket →</p>
+          <div class="bracket-scroll" tabindex="0" role="region" aria-label="Playoff bracket; scroll horizontally to see all rounds"><div id="projected-bracket" hidden></div></div>
         </section><section class="leaders-section" aria-labelledby="leaders-title"><div class="section-line"><h2 id="leaders-title">Setting the pace</h2><p id="leaders-context"></p></div><div class="leaders-grid" id="leaders"></div></section><section class="panel race-panel" id="race-section" aria-labelledby="race-heading" hidden>
         <div class="section-heading"><div><h2 id="race-heading">Standings race</h2></div><span class="chip" id="race-context"></span></div>
         <p class="race-intro">See how each team's regular-season standing changed. Drag the slider beneath the chart or press Play to watch the race.</p>
