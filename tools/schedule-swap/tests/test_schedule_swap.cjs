@@ -25,7 +25,10 @@ const scenario = (analysis,a,b) => analysis.teams.find(t => t.owner_id===a).scen
 
 test('every real snapshot cell agrees with an independent full-fixture swap', () => {
   const result = build(data), mapping = json('site-data/sleeper/owner_map.json').rosters;
-  const raw = Array.from({length:result.weeks}, (_,i) => json(`site-data/sleeper/raw/week-${String(i+1).padStart(2,'0')}.json`));
+  const raw = Array.from({length:result.weeks}, (_,i) => {
+    const scoped=`site-data/sleeper/raw/${result.year}/week-${String(i+1).padStart(2,'0')}.json`;
+    return json(fs.existsSync(path.join(root,scoped))?scoped:`site-data/sleeper/raw/week-${String(i+1).padStart(2,'0')}.json`);
+  });
   let substitutions = 0;
   for (const team of result.teams) for (const borrowed of result.teams) {
     const expected = {wins:0,losses:0,ties:0};
