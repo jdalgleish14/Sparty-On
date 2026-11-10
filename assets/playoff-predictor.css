@@ -54,3 +54,24 @@
 #playoff-predictor .stat-help{margin-top:16px;padding:16px 0 0}
 #playoff-predictor .stat-help p{font-size:12px;max-width:80ch}
 @media(max-width:680px){#playoff-predictor{padding:15px}.playoff-team-picker{flex-wrap:wrap;gap:10px}.playoff-team-picker select{flex:1;min-width:170px}.playoff-cards{gap:18px;padding:15px}.playoff-cards>div{min-width:105px}.playoff-cards strong{font-size:1.4rem}.playoff-block>.section-heading{flex-wrap:wrap}#scenario-games label{align-items:flex-start;flex-direction:column;gap:6px}#scenario-games select{width:100%}.rooting-recommendation>button{margin-left:0}}
+
+/* Fixed playoff paths, with rounds stacked on small screens. */
+.projected-bracket{margin-top:24px}
+#projected-bracket:not([hidden]){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:22px}
+.bracket-round{min-width:0}
+.bracket-round h3{font-size:15px;margin:0}
+.bracket-round>p{font-size:12px;color:var(--muted);margin:5px 0 16px}
+.bracket-games{display:grid;grid-template-rows:repeat(4,1fr);gap:14px;height:480px}
+.bracket-round:nth-child(2) .bracket-match{grid-row:span 2;align-self:center}
+.bracket-round:nth-child(3) .bracket-match{grid-row:span 4;align-self:center}
+.bracket-match{border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:10px 12px;min-width:0;width:100%;box-sizing:border-box;position:relative}
+.bracket-match h4{font-size:11px;font-weight:500;color:var(--muted);margin:0 0 6px}
+.bracket-team{display:flex;align-items:center;gap:9px;min-height:27px;font-size:13px;overflow-wrap:anywhere}
+.bracket-seed{color:var(--accent);font-weight:750;min-width:18px}
+.bracket-round:not(:last-child) .bracket-match:after{content:"";position:absolute;right:-29px;top:50%;width:28px;border-top:1px solid var(--line)}
+@media(max-width:650px){
+ #projected-bracket:not([hidden]){grid-template-columns:1fr;gap:24px}
+ .bracket-games{height:auto;grid-template-rows:none;gap:12px}
+ .bracket-round:nth-child(n) .bracket-match{grid-row:auto}
+ .bracket-round:not(:last-child) .bracket-match:after{display:none}
+}
