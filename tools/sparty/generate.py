@@ -93,7 +93,7 @@ def validate_source(site):
         result = 'W' if difference > 0 else 'L' if difference < 0 else 'T'
         if g['result'] != result or cents(g['margin']) != difference:
             raise ValueError('Result/margin contradicts score')
-        if season['status'] == 'Current' and (g['stage'] != 'Regular Season' or not 1 <= g['week'] <= cutoff):
+        if season['status'] == 'Current' and g['stage'] == 'Regular Season' and not 1 <= g['week'] <= cutoff:
             raise ValueError('Unpublished current-season game')
         if g['stage'] == 'Regular Season':
             if not isinstance(g['week'], int) or not 1 <= g['week'] <= season['regular_season_weeks']:
@@ -120,7 +120,7 @@ def validate_source(site):
                 raise ValueError(f'Incomplete week {year}/{week}')
     for champ in site['championships']:
         rows = [g for g in site['games'] if g['year'] == champ['year'] and g['round'] == 'Championship']
-        if seasons[champ['year']]['status'] != 'Complete' or len(rows) != 2 or not any(g['owner_id'] == champ['champion_owner_id'] and g['opponent_owner_id'] == champ['runner_up_owner_id'] and g['result'] == 'W' and g['points_for'] == champ['champion_score'] and g['points_against'] == champ['runner_up_score'] for g in rows):
+        if (seasons[champ['year']]['status'] != 'Complete' and seasons[champ['year']].get('phase') != 'Complete') or len(rows) != 2 or not any(g['owner_id'] == champ['champion_owner_id'] and g['opponent_owner_id'] == champ['runner_up_owner_id'] and g['result'] == 'W' and g['points_for'] == champ['champion_score'] and g['points_against'] == champ['runner_up_score'] for g in rows):
             raise ValueError('Unverified championship')
     return seasons, weeks
 
