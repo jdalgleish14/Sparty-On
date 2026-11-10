@@ -55,23 +55,30 @@
 #playoff-predictor .stat-help p{font-size:12px;max-width:80ch}
 @media(max-width:680px){#playoff-predictor{padding:15px}.playoff-team-picker{flex-wrap:wrap;gap:10px}.playoff-team-picker select{flex:1;min-width:170px}.playoff-cards{gap:18px;padding:15px}.playoff-cards>div{min-width:105px}.playoff-cards strong{font-size:1.4rem}.playoff-block>.section-heading{flex-wrap:wrap}#scenario-games label{align-items:flex-start;flex-direction:column;gap:6px}#scenario-games select{width:100%}.rooting-recommendation>button{margin-left:0}}
 
-/* Fixed playoff paths, with rounds stacked on small screens. */
+/* Connected playoff paths; each pair feeds the next round. */
 .projected-bracket{margin-top:24px}
-#projected-bracket:not([hidden]){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:22px}
+#projected-bracket:not([hidden]){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;margin-top:26px}
 .bracket-round{min-width:0}
-.bracket-round h3{font-size:15px;margin:0}
-.bracket-round>p{font-size:12px;color:var(--muted);margin:5px 0 16px}
-.bracket-games{display:grid;grid-template-rows:repeat(4,1fr);gap:14px;height:480px}
+.bracket-round h3{font-size:14px;margin:0;letter-spacing:.04em}
+.bracket-round>p{font-size:11px;color:var(--muted);margin:6px 0 20px;text-transform:uppercase;letter-spacing:.1em}
+.bracket-games{display:grid;grid-template-rows:repeat(4,1fr);gap:16px;height:520px}
 .bracket-round:nth-child(2) .bracket-match{grid-row:span 2;align-self:center}
 .bracket-round:nth-child(3) .bracket-match{grid-row:span 4;align-self:center}
-.bracket-match{border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:10px 12px;min-width:0;width:100%;box-sizing:border-box;position:relative}
-.bracket-match h4{font-size:11px;font-weight:500;color:var(--muted);margin:0 0 6px}
-.bracket-team{display:flex;align-items:center;gap:9px;min-height:27px;font-size:13px;overflow-wrap:anywhere}
-.bracket-seed{color:var(--accent);font-weight:750;min-width:18px}
-.bracket-round:not(:last-child) .bracket-match:after{content:"";position:absolute;right:-29px;top:50%;width:28px;border-top:1px solid var(--line)}
-@media(max-width:650px){
- #projected-bracket:not([hidden]){grid-template-columns:1fr;gap:24px}
+.bracket-match{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:12px;background:var(--paper);padding:10px 12px;min-width:0;width:100%;box-sizing:border-box;position:relative;box-shadow:0 4px 14px #00000008}
+.bracket-match h4{font-size:10px;font-weight:600;color:var(--muted);margin:0 0 7px;text-transform:uppercase;letter-spacing:.08em}
+.bracket-team{display:flex;align-items:center;gap:10px;min-height:30px;font-size:13px;overflow-wrap:anywhere}
+.bracket-team+.bracket-team{border-top:1px solid var(--line);margin-top:4px;padding-top:4px}
+.bracket-seed{display:inline-grid;place-items:center;color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent);border-radius:6px;font-size:11px;font-weight:750;min-width:24px;height:24px}
+.bracket-round:last-child .bracket-match{border:1px solid var(--accent);border-top:4px solid var(--accent);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 7%,var(--paper)),var(--paper));padding:16px 14px;box-shadow:0 8px 24px #0000000d}
+.bracket-round:last-child .bracket-match h4{color:var(--accent)}
+.bracket-round:not(:last-child) .bracket-match:after{content:"";position:absolute;left:100%;top:50%;width:20px;height:calc(50% + 10px);border-top:2px solid var(--line);border-right:2px solid var(--line);border-radius:0 8px 0 0;pointer-events:none}
+.bracket-round:not(:last-child) .bracket-match:nth-child(even):after{top:auto;bottom:50%;border-top:0;border-bottom:2px solid var(--line);border-radius:0 0 8px 0}
+.bracket-round:nth-child(2) .bracket-match:after{height:calc(130px + 10px)}
+.bracket-round:not(:first-child) .bracket-match:before{content:"";position:absolute;right:100%;top:50%;width:20px;border-top:2px solid var(--line)}
+@media(max-width:760px){
+ #projected-bracket:not([hidden]){grid-template-columns:1fr;gap:28px}
  .bracket-games{height:auto;grid-template-rows:none;gap:12px}
  .bracket-round:nth-child(n) .bracket-match{grid-row:auto}
- .bracket-round:not(:last-child) .bracket-match:after{display:none}
+ .bracket-round .bracket-match:after,.bracket-round .bracket-match:before{display:none}
+ .bracket-round+.bracket-round{border-top:1px solid var(--line);padding-top:20px}
 }

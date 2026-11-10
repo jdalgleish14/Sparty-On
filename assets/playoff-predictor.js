@@ -2,27 +2,12 @@
   'use strict';
   const $ = id => document.getElementById(id);
   const p = window.SPARTY_PLAYOFFS, d = window.SPARTY_ON_DATA, api = window.SpartyScenarios;
-  if (!$('playoff-predictor')) return;
   const el = (tag, text) => { const node = document.createElement(tag); if (text !== undefined) node.textContent = text; return node; };
-  const fail = text => { $('playoff-status').textContent = text; $('playoff-content').hidden = true; if ($('bracket-status')) $('bracket-status').textContent = text; };
-  if (!p || !api || !p.model.means) return fail('Predictions are waiting for the remaining schedule.');
-  const signature = d?.current_standings?.slice().sort((a,b) => a.owner_id.localeCompare(b.owner_id)).map(s => [s.owner_id,s.wins,s.losses,s.ties,s.points_for]);
-  if (!d || d.validation_report?.status !== 'PASS' || p.season !== d.current_standings?.[0]?.year || p.through_week !== d.league.current_season_through_week || JSON.stringify(signature) !== JSON.stringify(p.standings_signature)) return fail('Predictions are being refreshed. Current standings are still available.');
-  const ids = p.standings_signature.map(s => s[0]);
-  const scoreSignature = Array.from({length:p.through_week}, (_,w) => ids.map(id => d.games.find(g => g.year === p.season && g.stage === 'Regular Season' && g.week === w+1 && g.owner_id === id)?.points_for));
-  if (JSON.stringify(scoreSignature) !== JSON.stringify(p.score_signature)) return fail('Predictions are being refreshed after a score correction.');
-  const names = Object.fromEntries(p.teams.map(r => [r.owner_id,r.owner]));
-  const name = id => names[id];
-  const pct = x => x < .001 ? '<0.1%' : x > .999 ? '>99.9%' : (100*x).toFixed(1)+'%';
-  const row = (body, values) => { const tr = el('tr'); values.forEach(v => tr.append(el('td',v))); body.append(tr); return tr; };
-  let picks = {}, baseline = null, bank = null, dirty = false, computing = false, version = 0, timer;
-  const controls = new Map(), weeks = new Map();
-
-  // One distinct team per seed, ordered by the forecast's average finish.
+  // Use the same exported ranks as the current standings table, independent of forecasts.
   // Fixed paths: 1/8 meets 4/5; 2/7 meets 3/6. No reseeding.
-  if ($('projected-bracket')) {
+  if ($('projected-bracket') && d?.validation_report?.status === 'PASS') {
     const bracket = $('projected-bracket');
-    const seeded = [...p.teams].sort((a,b) => a.average_seed-b.average_seed || b.projected_wins-a.projected_wins || a.owner_id.localeCompare(b.owner_id)).slice(0,8);
+    const seeded = [...(d.current_standings || [])].sort((a,b) => a.rank-b.rank).slice(0,8);
     if (seeded.length === 8) {
       const rounds = [['Quarterfinals',15],['Semifinals',16],['Championship',17]].map(([title,week]) => {
         const section = el('section'); section.className = 'bracket-round';
@@ -40,14 +25,29 @@
         }
         round.append(game);
       };
-      [[1,8],[4,5],[2,7],[3,6]].forEach((pair,i) => match(rounds[0],'Game '+(i+1),pair.map(seed => [seed,seeded[seed-1].owner])));
+      [[1,8],[4,5],[2,7],[3,6]].forEach((pair,i) => match(rounds[0],'Game '+(i+1),pair.map(seed => [seed,d.owners.find(o => o.owner_id === seeded[seed-1].owner_id)?.owner_name || seeded[seed-1].team])));
       match(rounds[1],'Semifinal 1',[[null,'Winner of Game 1'],[null,'Winner of Game 2']]);
       match(rounds[1],'Semifinal 2',[[null,'Winner of Game 3'],[null,'Winner of Game 4']]);
       match(rounds[2],'Final',[[null,'Winner of Semifinal 1'],[null,'Winner of Semifinal 2']]);
-      $('bracket-status').textContent = 'Seeds based on average projected finish through Week '+p.through_week+'. No byes or reseeding.';
+      $('bracket-status').textContent = 'If the season ended today · Standings through Week '+d.league.current_season_through_week;
       bracket.hidden = false;
-    } else $('bracket-status').textContent = 'Bracket is waiting for a complete forecast.';
+    } else $('bracket-status').textContent = 'Bracket is waiting for complete current standings.';
   }
+
+  if (!$('playoff-predictor')) return;
+  const fail = text => { $('playoff-status').textContent = text; $('playoff-content').hidden = true; };
+  if (!p || !api || !p.model.means) return fail('Predictions are waiting for the remaining schedule.');
+  const signature = d?.current_standings?.slice().sort((a,b) => a.owner_id.localeCompare(b.owner_id)).map(s => [s.owner_id,s.wins,s.losses,s.ties,s.points_for]);
+  if (!d || d.validation_report?.status !== 'PASS' || p.season !== d.current_standings?.[0]?.year || p.through_week !== d.league.current_season_through_week || JSON.stringify(signature) !== JSON.stringify(p.standings_signature)) return fail('Predictions are being refreshed. Current standings are still available.');
+  const ids = p.standings_signature.map(s => s[0]);
+  const scoreSignature = Array.from({length:p.through_week}, (_,w) => ids.map(id => d.games.find(g => g.year === p.season && g.stage === 'Regular Season' && g.week === w+1 && g.owner_id === id)?.points_for));
+  if (JSON.stringify(scoreSignature) !== JSON.stringify(p.score_signature)) return fail('Predictions are being refreshed after a score correction.');
+  const names = Object.fromEntries(p.teams.map(r => [r.owner_id,r.owner]));
+  const name = id => names[id];
+  const pct = x => x < .001 ? '<0.1%' : x > .999 ? '>99.9%' : (100*x).toFixed(1)+'%';
+  const row = (body, values) => { const tr = el('tr'); values.forEach(v => tr.append(el('td',v))); body.append(tr); return tr; };
+  let picks = {}, baseline = null, bank = null, dirty = false, computing = false, version = 0, timer;
+  const controls = new Map(), weeks = new Map();
 
   // The published league forecast is visible immediately, before choosing a team.
   for (const r of p.teams) {
