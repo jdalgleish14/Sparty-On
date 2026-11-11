@@ -3,7 +3,7 @@
   "max_pf_through_week": 9,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-11-10T20:44:49+00:00",
+  "fetched_at_utc": "2026-11-11T21:11:29+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -31,11 +31,34 @@
       "roster_id": 1,
       "owner_id": "owner-nick",
       "team": "Fresh & Explosive",
-      "total": 12,
+      "total": 13,
       "trades": 7,
-      "free_agents": 4,
+      "free_agents": 5,
       "waivers": 1,
       "history": [
+        {
+          "transaction_id": "1426330789502545920",
+          "type": "free_agent",
+          "timestamp_ms": 1794426269463,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12494",
+              "label": "Kyle McCord",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "6806",
+              "label": "J.K. Dobbins",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1425198187668320256",
           "type": "trade",
@@ -375,11 +398,80 @@
       "roster_id": 2,
       "owner_id": "owner-ryan",
       "team": "Homegrown",
-      "total": 31,
+      "total": 34,
       "trades": 9,
-      "free_agents": 16,
-      "waivers": 6,
+      "free_agents": 18,
+      "waivers": 7,
       "history": [
+        {
+          "transaction_id": "1426324175613624320",
+          "type": "free_agent",
+          "timestamp_ms": 1794424692589,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "6803",
+              "label": "Brandon Aiyuk",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11638",
+              "label": "Ricky Pearsall",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1426322806936711168",
+          "type": "free_agent",
+          "timestamp_ms": 1794424366271,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11638",
+              "label": "Ricky Pearsall",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11637",
+              "label": "Keon Coleman",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1426100536561659904",
+          "type": "waiver",
+          "timestamp_ms": 1794384730636,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12492",
+              "label": "Pat Bryant",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "5872",
+              "label": "Deebo Samuel Sr.",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1424809911413456896",
           "type": "free_agent",
@@ -1194,11 +1286,57 @@
       "roster_id": 3,
       "owner_id": "owner-tj",
       "team": "Motor City Dan Campbell",
-      "total": 13,
+      "total": 15,
       "trades": 2,
       "free_agents": 10,
-      "waivers": 1,
+      "waivers": 3,
       "history": [
+        {
+          "transaction_id": "1425654924804358144",
+          "type": "waiver",
+          "timestamp_ms": 1794384730636,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "9502",
+              "label": "Tank Dell",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12493",
+              "label": "Oronde Gadsden",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1425654806856343552",
+          "type": "waiver",
+          "timestamp_ms": 1794384730636,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12718",
+              "label": "Konata Mumpfield",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "3286",
+              "label": "Demarcus Robinson",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1425856312364789760",
           "type": "trade",
@@ -1884,11 +2022,27 @@
       "roster_id": 6,
       "owner_id": "owner-kyle",
       "team": "Return of the Mc\u2019s",
-      "total": 23,
+      "total": 24,
       "trades": 4,
-      "free_agents": 16,
+      "free_agents": 17,
       "waivers": 3,
       "history": [
+        {
+          "transaction_id": "1426204912819138560",
+          "type": "free_agent",
+          "timestamp_ms": 1794396258123,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11579",
+              "label": "Audric Estime",
+              "position": "RB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1425856312364789760",
           "type": "trade",
@@ -2428,11 +2582,57 @@
       "roster_id": 7,
       "owner_id": "owner-wilson",
       "team": "Willie\u2019s Chubb",
-      "total": 13,
+      "total": 15,
       "trades": 2,
-      "free_agents": 5,
-      "waivers": 6,
+      "free_agents": 6,
+      "waivers": 7,
       "history": [
+        {
+          "transaction_id": "1426157049569370112",
+          "type": "free_agent",
+          "timestamp_ms": 1794384846635,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "4017",
+              "label": "Deshaun Watson",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "8161",
+              "label": "Malik Willis",
+              "position": "QB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1426150960337530880",
+          "type": "waiver",
+          "timestamp_ms": 1794384730636,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "1479",
+              "label": "Keenan Allen",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11625",
+              "label": "Adonai Mitchell",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1422991720135561216",
           "type": "waiver",
@@ -2753,11 +2953,34 @@
       "roster_id": 8,
       "owner_id": "owner-tyler",
       "team": "Porritt Drink It Chase It",
-      "total": 8,
+      "total": 9,
       "trades": 1,
       "free_agents": 4,
-      "waivers": 3,
+      "waivers": 4,
       "history": [
+        {
+          "transaction_id": "1426108308099432470",
+          "type": "waiver",
+          "timestamp_ms": 1794384730636,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12491",
+              "label": "Corey Kiner",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "6011",
+              "label": "Gardner Minshew II",
+              "position": "QB"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1423453580282662912",
           "type": "waiver",
@@ -3289,11 +3512,27 @@
       "roster_id": 11,
       "owner_id": "owner-jack",
       "team": "Touchy Time",
-      "total": 10,
+      "total": 11,
       "trades": 4,
-      "free_agents": 3,
+      "free_agents": 4,
       "waivers": 3,
       "history": [
+        {
+          "transaction_id": "1426346108560347136",
+          "type": "free_agent",
+          "timestamp_ms": 1794429921811,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13270",
+              "label": "CJ Daniels",
+              "position": "WR"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1425198187668320256",
           "type": "trade",
@@ -3535,11 +3774,57 @@
       "roster_id": 12,
       "owner_id": "owner-andres",
       "team": "2 Much Salsa ",
-      "total": 38,
+      "total": 40,
       "trades": 7,
       "free_agents": 22,
-      "waivers": 9,
+      "waivers": 11,
       "history": [
+        {
+          "transaction_id": "1425895236432822272",
+          "type": "waiver",
+          "timestamp_ms": 1794384730636,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12524",
+              "label": "Shedeur Sanders",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "6130",
+              "label": "Devin Singletary",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1425865160219709440",
+          "type": "waiver",
+          "timestamp_ms": 1794384730636,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "3257",
+              "label": "Jacoby Brissett",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "7600",
+              "label": "Pat Freiermuth",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1423763704620539904",
           "type": "free_agent",
@@ -4403,5 +4688,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-11-10T20:44:49+00:00"
+  "checked_at_utc": "2026-11-11T21:11:29+00:00"
 }
