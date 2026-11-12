@@ -3,7 +3,7 @@
   "max_pf_through_week": 9,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-11-11T21:11:29+00:00",
+  "fetched_at_utc": "2026-11-12T21:23:02+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -398,11 +398,34 @@
       "roster_id": 2,
       "owner_id": "owner-ryan",
       "team": "Homegrown",
-      "total": 34,
+      "total": 35,
       "trades": 9,
-      "free_agents": 18,
+      "free_agents": 19,
       "waivers": 7,
       "history": [
+        {
+          "transaction_id": "1426622076185251840",
+          "type": "free_agent",
+          "timestamp_ms": 1794495717621,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12502",
+              "label": "Gunnar Helm",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "6803",
+              "label": "Brandon Aiyuk",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1426324175613624320",
           "type": "free_agent",
@@ -2022,11 +2045,34 @@
       "roster_id": 6,
       "owner_id": "owner-kyle",
       "team": "Return of the Mc\u2019s",
-      "total": 24,
+      "total": 25,
       "trades": 4,
-      "free_agents": 17,
+      "free_agents": 18,
       "waivers": 3,
       "history": [
+        {
+          "transaction_id": "1426715403463192576",
+          "type": "free_agent",
+          "timestamp_ms": 1794517968577,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "3214",
+              "label": "Hunter Henry",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "9482",
+              "label": "Michael Mayer",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1426204912819138560",
           "type": "free_agent",
@@ -4688,5 +4734,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-11-11T21:11:29+00:00"
+  "checked_at_utc": "2026-11-12T21:23:02+00:00"
 }
