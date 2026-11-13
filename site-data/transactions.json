@@ -3,7 +3,7 @@
   "max_pf_through_week": 9,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-11-12T21:23:02+00:00",
+  "fetched_at_utc": "2026-11-13T20:49:34+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -31,11 +31,34 @@
       "roster_id": 1,
       "owner_id": "owner-nick",
       "team": "Fresh & Explosive",
-      "total": 13,
+      "total": 14,
       "trades": 7,
       "free_agents": 5,
-      "waivers": 1,
+      "waivers": 2,
       "history": [
+        {
+          "transaction_id": "1426330990304825344",
+          "type": "waiver",
+          "timestamp_ms": 1794554527836,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "5872",
+              "label": "Deebo Samuel Sr.",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13150",
+              "label": "Darius Cooper",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1426330789502545920",
           "type": "free_agent",
@@ -398,11 +421,34 @@
       "roster_id": 2,
       "owner_id": "owner-ryan",
       "team": "Homegrown",
-      "total": 35,
+      "total": 36,
       "trades": 9,
       "free_agents": 19,
-      "waivers": 7,
+      "waivers": 8,
       "history": [
+        {
+          "transaction_id": "1426666219401904128",
+          "type": "waiver",
+          "timestamp_ms": 1794554527836,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "8161",
+              "label": "Malik Willis",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13288",
+              "label": "Nicholas Singleton",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1426622076185251840",
           "type": "free_agent",
@@ -4734,5 +4780,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-11-12T21:23:02+00:00"
+  "checked_at_utc": "2026-11-13T20:49:34+00:00"
 }
