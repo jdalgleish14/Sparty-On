@@ -3,7 +3,7 @@
   "max_pf_through_week": 9,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-11-13T20:49:34+00:00",
+  "fetched_at_utc": "2026-11-15T19:39:28+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -31,11 +31,34 @@
       "roster_id": 1,
       "owner_id": "owner-nick",
       "team": "Fresh & Explosive",
-      "total": 14,
+      "total": 15,
       "trades": 7,
-      "free_agents": 5,
+      "free_agents": 6,
       "waivers": 2,
       "history": [
+        {
+          "transaction_id": "1427730486590996480",
+          "type": "free_agent",
+          "timestamp_ms": 1794759983254,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11610",
+              "label": "Malik Washington",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "5849",
+              "label": "Kyler Murray",
+              "position": "QB"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1426330990304825344",
           "type": "waiver",
@@ -421,11 +444,71 @@
       "roster_id": 2,
       "owner_id": "owner-ryan",
       "team": "Homegrown",
-      "total": 36,
-      "trades": 9,
-      "free_agents": 19,
+      "total": 38,
+      "trades": 10,
+      "free_agents": 20,
       "waivers": 8,
       "history": [
+        {
+          "transaction_id": "1427453691933249536",
+          "type": "free_agent",
+          "timestamp_ms": 1794693990265,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11625",
+              "label": "Adonai Mitchell",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12492",
+              "label": "Pat Bryant",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1427395049389314048",
+          "type": "trade",
+          "timestamp_ms": 1794693598262,
+          "partners": [
+            "Motor City Dan Campbell"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12718",
+              "label": "Konata Mumpfield",
+              "position": "WR"
+            },
+            {
+              "kind": "player",
+              "player_id": "9493",
+              "label": "Puka Nacua",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13337",
+              "label": "Emmett Johnson",
+              "position": "RB"
+            },
+            {
+              "kind": "player",
+              "player_id": "8112",
+              "label": "Drake London",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1426666219401904128",
           "type": "waiver",
@@ -1355,11 +1438,48 @@
       "roster_id": 3,
       "owner_id": "owner-tj",
       "team": "Motor City Dan Campbell",
-      "total": 15,
-      "trades": 2,
+      "total": 16,
+      "trades": 3,
       "free_agents": 10,
       "waivers": 3,
       "history": [
+        {
+          "transaction_id": "1427395049389314048",
+          "type": "trade",
+          "timestamp_ms": 1794693598262,
+          "partners": [
+            "Homegrown"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13337",
+              "label": "Emmett Johnson",
+              "position": "RB"
+            },
+            {
+              "kind": "player",
+              "player_id": "8112",
+              "label": "Drake London",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12718",
+              "label": "Konata Mumpfield",
+              "position": "WR"
+            },
+            {
+              "kind": "player",
+              "player_id": "9493",
+              "label": "Puka Nacua",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1425654924804358144",
           "type": "waiver",
@@ -2674,11 +2794,34 @@
       "roster_id": 7,
       "owner_id": "owner-wilson",
       "team": "Willie\u2019s Chubb",
-      "total": 15,
+      "total": 16,
       "trades": 2,
-      "free_agents": 6,
+      "free_agents": 7,
       "waivers": 7,
       "history": [
+        {
+          "transaction_id": "1427748810691469312",
+          "type": "free_agent",
+          "timestamp_ms": 1794764352060,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "2505",
+              "label": "Darren Waller",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "4017",
+              "label": "Deshaun Watson",
+              "position": "QB"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1426157049569370112",
           "type": "free_agent",
@@ -4780,5 +4923,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-11-14T18:59:15+00:00"
+  "checked_at_utc": "2026-11-15T19:39:28+00:00"
 }
