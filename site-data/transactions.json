@@ -3,7 +3,7 @@
   "max_pf_through_week": 9,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-11-15T19:39:28+00:00",
+  "fetched_at_utc": "2026-11-16T23:16:50+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -1804,11 +1804,34 @@
       "roster_id": 4,
       "owner_id": "owner-brian",
       "team": "The Vandercruyssen Empire",
-      "total": 11,
+      "total": 12,
       "trades": 3,
       "free_agents": 4,
-      "waivers": 4,
+      "waivers": 5,
       "history": [
+        {
+          "transaction_id": "1427678100065361920",
+          "type": "waiver",
+          "timestamp_ms": 1794863537281,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12492",
+              "label": "Pat Bryant",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11834",
+              "label": "Devaughn Vele",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1421932885593653248",
           "type": "trade",
@@ -2211,11 +2234,34 @@
       "roster_id": 6,
       "owner_id": "owner-kyle",
       "team": "Return of the Mc\u2019s",
-      "total": 25,
+      "total": 26,
       "trades": 4,
-      "free_agents": 18,
+      "free_agents": 19,
       "waivers": 3,
       "history": [
+        {
+          "transaction_id": "1427819341700677632",
+          "type": "free_agent",
+          "timestamp_ms": 1794781167963,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13425",
+              "label": "Jalon Daniels",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11579",
+              "label": "Audric Estime",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1426715403463192576",
           "type": "free_agent",
@@ -4923,5 +4969,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-11-15T19:39:28+00:00"
+  "checked_at_utc": "2026-11-16T23:16:50+00:00"
 }
