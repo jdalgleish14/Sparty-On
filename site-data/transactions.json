@@ -3,7 +3,7 @@
   "max_pf_through_week": 10,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-11-17T22:07:55+00:00",
+  "fetched_at_utc": "2026-11-18T21:46:06+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -444,11 +444,57 @@
       "roster_id": 2,
       "owner_id": "owner-ryan",
       "team": "Homegrown",
-      "total": 38,
+      "total": 40,
       "trades": 10,
       "free_agents": 20,
-      "waivers": 8,
+      "waivers": 10,
       "history": [
+        {
+          "transaction_id": "1428475339331358720",
+          "type": "waiver",
+          "timestamp_ms": 1794989559856,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11638",
+              "label": "Ricky Pearsall",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12502",
+              "label": "Gunnar Helm",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1428475280745304065",
+          "type": "waiver",
+          "timestamp_ms": 1794989559856,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12484",
+              "label": "Jayden Higgins",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12718",
+              "label": "Konata Mumpfield",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1427453691933249536",
           "type": "free_agent",
@@ -2234,11 +2280,57 @@
       "roster_id": 6,
       "owner_id": "owner-kyle",
       "team": "Return of the Mc\u2019s",
-      "total": 26,
+      "total": 28,
       "trades": 4,
-      "free_agents": 19,
-      "waivers": 3,
+      "free_agents": 20,
+      "waivers": 4,
       "history": [
+        {
+          "transaction_id": "1428767862469693440",
+          "type": "free_agent",
+          "timestamp_ms": 1795007312937,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "8210",
+              "label": "Chig Okonkwo",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "10219",
+              "label": "Chris Rodriguez Jr.",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1428653275813044224",
+          "type": "waiver",
+          "timestamp_ms": 1794989559856,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "4017",
+              "label": "Deshaun Watson",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "3214",
+              "label": "Hunter Henry",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1427819341700677632",
           "type": "free_agent",
@@ -4055,11 +4147,66 @@
       "roster_id": 12,
       "owner_id": "owner-andres",
       "team": "2 Much Salsa ",
-      "total": 40,
+      "total": 43,
       "trades": 7,
-      "free_agents": 22,
-      "waivers": 11,
+      "free_agents": 23,
+      "waivers": 13,
       "history": [
+        {
+          "transaction_id": "1428788467675979776",
+          "type": "free_agent",
+          "timestamp_ms": 1795012225601,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "10218",
+              "label": "Xavier Hutchinson",
+              "position": "WR"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1428576022063742976",
+          "type": "waiver",
+          "timestamp_ms": 1794989559856,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "5045",
+              "label": "Courtland Sutton",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "9501",
+              "label": "DeMario Douglas",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1428575632157057024",
+          "type": "waiver",
+          "timestamp_ms": 1794989559856,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12499",
+              "label": "Elic Ayomanor",
+              "position": "WR"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1425895236432822272",
           "type": "waiver",
@@ -4969,5 +5116,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-11-17T22:07:55+00:00"
+  "checked_at_utc": "2026-11-18T21:46:06+00:00"
 }
