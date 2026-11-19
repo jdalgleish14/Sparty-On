@@ -3,7 +3,7 @@
   "max_pf_through_week": 10,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-11-18T21:46:06+00:00",
+  "fetched_at_utc": "2026-11-19T22:02:21+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -444,11 +444,57 @@
       "roster_id": 2,
       "owner_id": "owner-ryan",
       "team": "Homegrown",
-      "total": 40,
+      "total": 42,
       "trades": 10,
-      "free_agents": 20,
+      "free_agents": 22,
       "waivers": 10,
       "history": [
+        {
+          "transaction_id": "1429172883984228352",
+          "type": "free_agent",
+          "timestamp_ms": 1795103877591,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "5849",
+              "label": "Kyler Murray",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11638",
+              "label": "Ricky Pearsall",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1429023125168721920",
+          "type": "free_agent",
+          "timestamp_ms": 1795068172307,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12540",
+              "label": "Chimere Dike",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12484",
+              "label": "Jayden Higgins",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1428475339331358720",
           "type": "waiver",
@@ -2932,11 +2978,34 @@
       "roster_id": 7,
       "owner_id": "owner-wilson",
       "team": "Willie\u2019s Chubb",
-      "total": 16,
+      "total": 17,
       "trades": 2,
-      "free_agents": 7,
+      "free_agents": 8,
       "waivers": 7,
       "history": [
+        {
+          "transaction_id": "1429078098648797184",
+          "type": "free_agent",
+          "timestamp_ms": 1795081279007,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "5012",
+              "label": "Mark Andrews",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "2505",
+              "label": "Darren Waller",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1427748810691469312",
           "type": "free_agent",
@@ -4147,11 +4216,27 @@
       "roster_id": 12,
       "owner_id": "owner-andres",
       "team": "2 Much Salsa ",
-      "total": 43,
+      "total": 44,
       "trades": 7,
-      "free_agents": 23,
+      "free_agents": 24,
       "waivers": 13,
       "history": [
+        {
+          "transaction_id": "1428967179482578944",
+          "type": "free_agent",
+          "timestamp_ms": 1795054833816,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "5022",
+              "label": "Dallas Goedert",
+              "position": "TE"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1428788467675979776",
           "type": "free_agent",
@@ -5116,5 +5201,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-11-18T21:46:06+00:00"
+  "checked_at_utc": "2026-11-19T22:02:21+00:00"
 }
