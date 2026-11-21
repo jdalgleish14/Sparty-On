@@ -3,7 +3,7 @@
   "max_pf_through_week": 10,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-11-19T22:02:21+00:00",
+  "fetched_at_utc": "2026-11-21T20:25:12+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -3629,11 +3629,34 @@
       "roster_id": 9,
       "owner_id": "owner-dan",
       "team": "Room 40",
-      "total": 4,
+      "total": 5,
       "trades": 1,
       "free_agents": 2,
-      "waivers": 1,
+      "waivers": 2,
       "history": [
+        {
+          "transaction_id": "1429272221116821504",
+          "type": "waiver",
+          "timestamp_ms": 1795224149430,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "4993",
+              "label": "Mike Gesicki",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "4037",
+              "label": "Chris Godwin Jr.",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1424158715849797632",
           "type": "free_agent",
@@ -3954,11 +3977,34 @@
       "roster_id": 11,
       "owner_id": "owner-jack",
       "team": "Touchy Time",
-      "total": 11,
+      "total": 12,
       "trades": 4,
-      "free_agents": 4,
+      "free_agents": 5,
       "waivers": 3,
       "history": [
+        {
+          "transaction_id": "1429849970105671680",
+          "type": "free_agent",
+          "timestamp_ms": 1795265307502,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "2505",
+              "label": "Darren Waller",
+              "position": "TE"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13270",
+              "label": "CJ Daniels",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1426346108560347136",
           "type": "free_agent",
@@ -5201,5 +5247,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-11-20T21:43:57+00:00"
+  "checked_at_utc": "2026-11-21T20:25:12+00:00"
 }
