@@ -1,9 +1,9 @@
 {
   "history_version": 1,
-  "max_pf_through_week": 10,
+  "max_pf_through_week": 11,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-11-21T20:25:12+00:00",
+  "fetched_at_utc": "2026-11-24T23:25:47+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -27,7 +27,7 @@
   ],
   "teams": [
     {
-      "max_pf": 1122.64,
+      "max_pf": 1178.04,
       "roster_id": 1,
       "owner_id": "owner-nick",
       "team": "Fresh & Explosive",
@@ -440,7 +440,7 @@
       ]
     },
     {
-      "max_pf": 887.24,
+      "max_pf": 954.88,
       "roster_id": 2,
       "owner_id": "owner-ryan",
       "team": "Homegrown",
@@ -1526,7 +1526,7 @@
       ]
     },
     {
-      "max_pf": 1297.34,
+      "max_pf": 1401.38,
       "roster_id": 3,
       "owner_id": "owner-tj",
       "team": "Motor City Dan Campbell",
@@ -1892,7 +1892,7 @@
       ]
     },
     {
-      "max_pf": 1304.94,
+      "max_pf": 1416.54,
       "roster_id": 4,
       "owner_id": "owner-brian",
       "team": "The Vandercruyssen Empire",
@@ -2179,7 +2179,7 @@
       ]
     },
     {
-      "max_pf": 1174.12,
+      "max_pf": 1298.04,
       "roster_id": 5,
       "owner_id": "owner-spencer",
       "team": "3x & B2B",
@@ -2322,7 +2322,7 @@
       ]
     },
     {
-      "max_pf": 1051.9,
+      "max_pf": 1165.16,
       "roster_id": 6,
       "owner_id": "owner-kyle",
       "team": "Return of the Mc\u2019s",
@@ -2974,7 +2974,7 @@
       ]
     },
     {
-      "max_pf": 1177.56,
+      "max_pf": 1284.92,
       "roster_id": 7,
       "owner_id": "owner-wilson",
       "team": "Willie\u2019s Chubb",
@@ -3391,7 +3391,7 @@
       ]
     },
     {
-      "max_pf": 1188.18,
+      "max_pf": 1251.64,
       "roster_id": 8,
       "owner_id": "owner-tyler",
       "team": "Porritt Drink It Chase It",
@@ -3625,7 +3625,7 @@
       ]
     },
     {
-      "max_pf": 1187.4,
+      "max_pf": 1328.44,
       "roster_id": 9,
       "owner_id": "owner-dan",
       "team": "Room 40",
@@ -3749,7 +3749,7 @@
       ]
     },
     {
-      "max_pf": 1303.1,
+      "max_pf": 1439.34,
       "roster_id": 10,
       "owner_id": "owner-alex",
       "team": "The Prodigal Sons",
@@ -3973,7 +3973,7 @@
       ]
     },
     {
-      "max_pf": 1209.3,
+      "max_pf": 1334.12,
       "roster_id": 11,
       "owner_id": "owner-jack",
       "team": "Touchy Time",
@@ -4258,7 +4258,7 @@
       ]
     },
     {
-      "max_pf": 1205.5,
+      "max_pf": 1301.5,
       "roster_id": 12,
       "owner_id": "owner-andres",
       "team": "2 Much Salsa ",
@@ -5247,5 +5247,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-11-24T01:34:05+00:00"
+  "checked_at_utc": "2026-11-24T23:25:47+00:00"
 }
