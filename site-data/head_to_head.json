@@ -172,12 +172,12 @@
     "owner_a_name": "Alex",
     "owner_b_id": "owner-tyler",
     "owner_b_name": "Tyler",
-    "games": 10,
-    "owner_a_wins": 3,
+    "games": 11,
+    "owner_a_wins": 4,
     "owner_b_wins": 7,
     "ties": 0,
-    "owner_a_pf": 954.9,
-    "owner_b_pf": 954.54
+    "owner_a_pf": 1052.8,
+    "owner_b_pf": 1008.7
   },
   {
     "owner_a_id": "owner-alex",
@@ -364,12 +364,12 @@
     "owner_a_name": "Andres",
     "owner_b_id": "owner-jack",
     "owner_b_name": "Jack",
-    "games": 18,
+    "games": 19,
     "owner_a_wins": 9,
-    "owner_b_wins": 9,
+    "owner_b_wins": 10,
     "ties": 0,
-    "owner_a_pf": 1871.14,
-    "owner_b_pf": 1858.76
+    "owner_a_pf": 1957.24,
+    "owner_b_pf": 1976.64
   },
   {
     "owner_a_id": "owner-andres",
@@ -628,12 +628,12 @@
     "owner_a_name": "Brian",
     "owner_b_id": "owner-tj",
     "owner_b_name": "TJ",
-    "games": 7,
-    "owner_a_wins": 4,
+    "games": 8,
+    "owner_a_wins": 5,
     "owner_b_wins": 3,
     "ties": 0,
-    "owner_a_pf": 847.78,
-    "owner_b_pf": 738.32
+    "owner_a_pf": 959.38,
+    "owner_b_pf": 840.06
   },
   {
     "owner_a_id": "owner-brian",
@@ -736,12 +736,12 @@
     "owner_a_name": "Dan",
     "owner_b_id": "owner-ryan",
     "owner_b_name": "Ryan",
-    "games": 17,
-    "owner_a_wins": 8,
+    "games": 18,
+    "owner_a_wins": 9,
     "owner_b_wins": 9,
     "ties": 0,
-    "owner_a_pf": 1774.64,
-    "owner_b_pf": 1834.86
+    "owner_a_pf": 1915.38,
+    "owner_b_pf": 1901.6
   },
   {
     "owner_a_id": "owner-dan",
@@ -1108,12 +1108,12 @@
     "owner_a_name": "Kyle",
     "owner_b_id": "owner-spencer",
     "owner_b_name": "Spencer",
-    "games": 11,
+    "games": 12,
     "owner_a_wins": 8,
-    "owner_b_wins": 3,
+    "owner_b_wins": 4,
     "ties": 0,
-    "owner_a_pf": 1228.3,
-    "owner_b_pf": 1093.56
+    "owner_a_pf": 1315.66,
+    "owner_b_pf": 1217.48
   },
   {
     "owner_a_id": "owner-kyle",
@@ -1300,12 +1300,12 @@
     "owner_a_name": "Nick",
     "owner_b_id": "owner-wilson",
     "owner_b_name": "Wilson",
-    "games": 5,
+    "games": 6,
     "owner_a_wins": 2,
-    "owner_b_wins": 3,
+    "owner_b_wins": 4,
     "ties": 0,
-    "owner_a_pf": 457.08,
-    "owner_b_pf": 572.16
+    "owner_a_pf": 512.48,
+    "owner_b_pf": 679.52
   },
   {
     "owner_a_id": "owner-rick",
