@@ -3,7 +3,7 @@
   "max_pf_through_week": 11,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-11-24T23:25:47+00:00",
+  "fetched_at_utc": "2026-11-25T22:59:59+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -1896,11 +1896,48 @@
       "roster_id": 4,
       "owner_id": "owner-brian",
       "team": "The Vandercruyssen Empire",
-      "total": 12,
-      "trades": 3,
+      "total": 13,
+      "trades": 4,
       "free_agents": 4,
       "waivers": 5,
       "history": [
+        {
+          "transaction_id": "1431391363013816320",
+          "type": "trade",
+          "timestamp_ms": 1795632917343,
+          "partners": [
+            "2 Much Salsa "
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "7594",
+              "label": "Chuba Hubbard",
+              "position": "RB"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 2 (The Prodigal Sons)"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 2 (Homegrown)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12512",
+              "label": "Quinshon Judkins",
+              "position": "RB"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 1 (The Vandercruyssen Empire)"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1427678100065361920",
           "type": "waiver",
@@ -2326,11 +2363,34 @@
       "roster_id": 6,
       "owner_id": "owner-kyle",
       "team": "Return of the Mc\u2019s",
-      "total": 28,
+      "total": 29,
       "trades": 4,
       "free_agents": 20,
-      "waivers": 4,
+      "waivers": 5,
       "history": [
+        {
+          "transaction_id": "1431187169350815744",
+          "type": "waiver",
+          "timestamp_ms": 1795594315188,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12483",
+              "label": "Jack Bech",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13425",
+              "label": "Jalon Daniels",
+              "position": "QB"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1428767862469693440",
           "type": "free_agent",
@@ -2978,11 +3038,73 @@
       "roster_id": 7,
       "owner_id": "owner-wilson",
       "team": "Willie\u2019s Chubb",
-      "total": 17,
+      "total": 20,
       "trades": 2,
-      "free_agents": 8,
+      "free_agents": 11,
       "waivers": 7,
       "history": [
+        {
+          "transaction_id": "1431341494790279168",
+          "type": "free_agent",
+          "timestamp_ms": 1795620914699,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "6803",
+              "label": "Brandon Aiyuk",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12718",
+              "label": "Konata Mumpfield",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1431332380227932160",
+          "type": "free_agent",
+          "timestamp_ms": 1795618741617,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12718",
+              "label": "Konata Mumpfield",
+              "position": "WR"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1431332159829848064",
+          "type": "free_agent",
+          "timestamp_ms": 1795618689070,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "5927",
+              "label": "Terry McLaurin",
+              "position": "WR"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "5012",
+              "label": "Mark Andrews",
+              "position": "TE"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1429078098648797184",
           "type": "free_agent",
@@ -3395,11 +3517,57 @@
       "roster_id": 8,
       "owner_id": "owner-tyler",
       "team": "Porritt Drink It Chase It",
-      "total": 9,
+      "total": 11,
       "trades": 1,
       "free_agents": 4,
-      "waivers": 4,
+      "waivers": 6,
       "history": [
+        {
+          "transaction_id": "1431182400842391552",
+          "type": "waiver",
+          "timestamp_ms": 1795594315188,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "11292",
+              "label": "Tommy DeVito",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12491",
+              "label": "Corey Kiner",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1431181950978097152",
+          "type": "waiver",
+          "timestamp_ms": 1795594315188,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "10219",
+              "label": "Chris Rodriguez Jr.",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "11581",
+              "label": "MarShawn Lloyd",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1426108308099432470",
           "type": "waiver",
@@ -4262,11 +4430,110 @@
       "roster_id": 12,
       "owner_id": "owner-andres",
       "team": "2 Much Salsa ",
-      "total": 44,
-      "trades": 7,
-      "free_agents": 24,
-      "waivers": 13,
+      "total": 48,
+      "trades": 8,
+      "free_agents": 26,
+      "waivers": 14,
       "history": [
+        {
+          "transaction_id": "1431440772594401280",
+          "type": "free_agent",
+          "timestamp_ms": 1795644584371,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "4147",
+              "label": "Samaje Perine",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "10218",
+              "label": "Xavier Hutchinson",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1431438865930924032",
+          "type": "free_agent",
+          "timestamp_ms": 1795644129787,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "3271",
+              "label": "Tyler Higbee",
+              "position": "TE"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1431391363013816320",
+          "type": "trade",
+          "timestamp_ms": 1795632917343,
+          "partners": [
+            "The Vandercruyssen Empire"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12512",
+              "label": "Quinshon Judkins",
+              "position": "RB"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 1 (The Vandercruyssen Empire)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "7594",
+              "label": "Chuba Hubbard",
+              "position": "RB"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 2 (The Prodigal Sons)"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 2 (Homegrown)"
+            }
+          ],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1430828255270678528",
+          "type": "waiver",
+          "timestamp_ms": 1795594315188,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "5995",
+              "label": "Justice Hill",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12499",
+              "label": "Elic Ayomanor",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1428967179482578944",
           "type": "free_agent",
@@ -5247,5 +5514,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-11-24T23:25:47+00:00"
+  "checked_at_utc": "2026-11-25T22:59:59+00:00"
 }
