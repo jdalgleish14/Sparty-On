@@ -3,7 +3,7 @@
   "max_pf_through_week": 11,
   "league_id": "1386532723459362816",
   "season": 2026,
-  "fetched_at_utc": "2026-11-25T22:59:59+00:00",
+  "fetched_at_utc": "2026-11-26T22:53:44+00:00",
   "weeks_scanned": [
     0,
     1,
@@ -444,11 +444,52 @@
       "roster_id": 2,
       "owner_id": "owner-ryan",
       "team": "Homegrown",
-      "total": 42,
-      "trades": 10,
+      "total": 43,
+      "trades": 11,
       "free_agents": 22,
       "waivers": 10,
       "history": [
+        {
+          "transaction_id": "1431474368474537984",
+          "type": "trade",
+          "timestamp_ms": 1795653012071,
+          "partners": [
+            "Porritt Drink It Chase It"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "13281",
+              "label": "Jordyn Tyson",
+              "position": "WR"
+            },
+            {
+              "kind": "player",
+              "player_id": "13286",
+              "label": "Jadarian Price",
+              "position": "RB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "12533",
+              "label": "Jacory Croskey-Merritt",
+              "position": "RB"
+            },
+            {
+              "kind": "player",
+              "player_id": "8137",
+              "label": "George Pickens",
+              "position": "WR"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 2 (The Vandercruyssen Empire)"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1429172883984228352",
           "type": "free_agent",
@@ -3517,11 +3558,52 @@
       "roster_id": 8,
       "owner_id": "owner-tyler",
       "team": "Porritt Drink It Chase It",
-      "total": 11,
-      "trades": 1,
+      "total": 12,
+      "trades": 2,
       "free_agents": 4,
       "waivers": 6,
       "history": [
+        {
+          "transaction_id": "1431474368474537984",
+          "type": "trade",
+          "timestamp_ms": 1795653012071,
+          "partners": [
+            "Homegrown"
+          ],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "12533",
+              "label": "Jacory Croskey-Merritt",
+              "position": "RB"
+            },
+            {
+              "kind": "player",
+              "player_id": "8137",
+              "label": "George Pickens",
+              "position": "WR"
+            },
+            {
+              "kind": "pick",
+              "label": "2028 Round 2 (The Vandercruyssen Empire)"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "13281",
+              "label": "Jordyn Tyson",
+              "position": "WR"
+            },
+            {
+              "kind": "player",
+              "player_id": "13286",
+              "label": "Jadarian Price",
+              "position": "RB"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1431182400842391552",
           "type": "waiver",
@@ -3797,11 +3879,50 @@
       "roster_id": 9,
       "owner_id": "owner-dan",
       "team": "Room 40",
-      "total": 5,
+      "total": 7,
       "trades": 1,
-      "free_agents": 2,
+      "free_agents": 4,
       "waivers": 2,
       "history": [
+        {
+          "transaction_id": "1431464714310815744",
+          "type": "free_agent",
+          "timestamp_ms": 1795650292521,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "8122",
+              "label": "Zonovan Knight",
+              "position": "RB"
+            }
+          ],
+          "sent": [],
+          "waiver_bid": null
+        },
+        {
+          "transaction_id": "1431463846542856192",
+          "type": "free_agent",
+          "timestamp_ms": 1795650085629,
+          "partners": [],
+          "received": [
+            {
+              "kind": "player",
+              "player_id": "4972",
+              "label": "Mason Rudolph",
+              "position": "QB"
+            }
+          ],
+          "sent": [
+            {
+              "kind": "player",
+              "player_id": "8134",
+              "label": "Khalil Shakir",
+              "position": "WR"
+            }
+          ],
+          "waiver_bid": null
+        },
         {
           "transaction_id": "1429272221116821504",
           "type": "waiver",
@@ -5514,5 +5635,5 @@
       ]
     }
   ],
-  "checked_at_utc": "2026-11-25T22:59:59+00:00"
+  "checked_at_utc": "2026-11-26T22:53:44+00:00"
 }
